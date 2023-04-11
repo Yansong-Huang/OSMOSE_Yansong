@@ -15,16 +15,16 @@ mortality.additional.larva.rate.sp13;3.984
 mortality.additional.larva.rate.sp14;0.23
 
 mortality.additional.rate.sp0;0.087
-mortality.additional.rate.sp1;0
+mortality.additional.rate.sp1;0.0
 mortality.additional.rate.sp2;0.12
 mortality.additional.rate.sp3;0.405
 mortality.additional.rate.sp4;0.085
-mortality.additional.rate.sp5;0
+mortality.additional.rate.sp5;0.0
 mortality.additional.rate.sp6;0.148
-mortality.additional.rate.sp7;0
-mortality.additional.rate.sp8;0
-mortality.additional.rate.sp9;0
-mortality.additional.rate.sp10;0
+mortality.additional.rate.sp7;0.0
+mortality.additional.rate.sp8;0.0
+mortality.additional.rate.sp9;0.0
+mortality.additional.rate.sp10;0.0
 mortality.additional.rate.sp11;0.008
 mortality.additional.rate.sp12;0.216
 mortality.additional.rate.sp13;0.298

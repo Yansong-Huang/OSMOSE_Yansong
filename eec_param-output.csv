@@ -7,10 +7,6 @@ output.fishery.enabled;true
 
 output.cutoff.age.sp0;3
 output.cutoff.age.sp1;3
-output.cutoff.age.sp10;3
-output.cutoff.age.sp11;3
-output.cutoff.age.sp12;3
-output.cutoff.age.sp13;3
 output.cutoff.age.sp2;3
 output.cutoff.age.sp3;3
 output.cutoff.age.sp4;3
@@ -19,6 +15,11 @@ output.cutoff.age.sp6;3
 output.cutoff.age.sp7;3
 output.cutoff.age.sp8;3
 output.cutoff.age.sp9;3
+output.cutoff.age.sp10;3
+output.cutoff.age.sp11;3
+output.cutoff.age.sp12;3
+output.cutoff.age.sp13;3
+output.cutoff.age.sp14;3
 output.cutoff.enabled;true
 
 output.abundance.enabled;true
@@ -28,10 +29,6 @@ output.diet.pressure.enabled;true
 output.diet.stage.structure;size
 output.diet.stage.threshold.sp0;5;10;30
 output.diet.stage.threshold.sp1;5;10;30
-output.diet.stage.threshold.sp10;5;10;30
-output.diet.stage.threshold.sp11;5;10;30
-output.diet.stage.threshold.sp12;5;10;30
-output.diet.stage.threshold.sp13;5;10;30
 output.diet.stage.threshold.sp2;5;10;30
 output.diet.stage.threshold.sp3;5;10;30
 output.diet.stage.threshold.sp4;5;10;30
@@ -40,6 +37,12 @@ output.diet.stage.threshold.sp6;5;10;30
 output.diet.stage.threshold.sp7;5;10;30
 output.diet.stage.threshold.sp8;5;10;30
 output.diet.stage.threshold.sp9;5;10;30
+output.diet.stage.threshold.sp10;5;10;30
+output.diet.stage.threshold.sp11;5;10;30
+output.diet.stage.threshold.sp12;5;10;30
+output.diet.stage.threshold.sp13;5;10;30
+output.diet.stage.threshold.sp14;5;10;30
+
 output.mortality.enabled;true
 output.size.catch.enabled;true
 output.size.enabled;true
