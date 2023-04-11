@@ -12,9 +12,9 @@ osmose.configuration.initialization;eec_param-init-pop.csv
 osmose.configuration.migration;eec_param-out-mortality.csv
 osmose.configuration.output;eec_param-output.csv
 osmose.configuration.mortality.additional;eec_param-additional-mortality.csv
-;
+
 mortality.subdt;10
-;
+
 simulation.nschool.sp0;21
 simulation.nschool.sp1;35
 simulation.nschool.sp2;23
@@ -30,9 +30,9 @@ simulation.nschool.sp11;16
 simulation.nschool.sp12;25
 simulation.nschool.sp13;28
 simulation.nschool.sp14;42
-;
+
 osmose.version;4.3.2
-;
+
 #osmose.configuration.regional;regional_outputs/regional.csv
 #osmose.configuration.surveys;regional_outputs/surveys.csv
 #osmose.configuration.background;eec_param-background.csv

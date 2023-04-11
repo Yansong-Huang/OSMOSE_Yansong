@@ -15,7 +15,7 @@ population.seeding.biomass.sp11;290000
 population.seeding.biomass.sp12;257500
 population.seeding.biomass.sp13;14000
 population.seeding.biomass.sp14;25500
-;
+
 # Osmose 3 Update 2 (2015/03/01)   Did not rename population.initialization.biomass.sp0 into population.seeding.biomass.sp0 as it is already defined in file/home/pverley/osmose/dev/config/eec/eec_v3u2/eec_param-init-pop.csv;
 # population.initialization.biomass.sp0;0
 # Osmose 3 Update 2 (2015/03/01)   Did not rename population.initialization.biomass.sp1 into population.seeding.biomass.sp1 as it is already defined in file/home/pverley/osmose/dev/config/eec/eec_v3u2/eec_param-init-pop.csv;
