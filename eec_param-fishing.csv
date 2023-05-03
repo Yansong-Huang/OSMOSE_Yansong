@@ -15,8 +15,8 @@ fisheries.selectivity.type.fsh3;0
 
 ######################################## Fbase
 # Defines the mortality rate for the fisheries
-fisheries.rate.base.fsh0;0.1
-fisheries.rate.base.fsh1;0.1
+fisheries.rate.base.fsh0;0.6
+fisheries.rate.base.fsh1;0.2
 fisheries.rate.base.fsh2;0.1
 fisheries.rate.base.fsh3;0.1
 
@@ -55,20 +55,20 @@ fisheries.seasonality.fsh3;0.04166;0.04166;0.04166;0.04166;0.04166;0.04166;0.041
 
 
 ######################################## Names
-fisheries.name.fsh0;fishery0
-fisheries.name.fsh1;fishery1
-fisheries.name.fsh2;fishery2
-fisheries.name.fsh3;fishery3
+fisheries.name.fsh0;bottom_trawlers
+fisheries.name.fsh1;midwater_trawlers
+fisheries.name.fsh2;netters
+fisheries.name.fsh3;others
 
 ######################################## Catchabilities
 fisheries.catchability.file;fishery-catchability.csv
 fisheries.discards.file;fishery-discards.csv
 
 ######################################## Maps
-fisheries.movement.fishery.map0;fishery0
-fisheries.movement.fishery.map1;fishery1
-fisheries.movement.fishery.map2;fishery2
-fisheries.movement.fishery.map3;fishery3
+fisheries.movement.fishery.map0;bottom_trawlers
+fisheries.movement.fishery.map1;midwater_trawlers
+fisheries.movement.fishery.map2;netters
+fisheries.movement.fishery.map3;others
 
 fisheries.movement.file.map0;fishing/fishing-distrib.csv
 fisheries.movement.file.map1;fishing/fishing-distrib.csv

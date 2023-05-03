@@ -1,16 +1,17 @@
-;fishery0;fishery1;fishery2;fishery3
-lesserSpottedDogfish;1;0;0;0
-redMullet;1;0;0;0
-pouting ;1;0;0;0
-whiting;1;0;0;0
-poorCod;0;1;0;0
-cod;0;1;0;0
-dragonet;0;1;0;0
-sole;0;1;0;0
-plaice;0;0;1;0
-horseMackerel;0;0;1;0
-mackerel;0;0;1;0
-herring;0;0;1;0
-sardine;0;0;0;1
-squids;0;0;0;1
-cuttlefish;0;0;0;1
+;bottom_trawlers;midwater_trawlers;netters;others
+lesserSpottedDogfish;0.23;0;0.4;0.4
+redMullet;0.33;0;0;0
+pouting ;0.33;0;0;0
+whiting;0.33;0;0;0
+poorCod;0.00;0;0;0
+cod;0.20;0;0.8;0
+dragonet;0.00;0;0;0
+sole;0.05;0;1.4;0.6
+plaice;0.18;0;0.5;0.8
+horseMackerel;0.00;1;0;0
+mackerel;0.17;0.5;0;0
+herring;0.00;1;0;0
+sardine;0.00;1;0;0
+squids;0.33;0;0;0
+cuttlefish;0.23;0;0;1.2
+thornbackRay;0.28;0;0.3;0

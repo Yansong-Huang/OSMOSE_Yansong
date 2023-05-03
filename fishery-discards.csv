@@ -1,4 +1,4 @@
-;fishery0;fishery1;fishery2;fishery3
+;bottom_trawlers;midwater_trawlers;netters;others
 lesserSpottedDogfish;0;0;0;0
 redMullet;0;0;0;0
 pouting ;0;0;0;0
@@ -14,3 +14,4 @@ herring;0;0;0;0
 sardine;0;0;0;0
 squids;0;0;0;0
 cuttlefish;0;0;0;0
+thornbackRay;0;0;0;0

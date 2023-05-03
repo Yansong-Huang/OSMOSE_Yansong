@@ -20,6 +20,7 @@ output.cutoff.age.sp11;3
 output.cutoff.age.sp12;3
 output.cutoff.age.sp13;3
 output.cutoff.age.sp14;3
+output.cutoff.age.sp15;3
 output.cutoff.enabled;true
 
 output.abundance.enabled;true
@@ -42,6 +43,7 @@ output.diet.stage.threshold.sp11;5;10;30
 output.diet.stage.threshold.sp12;5;10;30
 output.diet.stage.threshold.sp13;5;10;30
 output.diet.stage.threshold.sp14;5;10;30
+output.diet.stage.threshold.sp15;5;10;30
 
 output.mortality.enabled;true
 output.size.catch.enabled;true

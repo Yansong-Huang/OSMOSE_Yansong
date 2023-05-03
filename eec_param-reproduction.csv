@@ -28,5 +28,5 @@ reproduction.season.file.sp11;reproduction/reproduction-seasonality-sp11.csv
 reproduction.season.file.sp12;reproduction/reproduction-seasonality-sp12.csv
 # Osmose 3 Update 2 (2015/03/01) Added parameter reproduction.season.file.sp13;reproduction/reproduction-seasonality-sp13.csv
 reproduction.season.file.sp13;reproduction/reproduction-seasonality-sp13.csv
-# Osmose Update (2023/03/30, Yansong Huang) Added parameter reproduction.season.file.sp14 (data from Pierre Bourdaud. Impact d’une obligation de débarquement sur les dynamiques couplées écosystèmepêcheurs : approche par modélisation individu-centrée appliquée à la Manche Orientale. Environmental and Society. Université du Littoral Côte d’Opale, 2018. English. ?NNT : 2018DUNK0474?. ?tel-01896456);reproduction/reproduction-seasonality-sp14.csv
 reproduction.season.file.sp14;reproduction/reproduction-seasonality-sp14.csv
+reproduction.season.file.sp15;reproduction/reproduction-seasonality-sp15.csv
