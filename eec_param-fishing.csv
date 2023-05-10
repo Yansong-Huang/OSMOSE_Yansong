@@ -2,10 +2,10 @@ fisheries.enabled;true
 
 ######################### Selectivities
 # Define age-selectivity for fisheries
-fisheries.selectivity.a50.fsh0;1
+fisheries.selectivity.a50.fsh0;0.5
 fisheries.selectivity.a50.fsh1;1
-fisheries.selectivity.a50.fsh2;1
-fisheries.selectivity.a50.fsh3;1
+fisheries.selectivity.a50.fsh2;1.5
+fisheries.selectivity.a50.fsh3;4
 
 # define constant knife-edge selectivity for species 
 fisheries.selectivity.type.fsh0;0
@@ -15,10 +15,10 @@ fisheries.selectivity.type.fsh3;0
 
 ######################################## Fbase
 # Defines the mortality rate for the fisheries
-fisheries.rate.base.fsh0;0.6
-fisheries.rate.base.fsh1;0.2
-fisheries.rate.base.fsh2;0.1
-fisheries.rate.base.fsh3;0.1
+fisheries.rate.base.fsh0;1
+fisheries.rate.base.fsh1;1
+fisheries.rate.base.fsh2;1
+fisheries.rate.base.fsh3;1
 
 
 ######################################## Fseason
