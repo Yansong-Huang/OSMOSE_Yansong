@@ -13,7 +13,7 @@ movement.distribution.method.sp11;maps
 movement.distribution.method.sp12;maps
 movement.distribution.method.sp13;maps
 movement.distribution.method.sp14;maps
-movement.distribution.method.sp15;maps
+#movement.distribution.method.sp15;maps
 
 movement.initialAge.map0;0
 movement.lastAge.map0;2
@@ -297,11 +297,11 @@ movement.file.map46;null
 movement.steps.map46;0;1;2;3;4;5;6;7;14;15;16;17;18;19;20;21;22;23
 movement.species.map46;cuttlefish
 
-movement.lastAge.map47;15
-movement.initialAge.map47;0
-movement.file.map47;maps/15_raie_bouclee.csv
-movement.steps.map47;0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23
-movement.species.map47;thornbackRay
+#movement.lastAge.map47;15
+#movement.initialAge.map47;0
+#movement.file.map47;maps/15_raie_bouclee.csv
+#movement.steps.map47;0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23
+#movement.species.map47;thornbackRay
 
 movement.randomwalk.range.sp0;1
 movement.randomwalk.range.sp1;1
@@ -318,4 +318,4 @@ movement.randomwalk.range.sp11;1
 movement.randomwalk.range.sp12;1
 movement.randomwalk.range.sp13;1
 movement.randomwalk.range.sp14;1
-movement.randomwalk.range.sp15;1
+#movement.randomwalk.range.sp15;1
