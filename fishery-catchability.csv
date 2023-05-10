@@ -1,17 +1,17 @@
 ;bottom_trawlers;midwater_trawlers;netters;others
-lesserSpottedDogfish;0.23;0;0.4;0.4
-redMullet;0.33;0;0;0
-pouting ;0.33;0;0;0
-whiting;0.33;0;0;0
-poorCod;0.00;0;0;0
-cod;0.20;0;0.8;0
-dragonet;0.00;0;0;0
-sole;0.05;0;1.4;0.6
-plaice;0.18;0;0.5;0.8
-horseMackerel;0.00;1;0;0
-mackerel;0.17;0.5;0;0
-herring;0.00;1;0;0
-sardine;0.00;1;0;0
-squids;0.33;0;0;0
-cuttlefish;0.23;0;0;1.2
-thornbackRay;0.28;0;0.3;0
+lesserSpottedDogfish;0;0;0;0.09
+redMullet;0.194;0;0;0
+pouting ;0;0.106;0;0
+whiting;0;0.122;0;0
+poorCod;0;0;0;0
+cod;0;0.219;0;0
+dragonet;0;0;0;0
+sole;0;0;0.187;0
+plaice;0;0.44;0;0
+horseMackerel;0.052;0;0;0
+mackerel;0.142;0;0;0
+herring;0;0;0.156;0
+sardine;0.03;0;0;0
+squids;0.036;0;0;0
+cuttlefish;0.012;0;0;0
+thornbackRay;0;0;0;0.09
