@@ -10,7 +10,7 @@ java_path <- "C:/Users/yhuang/Documents/OSMOSE/code/osmose_4.3.2.jar"
 run_osmose("eec_all-parameters.csv", osmose=java_path, version = "4.3.2")
 
 # lire les sorties
-output_osmose = read_osmose("output-")
+output_osmose = read_osmose("output-Yansong")
 names(output_osmose)
 
 biomass = get_var(output_osmose, "biomass", expected=TRUE)
