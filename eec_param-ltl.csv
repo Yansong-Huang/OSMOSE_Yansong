@@ -8,7 +8,7 @@ species.file.sp21;eec_ltlbiomassTons.nc
 species.file.sp22;eec_ltlbiomassTons.nc
 species.file.sp23;eec_ltlbiomassTons.nc
 species.file.sp24;eec_ltlbiomassTons.nc
-;
+
 species.accessibility2fish.sp15;0.000104
 species.accessibility2fish.sp16;0.00161
 species.accessibility2fish.sp17;0.108171
@@ -19,7 +19,7 @@ species.accessibility2fish.sp21;0.050375
 species.accessibility2fish.sp22;0.013336
 species.accessibility2fish.sp23;0.001092
 species.accessibility2fish.sp24;0.414347
-;
+
 species.name.sp15;Dinoflagellates
 species.name.sp16;Diatoms
 species.name.sp17;Microzoo
@@ -30,7 +30,7 @@ species.name.sp21;SmallBenthos
 species.name.sp22;MediumBenthos
 species.name.sp23;LargeBenthos
 species.name.sp24;VLBVeryLargeBenthos
-;
+
 species.type.sp15;resource
 species.type.sp16;resource
 species.type.sp17;resource
@@ -41,7 +41,7 @@ species.type.sp21;resource
 species.type.sp22;resource
 species.type.sp23;resource
 species.type.sp24;resource
-;
+
 species.size.max.sp15;0.002
 species.size.max.sp16;0.02
 species.size.max.sp17;0.02
@@ -52,7 +52,7 @@ species.size.max.sp21;1
 species.size.max.sp22;5
 species.size.max.sp23;10
 species.size.max.sp24;15
-;
+
 species.size.min.sp15;0.0002
 species.size.min.sp16;0.002
 species.size.min.sp17;0.002
@@ -63,7 +63,7 @@ species.size.min.sp21;0.5
 species.size.min.sp22;1
 species.size.min.sp23;5
 species.size.min.sp24;10
-;
+
 species.TL.sp15;1
 species.TL.sp16;1
 species.TL.sp17;2
