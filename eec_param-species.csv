@@ -13,7 +13,7 @@ species.type.sp11;focal
 species.type.sp12;focal
 species.type.sp13;focal
 species.type.sp14;focal
-#species.type.sp15;focal
+species.type.sp15;focal
 
 species.egg.size.sp0;9.5
 species.egg.size.sp1;0.1
@@ -30,7 +30,7 @@ species.egg.size.sp11;0.12
 species.egg.size.sp12;0.16
 species.egg.size.sp13;0.7
 species.egg.size.sp14;0.6
-#species.egg.size.sp15;11.84
+species.egg.size.sp15;11.84
 
 species.egg.weight.sp0;0.001
 species.egg.weight.sp1;0.001
@@ -47,7 +47,7 @@ species.egg.weight.sp11;0.001
 species.egg.weight.sp12;0.001
 species.egg.weight.sp13;0.001
 species.egg.weight.sp14;0.001
-#species.egg.weight.sp15;8.92
+species.egg.weight.sp15;8.92
 
 species.lifespan.sp0;10
 species.lifespan.sp1;11
@@ -64,7 +64,7 @@ species.lifespan.sp11;11
 species.lifespan.sp12;15
 species.lifespan.sp13;2
 species.lifespan.sp14;2
-#species.lifespan.sp15;15
+species.lifespan.sp15;15
 
 species.name.sp0;lesserSpottedDogfish
 species.name.sp1;redMullet
@@ -81,7 +81,7 @@ species.name.sp11;herring
 species.name.sp12;sardine
 species.name.sp13;squids
 species.name.sp14;cuttlefish
-#species.name.sp15;thornbackRay
+species.name.sp15;thornbackRay
 
 species.relativefecundity.sp0;0.14
 species.relativefecundity.sp1;500
@@ -98,7 +98,7 @@ species.relativefecundity.sp11;458
 species.relativefecundity.sp12;2228
 species.relativefecundity.sp13;50
 species.relativefecundity.sp14;10
-#species.relativefecundity.sp15;0.04
+species.relativefecundity.sp15;0.011
 
 species.sexratio.sp0;0.5
 species.sexratio.sp1;0.5
@@ -115,7 +115,7 @@ species.sexratio.sp11;0.5
 species.sexratio.sp12;0.5
 species.sexratio.sp13;0.5
 species.sexratio.sp14;0.5
-#species.sexratio.sp15;0.5
+species.sexratio.sp15;0.5
 
 species.K.sp0;0.118
 species.K.sp1;0.18
@@ -132,7 +132,7 @@ species.K.sp11;0.37
 species.K.sp12;0.79
 species.K.sp13;2
 species.K.sp14;1.25
-#species.K.sp15;0.14
+species.K.sp15;0.14
 
 species.length2weight.allometric.power.sp0;3.029
 species.length2weight.allometric.power.sp1;3.178
@@ -149,7 +149,7 @@ species.length2weight.allometric.power.sp11;3.1
 species.length2weight.allometric.power.sp12;3.077
 species.length2weight.allometric.power.sp13;2.27
 species.length2weight.allometric.power.sp14;2.26
-#species.length2weight.allometric.power.sp15;3.174
+species.length2weight.allometric.power.sp15;3.174
 
 species.length2weight.condition.factor.sp0;0.00308
 species.length2weight.condition.factor.sp1;0.00716
@@ -166,7 +166,7 @@ species.length2weight.condition.factor.sp11;0.00503
 species.length2weight.condition.factor.sp12;0.00594
 species.length2weight.condition.factor.sp13;0.25
 species.length2weight.condition.factor.sp14;0.27
-#species.length2weight.condition.factor.sp15;0.0033
+species.length2weight.condition.factor.sp15;0.0033
 
 species.lInf.sp0;87.42
 species.lInf.sp1;53.3
@@ -183,7 +183,7 @@ species.lInf.sp11;29.2
 species.lInf.sp12;24.6
 species.lInf.sp13;50
 species.lInf.sp14;30.5
-#species.lInf.sp15;108
+species.lInf.sp15;108
 
 species.maturity.size.sp0;57
 species.maturity.size.sp1;16.7
@@ -200,7 +200,7 @@ species.maturity.size.sp11;25
 species.maturity.size.sp12;15
 species.maturity.size.sp13;30
 species.maturity.size.sp14;12.3
-#species.maturity.size.sp15;76.6
+species.maturity.size.sp15;76.6
 
 species.t0.sp0;-1.09
 species.t0.sp1;-1.23
@@ -217,7 +217,7 @@ species.t0.sp11;-0.67
 species.t0.sp12;-0.22
 species.t0.sp13;0.5
 species.t0.sp14;0
-#species.t0.sp15;-0.88
+species.t0.sp15;-0.88
 
 species.vonbertalanffy.threshold.age.sp0;0.5
 species.vonbertalanffy.threshold.age.sp1;1
