@@ -23,8 +23,8 @@ names(biomass_list)
 
 # visualisation
 output.dir = "figures"
-plot(output_osmose, what="biomass",start=20)
-plot(output_osmose, what="yield",start=20)
+plot(output_osmose, what="biomass",start=40)
+plot(output_osmose, what="yield",start=40)
 
 
 
