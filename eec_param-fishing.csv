@@ -55,8 +55,8 @@ fisheries.seasonality.fsh3;0.04166;0.04166;0.04166;0.04166;0.04166;0.04166;0.041
 
 
 ######################################## Names
-fisheries.name.fsh0;bottom_trawlers
-fisheries.name.fsh1;midwater_trawlers
+fisheries.name.fsh0;bottom.trawlers
+fisheries.name.fsh1;midwater.trawlers
 fisheries.name.fsh2;netters
 fisheries.name.fsh3;others
 
@@ -65,8 +65,8 @@ fisheries.catchability.file;fishery-catchability.csv
 fisheries.discards.file;fishery-discards.csv
 
 ######################################## Maps
-fisheries.movement.fishery.map0;bottom_trawlers
-fisheries.movement.fishery.map1;midwater_trawlers
+fisheries.movement.fishery.map0;bottom.trawlers
+fisheries.movement.fishery.map1;midwater.trawlers
 fisheries.movement.fishery.map2;netters
 fisheries.movement.fishery.map3;others
 
