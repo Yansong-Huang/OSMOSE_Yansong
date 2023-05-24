@@ -6,12 +6,29 @@
 library(osmose)
 library(ggplot2)
 
+java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
+jar_file    = file.path(java_path, "osmose_4.4.0-jar-with-dependencies.jar")
+version    = "4.4.0"
+
+config_file = "eec_all-parameters.R"
 # éxécuter le modèles
-java_path <- "C:/Users/yhuang/Documents/OSMOSE/code/osmose_4.3.2.jar"
-run_osmose("eec_all-parameters.csv", osmose=java_path, version = "4.3.2")
+# java_path <- "C:/Users/yhuang/Documents/OSMOSE/code/osmose_4.3.2.jar"
+
+# update_osmose(input=config_file, osmose = jar_file, version="4.4.0")
+
+run_osmose(input = config_file, osmose=jar_file, version = "4.4.0")
+
+out = initialize_osmose(input=config_file, type = "internannual",
+                        osmose = jar_file, version=version, append=FALSE,
+                        file = "eec-initial_conditions.osm")
+
+out = initialize_osmose(input=config_file, type = "internannual",
+                        osmose = jar_file, version=version, append=FALSE)
+
 
 # lire les sorties
-output_osmose = read_osmose("output-Yansong")
+output_osmose = read_osmose(path = "output-Yansong")
+plot(output_osmose)
 
 biomass = get_var(output_osmose, "biomass", expected=TRUE)
 class(biomass)
