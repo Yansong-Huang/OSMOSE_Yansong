@@ -1,25 +1,26 @@
 # EEC main configuration file = 
-osmose.configuration.simulation = eec_param-simulation.csv
-osmose.configuration.movement = eec_ncdf-maps.R
-osmose.configuration.mortality.fishing = eec_param-fishing.R
-osmose.configuration.mortality.predation = eec_param-predation.csv
-osmose.configuration.mortality.starvation = eec_param-starvation.csv
-osmose.configuration.reproduction = eec_param-reproduction.csv
-osmose.configuration.species = eec_param-species.csv
-osmose.configuration.plankton = eec_param-ltl.csv
-osmose.configuration.grid = eec_param-grid.csv
-osmose.configuration.seeding = eec_param-init-pop.csv
-osmose.configuration.migration = eec_param-out-mortality.csv
-osmose.configuration.output = eec_param-output.csv
-osmose.configuration.mortality.additional = eec_param-additional-mortality.csv
-osmose.configuration.newpar = eec-new_parameters.R
-osmose.configuration.init.setup = eec_initialization_params.R
+osmose.configuration.simulation = input/eec_param-simulation.csv
+osmose.configuration.movement = input/eec_ncdf-maps.R
+osmose.configuration.mortality.fishing = input/eec_param-fishing.R
+osmose.configuration.mortality.predation = input/eec_param-predation.csv
+osmose.configuration.mortality.starvation = input/eec_param-starvation.csv
+osmose.configuration.reproduction = input/eec_param-reproduction.csv
+osmose.configuration.species = input/eec_param-species.csv
+osmose.configuration.plankton = input/eec_param-ltl.csv
+osmose.configuration.grid = input/eec_param-grid.csv
+osmose.configuration.seeding = input/eec_param-init-pop.csv
+osmose.configuration.migration = input/eec_param-out-mortality.csv
+osmose.configuration.output = input/eec_param-output.csv
+osmose.configuration.mortality.additional = input/eec_param-additional-mortality.csv
+osmose.configuration.newpar = input/eec-new_parameters.R
+osmose.configuration.init.setup = input/eec_initialization_params.R
 osmose.configuration.initialization = input/initial_conditions.osm
 
 population.seeding.year.max = 20
 
 # INITIALIZATION FOR FOCAL SPECIES
 population.initialization.relativebiomass.enabled = TRUE
+output.step0.include = TRUE
 
 mortality.subdt = 10
 

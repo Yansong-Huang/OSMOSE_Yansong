@@ -1,4 +1,4 @@
-output.dir.path;output-Yansong
+#output.dir.path;output-Yansong
 output.file.prefix;Yansong
 output.recordfrequency.ndt;2
 output.start.year;0
