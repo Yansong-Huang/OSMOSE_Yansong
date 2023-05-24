@@ -1,17 +1,17 @@
 ,bottom.trawlers,midwater.trawlers,netters,others
-lesserSpottedDogfish,0.23,0,0.4,0.4
-redMullet,0.33,0,0,0
-pouting ,0.33,0,0,0
-whiting,0.33,0,0,0
+lesserSpottedDogfish,0.696969697,0,0.285714286,0.333333333
+redMullet,1,0,0,0
+pouting ,1,0,0,0
+whiting,1,0,0,0
 poorCod,0,0,0,0
-cod,0.2,0,0.8,0
+cod,0.606060606,0,0.571428571,0
 dragonet,0,0,0,0
-sole,0.05,0,1.4,0.6
-plaice,0.18,0,0.5,0.8
+sole,0.151515152,0,1,0.5
+plaice,0.545454545,0,0.357142857,0.666666667
 horseMackerel,0,1,0,0
-mackerel,0.17,0.5,0,0
+mackerel,0.515151515,0.5,0,0
 herring,0,1,0,0
 sardine,0,1,0,0
-squids,0.33,0,0,0
-cuttlefish,0.23,0,0,1.2
-thornbackRay,0.28,0,0.3,0
+squids,1,0,0,0
+cuttlefish,0.696969697,0,0,1
+thornbackRay,0.848484848,0,0.214285714,0
