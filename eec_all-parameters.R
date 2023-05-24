@@ -8,20 +8,18 @@ osmose.configuration.reproduction = eec_param-reproduction.csv
 osmose.configuration.species = eec_param-species.csv
 osmose.configuration.plankton = eec_param-ltl.csv
 osmose.configuration.grid = eec_param-grid.csv
-# osmose.configuration.initialization = eec_param-init-pop.csv
+osmose.configuration.seeding = eec_param-init-pop.csv
 osmose.configuration.migration = eec_param-out-mortality.csv
 osmose.configuration.output = eec_param-output.csv
 osmose.configuration.mortality.additional = eec_param-additional-mortality.csv
 osmose.configuration.newpar = eec-new_parameters.R
 osmose.configuration.init.setup = eec_initialization_params.R
-# osmose.configuration.initialization = eec-initial_conditions.osm
+osmose.configuration.initialization = input/initial_conditions.osm
 
-population.seeding.year.max = 0
+population.seeding.year.max = 20
 
 # INITIALIZATION FOR FOCAL SPECIES
 population.initialization.relativebiomass.enabled = TRUE
-osmose.configuration.init.setup = input/init_configuration.osm
-osmose.configuration.initialization = input/peru-initial_conditions.osm
 
 mortality.subdt = 10
 

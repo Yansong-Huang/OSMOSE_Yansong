@@ -1,7 +1,7 @@
 # EEC main configuration file;
 osmose.configuration.simulation;eec_param-simulation.csv
-osmose.configuration.movement;eec_param-movement.csv
-osmose.configuration.mortality.fishing;eec_param-fishing.csv
+osmose.configuration.movement;eec_ncdf-maps.R
+osmose.configuration.mortality.fishing;eec_param-fishing.R
 osmose.configuration.mortality.predation;eec_param-predation.csv
 osmose.configuration.mortality.starvation;eec_param-starvation.csv
 osmose.configuration.reproduction;eec_param-reproduction.csv
@@ -12,7 +12,7 @@ osmose.configuration.initialization;eec_param-init-pop.csv
 osmose.configuration.migration;eec_param-out-mortality.csv
 osmose.configuration.output;eec_param-output.csv
 osmose.configuration.mortality.additional;eec_param-additional-mortality.csv
-
+osmose.configuration.newpar;eec-new_parameters.R
 mortality.subdt;10
 
 simulation.nschool.sp0;21
@@ -32,7 +32,10 @@ simulation.nschool.sp13;28
 simulation.nschool.sp14;42
 simulation.nschool.sp15;14
 
-osmose.version;4.3.2
+# Osmose 4.3.3 - Updated parameter osmose.version to 4.3.3
+# Osmose 4.3.4 - Updated parameter osmose.version to 4.3.4
+# Osmose 4.4.0 - Updated parameter osmose.version to 4.4.0
+osmose.version;4.4.0
 
 #osmose.configuration.regional;regional_outputs/regional.csv
 #osmose.configuration.surveys;regional_outputs/surveys.csv

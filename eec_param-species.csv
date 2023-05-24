@@ -215,7 +215,7 @@ species.t0.sp9;-1.515
 species.t0.sp10;-2.07
 species.t0.sp11;-0.67
 species.t0.sp12;-0.22
-species.t0.sp13;0.5
+species.t0.sp13;0
 species.t0.sp14;0
 species.t0.sp15;-0.88
 
@@ -234,4 +234,4 @@ species.vonbertalanffy.threshold.age.sp11;0.5
 species.vonbertalanffy.threshold.age.sp12;0.5
 species.vonbertalanffy.threshold.age.sp13;0.7
 species.vonbertalanffy.threshold.age.sp14;0.25
-#species.vonbertalanffy.threshold.age.sp15;0
+species.vonbertalanffy.threshold.age.sp15;0
