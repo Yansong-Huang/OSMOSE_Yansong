@@ -17,6 +17,7 @@ osmose.configuration.init.setup = input/eec_initialization_params.R
 osmose.configuration.initialization = input/initial_conditions.osm
 
 population.seeding.year.max = 20
+simulation.time.start = 2000
 
 # INITIALIZATION FOR FOCAL SPECIES
 population.initialization.relativebiomass.enabled = TRUE
