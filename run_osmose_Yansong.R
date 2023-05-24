@@ -5,6 +5,7 @@
 
 library(osmose)
 library(ggplot2)
+library(calibrar)
 
 java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
 jar_file    = file.path(java_path, "osmose_4.4.0-jar-with-dependencies.jar")
@@ -16,15 +17,14 @@ config_file = "eec_all-parameters.R"
 
 # update_osmose(input=config_file, osmose = jar_file, version="4.4.0")
 
+conf = read_osmose(input=config_file)
+
 run_osmose(input = config_file, osmose=jar_file, version = "4.4.0")
 
-out = initialize_osmose(input=config_file, type = "internannual",
-                        osmose = jar_file, version=version, append=FALSE,
-                        file = "eec-initial_conditions.osm")
-
-out = initialize_osmose(input=config_file, type = "internannual",
+out = initialize_osmose(input=config_file, type="internannual", 
                         osmose = jar_file, version=version, append=FALSE)
 
+run_osmose(input = config_file, osmose=jar_file, version = "4.4.0")
 
 # lire les sorties
 output_osmose = read_osmose(path = "output-Yansong")
