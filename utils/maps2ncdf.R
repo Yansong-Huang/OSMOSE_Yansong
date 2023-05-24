@@ -20,4 +20,8 @@ nc = nc_open("fishing/fishing-distrib.nc")
 xx = ncvar_get(nc, "fishing_area")
 
 ncg = nc_open("eec_grid-mask.nc")
-grid = ncvar_get(ncg, "")
+
+dir.create("maps_nc")
+out1 = update_maps(input="eec_all-parameters.csv", 
+                   output="maps_nc", conf="eec_ncdf-maps.R", sep = ";")
+write_osmose(unlist(out1), file="eec_ncdf-maps.R")
