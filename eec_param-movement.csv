@@ -179,7 +179,7 @@ movement.species.map30;horseMackerel
 
 movement.lastAge.map31;16
 movement.initialAge.map31;4
-movement.file.map31;null
+movement.file.map31;maps/vide.csv
 movement.steps.map31;12;13;14;15;16;17
 movement.species.map31;horseMackerel
 
@@ -209,7 +209,7 @@ movement.species.map35;mackerel
 
 movement.lastAge.map36;11
 movement.initialAge.map36;0
-movement.file.map36;null
+movement.file.map36;maps/vide.csv
 movement.steps.map36;6;7;8;9;10;11;12;13;14;15;16;17;
 movement.species.map36;herring
 
@@ -287,13 +287,13 @@ movement.species.map44;cuttlefish
 
 movement.lastAge.map45;1.75
 movement.initialAge.map45;0
-movement.file.map45;null
+movement.file.map45;maps/vide.csv
 movement.steps.map45;0;1;2;3;4;5;6;7
 movement.species.map45;cuttlefish
 
 movement.lastAge.map46;2
 movement.initialAge.map46;1.75
-movement.file.map46;null
+movement.file.map46;maps/vide.csv
 movement.steps.map46;0;1;2;3;4;5;6;7;14;15;16;17;18;19;20;21;22;23
 movement.species.map46;cuttlefish
 

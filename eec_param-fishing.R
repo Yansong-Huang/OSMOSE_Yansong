@@ -65,8 +65,8 @@ fisheries.name.fsh2 = netters
 fisheries.name.fsh3 = others
 
 ######################################## Catchabilities
-fisheries.catchability.file = fishery-catchability.csv
-fisheries.discards.file = fishery-discards.csv
+fisheries.catchability.file = fishing/eec_fisheries_catchability.csv
+fisheries.discards.file = fishing/eec_discards.csv
 
 ######################################## Maps
 fisheries.movement.fishery.map0 = bottom.trawlers

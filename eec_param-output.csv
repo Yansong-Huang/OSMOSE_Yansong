@@ -3,7 +3,8 @@ output.file.prefix;Yansong
 output.recordfrequency.ndt;24
 output.start.year;1
 
-output.fishery.enabled;true
+# Osmose 4.3.4 - Renamed parameter output.fishery.enabled into output.fisheries.enabled
+output.fisheries.enabled;true
 
 output.cutoff.age.sp0;3
 output.cutoff.age.sp1;3
