@@ -21,7 +21,7 @@ simulation.time.start = 2000
 
 # INITIALIZATION FOR FOCAL SPECIES
 population.initialization.relativebiomass.enabled = TRUE
-output.step0.include = TRUE
+output.step0.include = FALSE
 
 mortality.subdt = 10
 
@@ -42,9 +42,6 @@ simulation.nschool.sp13 = 28
 simulation.nschool.sp14 = 42
 simulation.nschool.sp15 = 14
 
-# Osmose 4.3.3 - Updated parameter osmose.version to 4.3.3
-# Osmose 4.3.4 - Updated parameter osmose.version to 4.3.4
-# Osmose 4.4.0 - Updated parameter osmose.version to 4.4.0
 osmose.version = 4.4.0
 
 #osmose.configuration.regional = regional_outputs/regional.csv
