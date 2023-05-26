@@ -101,3 +101,11 @@ mortality.fishing.recruitment.age.sp14 = 1
 mortality.fishing.recruitment.age.sp15 = 1
 
 
+# output.fisheries.distrib.bySize.min.sp1 = 4
+# output.fisheries.distrib.bySize.max.sp1 = 90
+# output.fisheries.distrib.bySize.incr.sp1 = 1
+# output.fisheries.distrib.bySize.usemarks.sp1 = FALSE
+# output.fisheries.distrib.bySize.plusgroup.sp1 = TRUE
+output.fisheries.recordfrequency.ndt.sp1 = 2 #yield
+# output.fisheries.distrib.recordfrequency.ndt.sp1 = 24 #catch at length/size
+

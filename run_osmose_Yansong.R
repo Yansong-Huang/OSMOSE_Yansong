@@ -43,6 +43,8 @@ plot(output_osmose, what="yield")
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file)
 
+calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file, name = "Yansong_test", data_path = "../data")
+
 
 
 
