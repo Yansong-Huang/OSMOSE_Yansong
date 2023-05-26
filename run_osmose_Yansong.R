@@ -38,13 +38,11 @@ run_osmose(input = config_file, osmose=jar_file, version = "4.4.0",
            output = output_dir)
 
 # lire les sorties
-output_osmose = read_osmose(path = "output-Yansong")
-plot(output_osmose)
+output_osmose = read_osmose(path = output_dir)
 plot(output_osmose, what="yield")
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file)
-
-calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file, name = "Yansong_test", data_path = "../data")
+# calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file, name = "Yansong_test", data_path = "../data")
 
 
 biomass = get_var(output_osmose, "biomass", expected=TRUE)

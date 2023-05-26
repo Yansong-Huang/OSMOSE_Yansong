@@ -7,10 +7,10 @@ fisheries.movement.netcdf.enabled = TRUE
 
 ######################### Selectivities
 # Define age-selectivity for fisheries
-fisheries.selectivity.l50.fsh0 = 5
-fisheries.selectivity.l50.fsh1 = 5
-fisheries.selectivity.l50.fsh2 = 5
-fisheries.selectivity.l50.fsh3 = 5
+fisheries.selectivity.l50.fsh0 = 10
+fisheries.selectivity.l50.fsh1 = 10
+fisheries.selectivity.l50.fsh2 = 10
+fisheries.selectivity.l50.fsh3 = 10
 
 # define constant knife-edge selectivity for species
 fisheries.selectivity.type.fsh0 = 0

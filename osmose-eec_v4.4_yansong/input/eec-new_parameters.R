@@ -100,12 +100,28 @@ mortality.fishing.recruitment.age.sp13 = 1
 mortality.fishing.recruitment.age.sp14 = 1
 mortality.fishing.recruitment.age.sp15 = 1
 
+output.fisheries.recordfrequency.ndt.sp0 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp1 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp2 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp3 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp4 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp5 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp6 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp7 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp8 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp9 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp10 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp11 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp12 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp13 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp14 = 24 #yield
+output.fisheries.recordfrequency.ndt.sp15 = 24 #yield
+
 
 # output.fisheries.distrib.bySize.min.sp1 = 4
 # output.fisheries.distrib.bySize.max.sp1 = 90
 # output.fisheries.distrib.bySize.incr.sp1 = 1
 # output.fisheries.distrib.bySize.usemarks.sp1 = FALSE
 # output.fisheries.distrib.bySize.plusgroup.sp1 = TRUE
-output.fisheries.recordfrequency.ndt.sp1 = 2 #yield
 # output.fisheries.distrib.recordfrequency.ndt.sp1 = 24 #catch at length/size
 
