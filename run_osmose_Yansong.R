@@ -4,10 +4,11 @@
 # usethis::edit_r_environ()
 
 library(osmose)
-library(ggplot2)
+# library(ggplot2)
 library(calibrar)
 
 java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
+java_path   = "C:/Users/yhuang/Documents/OSMOSE/osmose-private/inst/java"
 jar_file    = file.path(java_path, "osmose_4.4.0-jar-with-dependencies.jar")
 version    = "4.4.0"
 
@@ -44,8 +45,6 @@ plot(output_osmose, what="yield")
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file)
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file, name = "Yansong_test", data_path = "../data")
-
-
 
 
 biomass = get_var(output_osmose, "biomass", expected=TRUE)
