@@ -1,13 +1,11 @@
-species.file.sp16;eec_ltlbiomassTons.nc
-species.file.sp17;eec_ltlbiomassTons.nc
-species.file.sp18;eec_ltlbiomassTons.nc
-species.file.sp19;eec_ltlbiomassTons.nc
-species.file.sp20;eec_ltlbiomassTons.nc
-species.file.sp21;eec_ltlbiomassTons.nc
-species.file.sp22;eec_ltlbiomassTons.nc
-species.file.sp23;eec_ltlbiomassTons.nc
-species.file.sp24;eec_ltlbiomassTons.nc
-species.file.sp25;eec_ltlbiomassTons.nc
+species.file.sp16;ERSEM_nc/interpolated_CERESsigma_NorthSea_2d_monthly_hist_.*
+species.file.sp17;ERSEM_nc/interpolated_CERESsigma_NorthSea_2d_monthly_hist_.*
+species.file.sp18;ERSEM_nc/interpolated_CERESsigma_NorthSea_2d_monthly_hist_.*
+species.file.sp19;ERSEM_nc/interpolated_CERESsigma_NorthSea_2d_monthly_hist_.*
+species.file.sp20;ERSEM_nc/interpolated_CERESsigma_NorthSea_2d_monthly_hist_.*
+species.file.sp21;ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_hist_.*
+species.file.sp22;ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_hist_.*
+species.file.sp23;ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_hist_.*
 
 species.accessibility2fish.sp16;0.000104
 species.accessibility2fish.sp17;0.00161
@@ -17,19 +15,17 @@ species.accessibility2fish.sp20;0.027549
 species.accessibility2fish.sp21;0.063489
 species.accessibility2fish.sp22;0.050375
 species.accessibility2fish.sp23;0.013336
-species.accessibility2fish.sp24;0.001092
-species.accessibility2fish.sp25;0.414347
 
-species.name.sp16;Dinoflagellates
-species.name.sp17;Diatoms
-species.name.sp18;Microzoo
-species.name.sp19;Mesozoo
-species.name.sp20;Macrozoo
-species.name.sp21;VSBVerySmallBenthos
-species.name.sp22;SmallBenthos
-species.name.sp23;MediumBenthos
-species.name.sp24;LargeBenthos
-species.name.sp25;VLBVeryLargeBenthos
+
+species.name.sp16;P1c
+species.name.sp17;P2c
+species.name.sp18;Z4c
+species.name.sp19;Z5c
+species.name.sp20;Z6c
+species.name.sp21;benthicDeposit
+species.name.sp22;benthicFilter
+species.name.sp23;benthicMeio
+
 
 species.type.sp16;resource
 species.type.sp17;resource
@@ -39,8 +35,6 @@ species.type.sp20;resource
 species.type.sp21;resource
 species.type.sp22;resource
 species.type.sp23;resource
-species.type.sp24;resource
-species.type.sp25;resource
 
 species.size.max.sp16;0.002
 species.size.max.sp17;0.02
@@ -50,8 +44,6 @@ species.size.max.sp20;2
 species.size.max.sp21;0.5
 species.size.max.sp22;1
 species.size.max.sp23;5
-species.size.max.sp24;10
-species.size.max.sp25;15
 
 species.size.min.sp16;0.0002
 species.size.min.sp17;0.002
@@ -61,8 +53,6 @@ species.size.min.sp20;0.2
 species.size.min.sp21;0.02
 species.size.min.sp22;0.5
 species.size.min.sp23;1
-species.size.min.sp24;5
-species.size.min.sp25;10
 
 species.TL.sp16;1
 species.TL.sp17;1
@@ -72,5 +62,3 @@ species.TL.sp20;3.3
 species.TL.sp21;3
 species.TL.sp22;2.9
 species.TL.sp23;2.2
-species.TL.sp24;2.3
-species.TL.sp25;3.6

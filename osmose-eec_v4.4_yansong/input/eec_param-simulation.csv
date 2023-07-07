@@ -1,5 +1,5 @@
 simulation.ncpu;1
-simulation.nresource;10
+simulation.nresource;8
 simulation.nsimulation;1
 simulation.nspecies;16
 simulation.time.ndtPerYear;24
