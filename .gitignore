@@ -2,5 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
+.phase*
+.simulated
+.results
+.resultes.backup*
 
 */output/*
+/.run_calibration/*
