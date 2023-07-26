@@ -1,5 +1,5 @@
 
-run_model = function(par, conf, osmose, is_a_test=FALSE, version="4.3.3", options="-Xmx3g -Xms1g", ...) {
+run_model = function(par, conf, osmose, is_a_test=FALSE, version="4.3.3", options="-Xmx5g -Xms1g", ...) {
   
   nspp = get_species(conf, type="focal", code=TRUE)
   nfsh = get_fisheries(conf, code=TRUE)
