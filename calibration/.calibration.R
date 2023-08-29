@@ -2,8 +2,6 @@
 #  
 # Arguments for the script
 #
-# --ncores=n                 : 'n' is the number of cores. Better to be passed automatically from PBS script.
-# --mpi                      : Use MPI.
 # --test                     : boolean, is it a test? Does not run OSMOSE if is a test (save time!).
 # --run_model=file           : 'file' is sourced to find the 'run_model' function.
 # --replicates=n             : 'n' is the number of replicates, controlled from the 'calibrar' package.
@@ -11,15 +9,18 @@
 
 if(!exists(".args", mode = "character")) .args = commandArgs(trailingOnly=TRUE)
 
-library("osmose")
-library("calibrar")
+library("foreach", quietly = TRUE)
+library("iterators", quietly = TRUE)
+library("osmose", quietly = TRUE)
+library("calibrar", quietly = TRUE)
 
 control_file   = .get_command_argument(.args, "calibration.control", default=".calibrarrc")
 if(is.null(control_file)) stop("A control file must be specified ('--calibration.control=file')")
 is_a_test      = .get_command_argument(.args, "test")
 run_model_file = .get_command_argument(.args, "run_model", default="run_model.R")
-ncores         = .get_command_argument(.args, "ncores", default=1)
-MPI            = .get_command_argument(.args, "mpi")
+MPI            = isNamespaceLoaded("Rmpi")
+ncores         = as.numeric(ifelse(MPI, Sys.getenv("mpiproc"), Sys.getenv("OMP_NUM_THREADS")))
+if(is.null(ncores) | ncores==0) ncores = 1
 replicates     = .get_command_argument(.args, "replicates", default=1)
 
 control = .read_configuration(control_file)
@@ -39,8 +40,18 @@ file.copy(from=osmose, to=file.path(run_path, osmose), overwrite = TRUE)
 if(is.null(control$verbose)) control$verbose = TRUE
 control$parallel = (ncores > 1)
 
+if(isTRUE(control$parallel)) {
+  message(sprintf("Running OSMOSE calibration with %s using %d cores.", ifelse(MPI, "MPI", "OMP"), ncores))
+} else {
+  message("Running OSMOSE calibration in sequential mode.") 
+}
+
 conf = read_osmose("master/osmose-calibration.osm")
 model = get_par(conf, "output.file.prefix")
+options = get_par(conf, "osmose.java.options")
+if(is.null(options)) options = "-Xmx3g -Xms1g"
+
+message(sprintf("Using JAVA options '%s'.\n", options))
 
 # explicit some variables
 verbose   = control$verbose
@@ -67,12 +78,11 @@ observed = readRDS(obs_file)
 # create objective function
 osmose = file.path("..", osmose) # to make it relative to master
 objfn = calibration_objFn(model=run_model, setup=setup, observed=observed, 
-                          conf=conf, osmose=osmose, is_a_test=is_a_test)
+                          conf=conf, osmose=osmose, is_a_test=is_a_test, options=options)
 
 if(!is.null(control$master)) {
   if(control$master!="master") {
     msg0 = "This script relays on using a 'master' folder right here. \nRename the folder '%s' to master and put it here."
-    stop(sprintf(msg0, control$master))
   }  
 }
 
@@ -97,7 +107,7 @@ if(isTRUE(parallel)) {
     registerDoParallel(cl)
   } else {
     library("doSNOW")
-    cl = makeCluster()
+    cl = makeCluster(outfile="/dev/null")
     registerDoSNOW(cl)
   }
   
@@ -105,14 +115,17 @@ if(isTRUE(parallel)) {
   e$conf = conf
   e$is_a_test = is_a_test
   e$osmose = osmose
+  e$options = options
   
-  clusterExport(cl, c("conf", "is_a_test", "osmose"), envir = e)
-  clusterEvalQ(cl, library("calibrar"))
-  clusterEvalQ(cl, library("osmose"))
+  clusterExport(cl, c("conf", "is_a_test", "osmose", "options"), envir = e)
+  invisible(clusterEvalQ(cl, library("utils", quietly=TRUE)))
+  invisible(clusterEvalQ(cl, library("calibrar", quietly=TRUE)))
+  invisible(clusterEvalQ(cl, library("osmose", quietly=TRUE)))
   
 }
 
 # launch the calibration!
+control$ncores = control$ncores - 1 # keep one for master node.
 opt = calibrate(par=par_guess, fn=objfn, method=method,
                 lower=par_min, 
                 upper=par_max, 
@@ -122,3 +135,4 @@ opt = calibrate(par=par_guess, fn=objfn, method=method,
 
 # tidy up
 if(isTRUE(parallel)) stopCluster(cl)
+#!/usr/bin/env Rscript
