@@ -1,13 +1,14 @@
 #!/bin/csh
 #PBS -q omp
-#PBS -l select=1:ncpus=28:mem=120g
+#PBS -l select=1:ncpus=28:mem=100g
 #PBS -l walltime=120:00:00
 
 cd $PBS_O_WORKDIR
 
 # activate osmose environment
 source /usr/share/Modules/3.2.10/init/csh
-setenv R_LIBS /home1/datawork/rioliver/libs/R/lib
+#setenv R_LIBS /home1/datawork/rioliver/libs/R/lib
+setenv R_LIBS /home1/datawork/yhuang/R/
 module load R nco
 
 # run R in parallel mode
