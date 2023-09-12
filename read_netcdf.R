@@ -1,13 +1,10 @@
 library('ncdf4')
 nc_ersem_1 <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/hist/interpolated_CERES_NorthSea_2d_monthly_hist_2005.nc")
 nc_ersem_2 <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/interpolated_CERESsigma_NorthSea_2d_monthly_hist_2005.nc")
-nc_ersem_3 <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/2000-2020/interpolated_CERES_NorthSea_2d_monthly_rcp85_2006.nc")
-nc_eco <- nc_open("osmose-eec_v4.4_yansong/input/eec_ltlbiomassTons.nc")
-nc_peru_1 <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/ROMS-PISCES_climatological_ltl-osmose_humboldt-n_15days_2006_2100.nc")
-nc_peru_2 <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/ROMS-PISCES_historical_ltl-osmose_humboldt-n_15days_1992_2008.nc")
+nc_eco <- nc_open("osmose-eec_v4.4_yansong/input/largeBenthos_veryLargeBenthos.nc")
 
 # modifier les noms des fichiers
-list_nc <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/rcp585/","interpolated_CERES_NorthSea_2d_monthly\\.rcp85\\.",full.names = TRUE)
+list_nc <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERESsigma_NorthSea_2d_monthly\\.rcp85\\.",full.names = TRUE)
 
 for(i in 1:length(list_nc)){
   new_name_nc <- gsub("\\.rcp85\\.","_rcp85_",list_nc[i])
@@ -15,59 +12,52 @@ for(i in 1:length(list_nc)){
 }
 
 # modifier les noms des variables
-list_nc_2 <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/rcp585/","interpolated_CERES_NorthSea_2d_monthly_rcp85_",full.names = TRUE)
+list_nc_2 <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERES_NorthSea_2d_monthly_rcp85_",full.names = TRUE)
 
-for(i in 1:length(list_nc_2)){
+for(i in length(list_nc_2)-1:length(list_nc_2)){
   nc_file <- nc_open(list_nc_2[i],write = TRUE)
   nc_file <- ncvar_rename(nc_file, "benthic_deposit", "benthicDeposit")
   nc_file <- ncvar_rename(nc_file, "benthic_filter", "benthicFilter")
   nc_file <- ncvar_rename(nc_file, "benthic_meio", "benthicMeio")
 }
 
-# combiner les fichiers avec cdo
-# list_nc <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/","interpolated_CERES_NorthSea_2d_monthly_hist_.*",full.names = TRUE)
-# temp <- tempfile("interpolated_CERES_NorthSea_2d_monthly_hist",fileext=".nc")
-# merged_nc <- mergeNC(files=list_nc, outfile=temp)
-# terra::rast("interpolated_CERES_NorthSea_2d_monthly_hist.nc") 
 
-
-
-######## 2. combiner les fichiers avec ncdf4 #######
+######## 2. combiner les fichiers ERSEM #######
 library('ncdf4')
-list_benthos <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2000-2020","interpolated_CERES_NorthSea_2d_monthly.*",full.names = TRUE)
-list_planktons <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2000-2020","interpolated_CERESsigma_NorthSea_2d_monthly.*",full.names = TRUE)
+list_benthos <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERES_NorthSea_2d_monthly.*",full.names = TRUE)
+list_planktons <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERESsigma_NorthSea_2d_monthly.*",full.names = TRUE)
 
 
 # définir les dimensions
 dimLongitude <- ncdim_def( "longitude", "degree", seq(-1.95,2.45,0.1))
 dimLatitude <- ncdim_def( "latitude", "degree", seq(49.05,51.15,0.1))
-dimTime <- ncdim_def( "time", "months since 2000-01-01", seq(1,480,1), unlim=FALSE,calendar = "standard")
+dimTime <- ncdim_def( "time", "fortnights since 2000-01-01", seq(1,480,1), unlim=FALSE,calendar = "standard")
 
 # créer les variables
-varBenthicDeposit <- ncvar_def("benthicDeposit", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
+varBenthicDeposit <- ncvar_def("depositBenthos", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
                                missval=NULL, prec="double")
-varBenthicFilter <- ncvar_def("benthicFilter", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
-                               missval=NULL, prec="double")
-varBenthicMeio <- ncvar_def("benthicMeio", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
-                               missval=NULL, prec="double")
-varP1c <- ncvar_def("P1c", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
-                               missval=NULL, prec="double")
-varP2c <- ncvar_def("P2c", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
+varBenthicFilter <- ncvar_def("suspensionBenthos", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
+                              missval=NULL, prec="double")
+varBenthicMeio <- ncvar_def("meioBenthos", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
+                            missval=NULL, prec="double")
+varP1c <- ncvar_def("diatoms", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
                     missval=NULL, prec="double")
-varP3c <- ncvar_def("P3c", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
+varP2c <- ncvar_def("nanoPhytoplankton", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
                     missval=NULL, prec="double")
-varP4c <- ncvar_def("P4c", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
+varP3c <- ncvar_def("picoPhytoplankton", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
                     missval=NULL, prec="double")
-varZ4c <- ncvar_def("Z4c", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
+varP4c <- ncvar_def("microPhytoplankton", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
                     missval=NULL, prec="double")
-varZ5c <- ncvar_def("Z5c", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
+varZ4c <- ncvar_def("mesoZooplankton", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
                     missval=NULL, prec="double")
-varZ6c <- ncvar_def("Z6c", "biomass_t", list(dimLongitude,dimLatitude,dimTime), 
+varZ5c <- ncvar_def("microZooplankton", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
+                    missval=NULL, prec="double")
+varZ6c <- ncvar_def("heterotrophicFlagellates", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 
                     missval=NULL, prec="double")
 
 nc_ersem_combined <-
   nc_create(
-    "interpolated_CERES_NorthSea_2d_monthly_2000_2019.nc",
+    "interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc",
     list(
       varBenthicDeposit,
       varBenthicFilter,
@@ -83,59 +73,101 @@ nc_ersem_combined <-
     force_v4 = FALSE
   )
 
-for(i in 1:length(list_benthos)){
+for(i in 1:length(list_benthos)){ # year i
   nc_benthos_temp <- nc_open(list_benthos[i])
   nc_planktons_temp <- nc_open(list_planktons[i])
   
-  benthicDeposit_temp <- ncvar_get(nc_benthos_temp, varid = "benthicDeposit")
-  benthicFilter_temp <- ncvar_get(nc_benthos_temp, varid = "benthicFilter")
-  benthicMeio_temp <- ncvar_get(nc_benthos_temp, varid = "benthicMeio")
-  P1c_temp <- ncvar_get(nc_planktons_temp, varid = "P1c")
-  P2c_temp <- ncvar_get(nc_planktons_temp, varid = "P2c")
-  P3c_temp <- ncvar_get(nc_planktons_temp, varid = "P3c")
-  P4c_temp <- ncvar_get(nc_planktons_temp, varid = "P4c")
-  Z4c_temp <- ncvar_get(nc_planktons_temp, varid = "Z4c")
-  Z5c_temp <- ncvar_get(nc_planktons_temp, varid = "Z5c")
-  Z6c_temp <- ncvar_get(nc_planktons_temp, varid = "Z6c")
+  benthicDeposit_temp <- ncvar_get(nc_benthos_temp, varid = "benthicDeposit")/1e+09 # convert from mg to t
+  benthicFilter_temp <- ncvar_get(nc_benthos_temp, varid = "benthicFilter")/1e+09
+  benthicMeio_temp <- ncvar_get(nc_benthos_temp, varid = "benthicMeio")/1e+09
+  P1c_temp <- ncvar_get(nc_planktons_temp, varid = "P1c")/1e+09 # convert from mg to t
+  P2c_temp <- ncvar_get(nc_planktons_temp, varid = "P2c")/1e+09
+  P3c_temp <- ncvar_get(nc_planktons_temp, varid = "P3c")/1e+09
+  P4c_temp <- ncvar_get(nc_planktons_temp, varid = "P4c")/1e+09
+  Z4c_temp <- ncvar_get(nc_planktons_temp, varid = "Z4c")/1e+09
+  Z5c_temp <- ncvar_get(nc_planktons_temp, varid = "Z5c")/1e+09
+  Z6c_temp <- ncvar_get(nc_planktons_temp, varid = "Z6c")/1e+09
   
-  # year i january-june
-  ncvar_put(nc_ersem_combined, varBenthicDeposit, benthicDeposit_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varBenthicFilter, benthicFilter_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varBenthicMeio, benthicMeio_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP1c, P1c_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP2c, P2c_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP3c, P3c_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP4c, P4c_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varZ4c, Z4c_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varZ4c, Z5c_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varZ4c, Z6c_temp, start=c(1,1,(i*2-2)*12+1), count=c(-1,-1,12))
-  
-  # year i july-december
-  ncvar_put(nc_ersem_combined, varBenthicDeposit, benthicDeposit_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varBenthicFilter, benthicFilter_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varBenthicMeio, benthicMeio_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP1c, P1c_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP2c, P2c_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP3c, P3c_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varP4c, P4c_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varZ4c, Z4c_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varZ4c, Z5c_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
-  ncvar_put(nc_ersem_combined, varZ4c, Z6c_temp, start=c(1,1,(i*2-1)*12+1), count=c(-1,-1,12))
+  for(j in 1:12){# month j of year i
+    # put the same value twice for the beginning and the middle of month, to adapt for 24 time steps per year 
+    ncvar_put(nc_ersem_combined, varBenthicDeposit, benthicDeposit_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varBenthicFilter, benthicFilter_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varBenthicMeio, benthicMeio_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP1c, P1c_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP2c, P2c_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP3c, P3c_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP4c, P4c_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varZ4c, Z4c_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varZ5c, Z5c_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varZ6c, Z6c_temp[,,j], start=c(1,1,(i-1)*24+j*2-1), count=c(-1,-1,1))
+    # repeat
+    ncvar_put(nc_ersem_combined, varBenthicDeposit, benthicDeposit_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varBenthicFilter, benthicFilter_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varBenthicMeio, benthicMeio_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP1c, P1c_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP2c, P2c_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP3c, P3c_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varP4c, P4c_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varZ4c, Z4c_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varZ5c, Z5c_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+    ncvar_put(nc_ersem_combined, varZ6c, Z6c_temp[,,j], start=c(1,1,(i-1)*24+j*2), count=c(-1,-1,1))
+  } 
 }
 
 nc_close(nc_ersem_combined)
-nc_combined <- nc_open("interpolated_CERES_NorthSea_2d_monthly_2000_2019.nc")
-benthic_deposit <- ncvar_get(nc_combined, varid = "benthicDeposit")
-time_nc <- ncvar_get(nc_combined, varid = "time")
+nc_combined <- nc_open("interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc")
 
+###### 3. vérifier les masques ######
 
+nc_eco <- nc_open("osmose-eec_v4.4_yansong/input/largeBenthos_veryLargeBenthos.nc")
+nc_ERSEM <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2000_2019.nc")
 
+large_benthos <- ncvar_get(nc_eco, varid = "largeBenthos")
+benthic_deposit <- ncvar_get(nc_ERSEM, varid = "depositBenthos")
 
+mask_eco <- ifelse(is.na(large_benthos[,,1]),0,1)
+mask_ERSEM <- ifelse(is.na(benthic_deposit[,,1]),0,1)
+mask_comparison <- mask_eco - mask_ERSEM
 
+###### 4.adapt the nc file of Morgane for 480 time steps ######
 
+library(ncdf4)
+nc_eco <- nc_open("osmose-eec_v4.3.3_yansong/input/eec_ltlbiomassTons.nc")
+largeBenthos_temp <- ncvar_get(nc_eco, varid = "LargeBenthos")[,,1] # no temporal variation
+veryLargeBenthos_temp <- ncvar_get(nc_eco, varid = "VLBVeryLargeBenthos")[,,1]
 
+# définir les dimensions
+dimLongitude <- ncdim_def( "longitude", "degree", seq(-1.95,2.45,0.1))
+dimLatitude <- ncdim_def( "latitude", "degree", seq(49.05,51.15,0.1))
+dimTime <- ncdim_def( "time", "fortnights since 2000-01-01", seq(1,480,1), unlim=FALSE,calendar = "standard")
 
+# créer les variables
+varLargeBenthos <- ncvar_def("largeBenthos", "ton", list(dimLongitude,dimLatitude,dimTime), 
+                             missval=NULL, prec="double")
+varVeryLargeBenthos <- ncvar_def("veryLargeBenthos", "ton", list(dimLongitude,dimLatitude,dimTime), 
+                                 missval=NULL, prec="double")
 
+# créer nc fichier
+nc_morgane <-
+  nc_create(
+    "largeBenthos_veryLargeBenthos.nc",
+    list(
+      varLargeBenthos,
+      varVeryLargeBenthos
+    ),
+    force_v4 = FALSE
+  )
+
+for(i in 1:480){
+  ncvar_put(nc_morgane, varLargeBenthos, largeBenthos_temp, start=c(1,1,i), count=c(-1,-1,1))
+  ncvar_put(nc_morgane, varVeryLargeBenthos, veryLargeBenthos_temp, start=c(1,1,i), count=c(-1,-1,1))
+}
+
+nc_close(nc_morgane)
+
+# check if values are correct
+nc_morgane_modified <- nc_open("largeBenthos_veryLargeBenthos.nc")
+largeBenthos_temp <- ncvar_get(nc_morgane_modified, varid = "largeBenthos")
 
 
 
