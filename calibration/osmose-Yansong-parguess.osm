@@ -3,35 +3,35 @@
 
 #---- Resources species
 
-species.accessibility2fish.logit.sp16 = -9.17101565341453
-species.accessibility2fish.logit.sp17 = -6.42990980254299
-species.accessibility2fish.logit.sp18 = -2.1095611018597
-species.accessibility2fish.logit.sp19 = -0.296705695982983
-species.accessibility2fish.logit.sp20 = -3.5638534513196
-species.accessibility2fish.logit.sp21 = -2.69129460513099
-species.accessibility2fish.logit.sp22 = -2.93657214955654
-species.accessibility2fish.logit.sp23 = -4.30386241049515
-species.accessibility2fish.logit.sp24 = -6.81865180499301
-species.accessibility2fish.logit.sp25 = -0.346023677003192
+species.accessibility2fish.logit.sp16 = -3.54715129428524
+species.accessibility2fish.logit.sp17 = -4.59511985013459
+species.accessibility2fish.logit.sp18 = -1.46962249269322
+species.accessibility2fish.logit.sp19 = -3.40949618447685
+species.accessibility2fish.logit.sp20 = -2.54149412441746
+species.accessibility2fish.logit.sp21 = -6.90675477864855
+species.accessibility2fish.logit.sp22 = -9.77240228850516
+species.accessibility2fish.logit.sp23 = -6.21260609575152
+species.accessibility2fish.logit.sp24 = -3.9992195504583
+species.accessibility2fish.logit.sp25 = -4.25459902498738
 
 #---- Focal species
 
-population.initialization.biomass.log10.sp0 = 4.6238074549461
-population.initialization.biomass.log10.sp1 = 3.70532889313261
+population.initialization.biomass.log10.sp0 = 4.62894707394439
+population.initialization.biomass.log10.sp1 = 3.72651742591043
 population.initialization.biomass.log10.sp2 = 4.65768819951227
-population.initialization.biomass.log10.sp3 = 4.83965077549143
+population.initialization.biomass.log10.sp3 = 4.70045120792136
 population.initialization.biomass.log10.sp4 = 4.41502920133092
-population.initialization.biomass.log10.sp5 = 3.95306586080784
+population.initialization.biomass.log10.sp5 = 3.21321324569256
 population.initialization.biomass.log10.sp6 = 4.71705729075608
-population.initialization.biomass.log10.sp7 = 4.15162881726759
-population.initialization.biomass.log10.sp8 = 3.92483317518466
+population.initialization.biomass.log10.sp7 = 4.17223336102074
+population.initialization.biomass.log10.sp8 = 4.15084777021249
 population.initialization.biomass.log10.sp9 = 5.41437489060702
-population.initialization.biomass.log10.sp10 = 4.72044426425083
-population.initialization.biomass.log10.sp11 = 5.45953143222488
-population.initialization.biomass.log10.sp12 = 5.41977493536441
+population.initialization.biomass.log10.sp10 = 4.38288363107804
+population.initialization.biomass.log10.sp11 = 5.33094340115951
+population.initialization.biomass.log10.sp12 = 5.42061904513446
 population.initialization.biomass.log10.sp13 = 4.40715292069207
-population.initialization.biomass.log10.sp14 = 4.43095927986461
-population.initialization.biomass.log10.sp15 = 3.83348529624597
+population.initialization.biomass.log10.sp14 = 4.43955943110696
+population.initialization.biomass.log10.sp15 = 3.86344765723239
 
 mortality.additional.rate.log10.sp0 = -1.06048074738138
 mortality.additional.rate.log10.sp1 = -999
