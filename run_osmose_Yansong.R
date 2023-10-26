@@ -52,4 +52,3 @@ plot(output_osmose, what="yield",start=40,freq=1)
 
 
 
-

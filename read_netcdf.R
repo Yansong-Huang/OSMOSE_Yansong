@@ -118,9 +118,9 @@ nc_close(nc_ersem_combined)
 nc_combined <- nc_open("interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc")
 
 ###### 3. vérifier les masques ######
-
+require(ncdf4)
 nc_eco <- nc_open("osmose-eec_v4.4_yansong/input/largeBenthos_veryLargeBenthos.nc")
-nc_ERSEM <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2000_2019.nc")
+nc_ERSEM <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc")
 
 large_benthos <- ncvar_get(nc_eco, varid = "largeBenthos")
 benthic_deposit <- ncvar_get(nc_ERSEM, varid = "depositBenthos")
