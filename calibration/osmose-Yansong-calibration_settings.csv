@@ -11,7 +11,7 @@ biomass.plaice,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,plaice,NA
 biomass.horseMackerel,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,horseMackerel,NA
 biomass.mackerel,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,mackerel,NA
 biomass.herring,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,herring,NA
-biomass.sardine,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,sardine,NA
+biomass.sardine,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,sardine,NA
 biomass.squids,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,squids,NA
 biomass.cuttlefish,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,cuttlefish,NA
 biomass.thornbackRay,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,thornbackRay,NA
