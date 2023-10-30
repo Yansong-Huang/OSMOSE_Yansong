@@ -43,13 +43,15 @@ text(2200, 12000, "Phase 4")
 
 
 ## write the new calibration parameters
-new_param_phase1 <- calibration_results$phases[[1]]$par
-new_param_phase2 <- calibration_results$phases[[2]]$par
-new_param_phase3 <- calibration_results$phases[[3]]$par
-new_param_phase4 <- calibration_results$phases[[4]]$par
+new_param <- calibration_results$phases[[4]]$par
 
-accessibility <- 1/(1+exp(-new_param_phase4[1:10]))
-new_param <- as.vector(c(new_param_phase3[1:16], accessibility, new_param_phase3[27:58]))
+accessibility <- 1/(1+exp(-new_param[1:10]))
+population_initialization <- 10^new_param[11:26]
+additional_mortality <- 10^new_param[27:42]
+larval_mortality <- 10^new_param[43:58]
+larval_mortality_deviation <- exp(new_param[59:79])
+
+new_param <- as.vector(c(accessibility, new_param_phase3[27:58]))
 
 calib_param <- read.table("calibration-parameters.csv", sep = ",", dec = ".", header = F)
 new_calib_param <- calib_param
