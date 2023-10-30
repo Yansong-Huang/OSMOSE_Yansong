@@ -7,6 +7,7 @@
 
 
 library("calibrar")
+library("dplyr")
 
 ## loading calibration results 
 calibration_results <- readRDS("osmose-Yansong.results")
@@ -44,14 +45,17 @@ text(2200, 12000, "Phase 4")
 
 ## write the new calibration parameters
 new_param <- calibration_results$phases[[4]]$par
+new_param_list <- calibration_results$par # for larval mortality deviation
 
-accessibility <- 1/(1+exp(-new_param[1:10]))
-population_initialization <- 10^new_param[11:26]
-additional_mortality <- 10^new_param[27:42]
-larval_mortality <- 10^new_param[43:58]
-larval_mortality_deviation <- exp(new_param[59:79])
-
-new_param <- as.vector(c(accessibility, new_param_phase3[27:58]))
+accessibility <- 1/(1+exp(-unlist(new_param[1:10])))
+population_initialization <- 10^unlist(new_param[11:26])
+additional_mortality <- 10^unlist(new_param[27:42])
+larval_mortality <- 10^unlist(new_param[43:58])
+larval_mortality_deviation <- exp(unlist(new_param_list[59:74]))
+delta_lmax_factor <- new_param_list[75:90]
+fisheries_rate_base <- new_param_list[c(91,94,97,100)] %>% unlist() %>% exp()
+fisheries_rate_by_period <- new_param_list[c(92,95,98,101)] %>% unlist() %>% exp()
+fisheries_selectivity <- new_param_list[c(93,96,99,102)]
 
 calib_param <- read.table("calibration-parameters.csv", sep = ",", dec = ".", header = F)
 new_calib_param <- calib_param
