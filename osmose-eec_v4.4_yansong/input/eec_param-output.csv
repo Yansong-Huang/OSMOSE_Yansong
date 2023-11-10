@@ -54,6 +54,7 @@ output.distrib.bySize.max;200
 output.distrib.bySize.min;0
 output.distrib.bySize.incr;6
 output.spatial.enabled;false
+output.spatial.abundance.enabled;true
 output.spatial.ltl.enabled;false
 output.TL.catch.enabled;true
 output.TL.enabled;true

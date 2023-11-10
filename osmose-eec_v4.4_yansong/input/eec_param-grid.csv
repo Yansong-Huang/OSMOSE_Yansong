@@ -1,5 +1,5 @@
 grid.java.classname;fr.ird.osmose.grid.NcGrid
-grid.netcdf.file;eec_grid-mask.nc
-grid.var.lat;lat
-grid.var.lon;lon
-grid.var.mask;mask
+grid.netcdf.file;ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
+grid.var.lat;latitude
+grid.var.lon;longitude
+grid.var.mask;diatoms

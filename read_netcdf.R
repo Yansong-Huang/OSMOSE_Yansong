@@ -128,6 +128,8 @@ benthic_deposit <- ncvar_get(nc_ERSEM, varid = "depositBenthos")
 mask_eco <- ifelse(is.na(large_benthos[,,1]),0,1)
 mask_ERSEM <- ifelse(is.na(benthic_deposit[,,1]),0,1)
 mask_comparison <- mask_eco - mask_ERSEM
+sum(mask_comparison)
+
 
 ###### 4.adapt the nc file of Morgane for 480 time steps ######
 
