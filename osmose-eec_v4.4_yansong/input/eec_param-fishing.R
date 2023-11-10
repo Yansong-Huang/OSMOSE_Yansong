@@ -6,17 +6,26 @@ simulation.fishing.mortality.enabled = TRUE
 fisheries.movement.netcdf.enabled = TRUE
 
 ######################### Selectivities
-# Define age-selectivity for fisheries
-fisheries.selectivity.l50.fsh0 = 10
-fisheries.selectivity.l50.fsh1 = 10
-fisheries.selectivity.l50.fsh2 = 10
-fisheries.selectivity.l50.fsh3 = 10
 
-# define constant knife-edge selectivity for species
-fisheries.selectivity.type.fsh0 = 0
-fisheries.selectivity.type.fsh1 = 0
-fisheries.selectivity.type.fsh2 = 0
-fisheries.selectivity.type.fsh3 = 0
+# define selectivity type for fleets: 0-knife-edge, 1-sigmoid, 2-gaussian
+fisheries.selectivity.type.fsh0 = 1
+fisheries.selectivity.type.fsh1 = 1
+fisheries.selectivity.type.fsh2 = 2
+fisheries.selectivity.type.fsh3 = 1
+
+# Define length-selectivity for fleets
+fisheries.selectivity.l50.fsh0 = 18
+fisheries.selectivity.l75.fsh0 = 21.5
+
+fisheries.selectivity.l50.fsh1 = 18
+fisheries.selectivity.l75.fsh1 = 22
+
+fisheries.selectivity.l50.fsh2 = 29
+fisheries.selectivity.l75.fsh2 = 33
+
+fisheries.selectivity.l50.fsh3 = 18.5
+fisheries.selectivity.l75.fsh3 = 22
+
 
 ######################################## Fbase
 # Defines the mortality rate for the fisheries

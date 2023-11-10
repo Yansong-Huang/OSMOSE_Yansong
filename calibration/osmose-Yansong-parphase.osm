@@ -19,15 +19,9 @@ species.accessibility2fish.logit.sp25 = 1
 population.initialization.biomass.log10.sp0 = 1
 population.initialization.biomass.log10.sp1 = 1
 population.initialization.biomass.log10.sp2 = 1
-population.initialization.biomass.log10.sp3 = 1
 population.initialization.biomass.log10.sp4 = 1
-population.initialization.biomass.log10.sp5 = 1
 population.initialization.biomass.log10.sp6 = 1
-population.initialization.biomass.log10.sp7 = 1
-population.initialization.biomass.log10.sp8 = 1
 population.initialization.biomass.log10.sp9 = 1
-population.initialization.biomass.log10.sp10 = 1
-population.initialization.biomass.log10.sp11 = 1
 population.initialization.biomass.log10.sp12 = 1
 population.initialization.biomass.log10.sp13 = 1
 population.initialization.biomass.log10.sp14 = 1
@@ -111,6 +105,8 @@ fisheries.rate.byperiod.log.fsh0 = 4
 
 fisheries.selectivity.l50.fsh0 = 4
 
+fisheries.selectivity.l75.fsh0 = 4
+
 -- Fishery 1: midwater.trawlers
 
 fisheries.rate.base.log.fsh1 = 2
@@ -118,6 +114,8 @@ fisheries.rate.base.log.fsh1 = 2
 fisheries.rate.byperiod.log.fsh1 = 4
 
 fisheries.selectivity.l50.fsh1 = 4
+
+fisheries.selectivity.l75.fsh1 = 4
 
 -- Fishery 2: netters
 
@@ -127,6 +125,8 @@ fisheries.rate.byperiod.log.fsh2 = 4
 
 fisheries.selectivity.l50.fsh2 = 4
 
+fisheries.selectivity.l75.fsh2 = 4
+
 -- Fishery 3: others
 
 fisheries.rate.base.log.fsh3 = 2
@@ -134,5 +134,7 @@ fisheries.rate.base.log.fsh3 = 2
 fisheries.rate.byperiod.log.fsh3 = 4
 
 fisheries.selectivity.l50.fsh3 = 4
+
+fisheries.selectivity.l75.fsh3 = 4
 
 #---- User parameters

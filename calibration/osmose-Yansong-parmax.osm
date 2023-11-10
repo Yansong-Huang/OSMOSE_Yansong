@@ -16,22 +16,16 @@ species.accessibility2fish.logit.sp25 = 20
 
 #---- Focal species
 
-population.initialization.biomass.log10.sp0 = 7
-population.initialization.biomass.log10.sp1 = 7
-population.initialization.biomass.log10.sp2 = 7
-population.initialization.biomass.log10.sp3 = 7
-population.initialization.biomass.log10.sp4 = 7
-population.initialization.biomass.log10.sp5 = 7
-population.initialization.biomass.log10.sp6 = 7
-population.initialization.biomass.log10.sp7 = 7
-population.initialization.biomass.log10.sp8 = 7
-population.initialization.biomass.log10.sp9 = 7
-population.initialization.biomass.log10.sp10 = 7
-population.initialization.biomass.log10.sp11 = 7
-population.initialization.biomass.log10.sp12 = 7
-population.initialization.biomass.log10.sp13 = 7
-population.initialization.biomass.log10.sp14 = 7
-population.initialization.biomass.log10.sp15 = 7
+population.initialization.biomass.log10.sp0 = 6
+population.initialization.biomass.log10.sp1 = 6
+population.initialization.biomass.log10.sp2 = 6
+population.initialization.biomass.log10.sp4 = 6
+population.initialization.biomass.log10.sp6 = 6
+population.initialization.biomass.log10.sp9 = 6
+population.initialization.biomass.log10.sp12 = 6
+population.initialization.biomass.log10.sp13 = 6
+population.initialization.biomass.log10.sp14 = 6
+population.initialization.biomass.log10.sp15 = 6
 
 mortality.additional.rate.log10.sp0 = 0
 mortality.additional.rate.log10.sp1 = 0
@@ -109,7 +103,9 @@ fisheries.rate.base.log.fsh0 = 2.488
 
 fisheries.rate.byperiod.log.fsh0 = 2.999
 
-fisheries.selectivity.l50.fsh0 = 20
+fisheries.selectivity.l50.fsh0 = 23
+
+fisheries.selectivity.l75.fsh0 = 26.5
 
 -- Fishery 1: midwater.trawlers
 
@@ -117,7 +113,9 @@ fisheries.rate.base.log.fsh1 = 1.795
 
 fisheries.rate.byperiod.log.fsh1 = 2.999
 
-fisheries.selectivity.l50.fsh1 = 20
+fisheries.selectivity.l50.fsh1 = 23
+
+fisheries.selectivity.l75.fsh1 = 27
 
 -- Fishery 2: netters
 
@@ -125,7 +123,9 @@ fisheries.rate.base.log.fsh2 = 1.389
 
 fisheries.rate.byperiod.log.fsh2 = 2.999
 
-fisheries.selectivity.l50.fsh2 = 20
+fisheries.selectivity.l50.fsh2 = 34
+
+fisheries.selectivity.l75.fsh2 = 38
 
 -- Fishery 3: others
 
@@ -133,6 +133,8 @@ fisheries.rate.base.log.fsh3 = 1.389
 
 fisheries.rate.byperiod.log.fsh3 = 2.999
 
-fisheries.selectivity.l50.fsh3 = 20
+fisheries.selectivity.l50.fsh3 = 23.5
+
+fisheries.selectivity.l75.fsh3 = 27
 
 #---- User parameters

@@ -19,15 +19,9 @@ species.accessibility2fish.logit.sp25 = -4.25459902498738
 population.initialization.biomass.log10.sp0 = 4.62894707394439
 population.initialization.biomass.log10.sp1 = 3.72651742591043
 population.initialization.biomass.log10.sp2 = 4.65768819951227
-population.initialization.biomass.log10.sp3 = 4.70045120792136
 population.initialization.biomass.log10.sp4 = 4.41502920133092
-population.initialization.biomass.log10.sp5 = 3.21321324569256
 population.initialization.biomass.log10.sp6 = 4.71705729075608
-population.initialization.biomass.log10.sp7 = 4.17223336102074
-population.initialization.biomass.log10.sp8 = 4.15084777021249
 population.initialization.biomass.log10.sp9 = 5.41437489060702
-population.initialization.biomass.log10.sp10 = 4.38288363107804
-population.initialization.biomass.log10.sp11 = 5.33094340115951
 population.initialization.biomass.log10.sp12 = 5.42061904513446
 population.initialization.biomass.log10.sp13 = 4.40715292069207
 population.initialization.biomass.log10.sp14 = 4.43955943110696
@@ -109,7 +103,9 @@ fisheries.rate.base.log.fsh0 = -0.510825623765991
 
 fisheries.rate.byperiod.log.fsh0 = 0
 
-fisheries.selectivity.l50.fsh0 = 10
+fisheries.selectivity.l50.fsh0 = 18
+
+fisheries.selectivity.l75.fsh0 = 21.5
 
 -- Fishery 1: midwater.trawlers
 
@@ -117,7 +113,9 @@ fisheries.rate.base.log.fsh1 = -1.20397280432594
 
 fisheries.rate.byperiod.log.fsh1 = 0
 
-fisheries.selectivity.l50.fsh1 = 10
+fisheries.selectivity.l50.fsh1 = 18
+
+fisheries.selectivity.l75.fsh1 = 22
 
 -- Fishery 2: netters
 
@@ -125,7 +123,9 @@ fisheries.rate.base.log.fsh2 = -1.6094379124341
 
 fisheries.rate.byperiod.log.fsh2 = 0
 
-fisheries.selectivity.l50.fsh2 = 10
+fisheries.selectivity.l50.fsh2 = 29
+
+fisheries.selectivity.l75.fsh2 = 33
 
 -- Fishery 3: others
 
@@ -133,6 +133,8 @@ fisheries.rate.base.log.fsh3 = -1.6094379124341
 
 fisheries.rate.byperiod.log.fsh3 = 0
 
-fisheries.selectivity.l50.fsh3 = 10
+fisheries.selectivity.l50.fsh3 = 18.5
+
+fisheries.selectivity.l75.fsh3 = 22
 
 #---- User parameters
