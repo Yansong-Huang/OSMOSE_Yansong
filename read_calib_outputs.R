@@ -10,7 +10,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong.results")
+calibration_results <- readRDS("osmose-Yansong-11-10.results")
 
 
 ## partial fitness by generation
@@ -47,14 +47,14 @@ text(2200, 12000, "Phase 4")
 new_param <- calibration_results$par 
 
 accessibility <- 1/(1+exp(-unlist(new_param[1:10])))
-population_initialization <- 10^unlist(new_param[11:26])
-additional_mortality <- 10^unlist(new_param[27:42])
-larval_mortality <- 10^unlist(new_param[43:58])
-larval_mortality_deviation <- exp(unlist(new_param[59:74]))
-delta_lmax_factor <- new_param[75:90]
-fisheries_rate_base <- new_param[c(91,94,97,100)] %>% unlist() %>% exp()
-fisheries_rate_by_period <- new_param[c(92,95,98,101)] %>% unlist() %>% exp()
-fisheries_selectivity <- new_param[c(93,96,99,102)]
+population_initialization <- 10^unlist(new_param[11:20])
+additional_mortality <- 10^unlist(new_param[21:36])
+larval_mortality <- 10^unlist(new_param[37:52])
+larval_mortality_deviation <- exp(unlist(new_param[53:68]))
+delta_lmax_factor <- new_param[69:84]
+fisheries_rate_base <- new_param[c(85,89,93,97)] %>% unlist() %>% exp()
+fisheries_rate_by_period <- new_param[c(86,90,94,98)] %>% unlist() %>% exp()
+fisheries_selectivity <- new_param[c(87,88,91,92,95,96,99,100)]
 
 
 write.table(new_calib_param, "calibration-parameters.csv", 

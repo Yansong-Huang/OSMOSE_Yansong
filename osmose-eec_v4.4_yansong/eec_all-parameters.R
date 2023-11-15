@@ -18,9 +18,6 @@ osmose.configuration.initialization = input/initial_conditions.osm
 
 population.seeding.year.max = 20
 simulation.time.start = 2002
-
-# INITIALIZATION FOR FOCAL SPECIES
-population.initialization.relativebiomass.enabled = TRUE
 output.step0.include = FALSE
 
 mortality.subdt = 10
