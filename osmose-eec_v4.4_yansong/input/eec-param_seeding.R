@@ -1,3 +1,5 @@
+population.seeding.year.max = 0
+
 population.seeding.biomass.sp0;0
 population.seeding.biomass.sp1;0
 population.seeding.biomass.sp2;0

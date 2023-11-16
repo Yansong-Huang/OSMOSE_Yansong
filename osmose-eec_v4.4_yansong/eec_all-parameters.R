@@ -8,6 +8,7 @@ osmose.configuration.reproduction = input/eec_param-reproduction.csv
 osmose.configuration.species = input/eec_param-species.csv
 osmose.configuration.plankton = input/eec_param-ltl.csv
 osmose.configuration.grid = input/eec_param-grid.csv
+osmose.configuration.seeding = input/eec-param_seeding.R
 osmose.configuration.migration = input/eec_param-out-mortality.csv
 osmose.configuration.output = input/eec_param-output.csv
 osmose.configuration.mortality.additional = input/eec_param-additional-mortality.csv

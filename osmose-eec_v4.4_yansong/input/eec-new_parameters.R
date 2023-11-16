@@ -9,7 +9,6 @@ simulation.bioen.enabled = FALSE
 simulation.incoming.flux.enabled = FALSE
 output.flush.enabled = FALSE
 
-# population.seeding.year.max = 25
 
 movement.netcdf.enabled = TRUE
 movement.checks.enabled = FALSE
@@ -81,7 +80,7 @@ output.yield.biomass.byWeight.enabled = FALSE
 output.diet.success.enabled = FALSE
 output.age.at.death.enabled = FALSE
 
-population.initialization.relativebiomass.enabled = FALSE
+population.initialization.relativebiomass.enabled = TRUE
 
 mortality.fishing.recruitment.age.sp0 = 1
 mortality.fishing.recruitment.age.sp1 = 1
