@@ -1,6 +1,6 @@
 #!/bin/csh
 #PBS -q omp
-#PBS -l select=1:ncpus=28:mem=100g
+#PBS -l select=1:ncpus=28:mem=60g
 #PBS -l walltime=120:00:00
 
 cd $PBS_O_WORKDIR

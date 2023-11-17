@@ -32,7 +32,8 @@ run_osmose(input = config_file, osmose=jar_file, version = "4.4.0",
            output = output_dir)
 # calibration set-up
 
-calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file, version = "4.4.0", type = "survey")
+calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
+                                            version = "4.4.0", data_path = "calibration_data")
 osmose_calibration_test(calibration_path)
 
 biomass = get_var(output_osmose, "biomass", expected=TRUE)
