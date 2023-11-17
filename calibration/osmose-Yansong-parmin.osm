@@ -1,4 +1,3 @@
-
 #------- Parameters to be calibrated -------
 
 #---- Resources species
@@ -16,28 +15,28 @@ species.accessibility2fish.logit.sp25 = -20
 
 #---- Focal species
 
-population.initialization.biomass.log10.sp0 = 0
-population.initialization.biomass.log10.sp1 = 0
-population.initialization.biomass.log10.sp2 = 0
-population.initialization.biomass.log10.sp4 = 0
-population.initialization.biomass.log10.sp6 = 0
-population.initialization.biomass.log10.sp9 = 0
-population.initialization.biomass.log10.sp12 = 0
-population.initialization.biomass.log10.sp13 = 0
-population.initialization.biomass.log10.sp14 = 0
-population.initialization.biomass.log10.sp15 = 0
+population.initialization.biomass.log10.sp0 = 4.3
+population.initialization.biomass.log10.sp1 = 3.4
+population.initialization.biomass.log10.sp2 = 4.3
+population.initialization.biomass.log10.sp4 = 4.1
+population.initialization.biomass.log10.sp6 = 4.4
+population.initialization.biomass.log10.sp9 = 5.1
+population.initialization.biomass.log10.sp12 = 5.1
+population.initialization.biomass.log10.sp13 = 4.1
+population.initialization.biomass.log10.sp14 = 4.1
+population.initialization.biomass.log10.sp15 = 3.6
 
 mortality.additional.rate.log10.sp0 = -4
-mortality.additional.rate.log10.sp1 = -1198.801
+mortality.additional.rate.log10.sp1 = -4
 mortality.additional.rate.log10.sp2 = -4
 mortality.additional.rate.log10.sp3 = -4
 mortality.additional.rate.log10.sp4 = -4
-mortality.additional.rate.log10.sp5 = -1198.801
-mortality.additional.rate.log10.sp6 = -1198.801
-mortality.additional.rate.log10.sp7 = -1198.801
-mortality.additional.rate.log10.sp8 = -1198.801
-mortality.additional.rate.log10.sp9 = -1198.801
-mortality.additional.rate.log10.sp10 = -1198.801
+mortality.additional.rate.log10.sp5 = -4
+mortality.additional.rate.log10.sp6 = -4
+mortality.additional.rate.log10.sp7 = -4
+mortality.additional.rate.log10.sp8 = -4
+mortality.additional.rate.log10.sp9 = -4
+mortality.additional.rate.log10.sp10 = -4
 mortality.additional.rate.log10.sp11 = -4
 mortality.additional.rate.log10.sp12 = -4
 mortality.additional.rate.log10.sp13 = -4
@@ -103,19 +102,11 @@ fisheries.rate.base.log.fsh0 = -3.512
 
 fisheries.rate.byperiod.log.fsh0 = -3.001
 
-fisheries.selectivity.l50.fsh0 = 13
-
-fisheries.selectivity.l75.fsh0 = 16.5
-
 -- Fishery 1: midwater.trawlers
 
 fisheries.rate.base.log.fsh1 = -4.205
 
 fisheries.rate.byperiod.log.fsh1 = -3.001
-
-fisheries.selectivity.l50.fsh1 = 13
-
-fisheries.selectivity.l75.fsh1 = 17
 
 -- Fishery 2: netters
 
@@ -123,9 +114,6 @@ fisheries.rate.base.log.fsh2 = -4.611
 
 fisheries.rate.byperiod.log.fsh2 = -3.001
 
-fisheries.selectivity.l50.fsh2 = 24
-
-fisheries.selectivity.l75.fsh2 = 28
 
 -- Fishery 3: others
 
@@ -133,8 +121,5 @@ fisheries.rate.base.log.fsh3 = -4.611
 
 fisheries.rate.byperiod.log.fsh3 = -3.001
 
-fisheries.selectivity.l50.fsh3 = 13.5
-
-fisheries.selectivity.l75.fsh3 = 17
 
 #---- User parameters

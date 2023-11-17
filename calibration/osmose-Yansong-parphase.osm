@@ -103,19 +103,11 @@ fisheries.rate.base.log.fsh0 = 2
 
 fisheries.rate.byperiod.log.fsh0 = 4
 
-fisheries.selectivity.l50.fsh0 = 4
-
-fisheries.selectivity.l75.fsh0 = 4
-
 -- Fishery 1: midwater.trawlers
 
 fisheries.rate.base.log.fsh1 = 2
 
 fisheries.rate.byperiod.log.fsh1 = 4
-
-fisheries.selectivity.l50.fsh1 = 4
-
-fisheries.selectivity.l75.fsh1 = 4
 
 -- Fishery 2: netters
 
@@ -123,18 +115,10 @@ fisheries.rate.base.log.fsh2 = 2
 
 fisheries.rate.byperiod.log.fsh2 = 4
 
-fisheries.selectivity.l50.fsh2 = 4
-
-fisheries.selectivity.l75.fsh2 = 4
-
 -- Fishery 3: others
 
 fisheries.rate.base.log.fsh3 = 2
 
 fisheries.rate.byperiod.log.fsh3 = 4
-
-fisheries.selectivity.l50.fsh3 = 4
-
-fisheries.selectivity.l75.fsh3 = 4
 
 #---- User parameters
