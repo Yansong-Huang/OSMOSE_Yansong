@@ -10,7 +10,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong-11-10.results")
+calibration_results <- readRDS("osmose-Yansong-11-17.results")
 
 
 ## partial fitness by generation
@@ -35,11 +35,11 @@ g_fitness_phase4 <- apply(p_fitness_phase4, 1, sum)
 ## plot fitness
 g_fitness <- c(g_fitness_phase1, g_fitness_phase2, g_fitness_phase3, g_fitness_phase4)
 plot(g_fitness, type = "l", bty = "l", xlab = "Generations", ylab = "Fitness")
-abline(v=c(300,700,1200,2200), lty = c(2,2), col = c("grey", "grey"))
+abline(v=c(300,700,1200,1700), lty = c(2,2), col = c("grey", "grey"))
 text(300, 18000, "Phase 1")
 text(700, 16000, "Phase 2")
 text(1200, 14000, "Phase 3")
-text(2200, 12000, "Phase 4")
+text(1700, 12000, "Phase 4")
 
 
 
