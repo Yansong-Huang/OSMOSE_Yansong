@@ -117,7 +117,7 @@ fisheries.selectivity.type.sp12 = 2
 fisheries.selectivity.l50.sp12 = 22.5
 fisheries.selectivity.l75.sp12 = 24.5
 
-species.egg.stage.duration.sp13 = 2
+species.egg.stage.duration.sp13 = 7
 observed.biomass.cutoff.size.sp13 = 5.0
 observed.biomass.guess.sp13 = 14000 # in cases that we don't have any biomass data
 fisheries.yield.file.sp13 = ../../initialization_data/eec_yield_year.csv
