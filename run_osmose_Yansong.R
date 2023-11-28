@@ -7,7 +7,7 @@ library(osmose)
 # library(ggplot2)
 library(calibrar)
 
-#java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
+# java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
 java_path   = "C:/Users/yhuang/Documents/OSMOSE/osmose-private/inst/java"
 jar_file    = file.path(java_path, "osmose_4.4.0-jar-with-dependencies.jar")
 version    = "4.4.0"
@@ -30,6 +30,10 @@ out = initialize_osmose(input=config_file, type="internannual",
 
 run_osmose(input = config_file, osmose=jar_file, version = "4.4.0",
            output = output_dir)
+
+output_osmose = read_osmose(output_dir)
+plot(output_osmose)
+
 # calibration set-up
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
