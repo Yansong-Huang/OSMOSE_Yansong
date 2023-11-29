@@ -171,6 +171,39 @@ nc_close(nc_morgane)
 nc_morgane_modified <- nc_open("largeBenthos_veryLargeBenthos.nc")
 largeBenthos_temp <- ncvar_get(nc_morgane_modified, varid = "largeBenthos")
 
+####### 5.mask for survey #######
+library('ncdf4')
+survey_example <- nc_open("osmose-eec_v4.4_yansong/input/fishing/allmaps.nc")
+map_eec <- nc_open("osmose-eec_v4.4_yansong/input/maps_nc/thornbackRay.nc")
+
+# définir les dimensions
+dimLongitude <- ncdim_def( "longitude", "degree", seq(-1.95,2.45,0.1))
+dimLatitude <- ncdim_def( "latitude", "degree", seq(49.05,51.15,0.1))
+dimTime <- ncdim_def( "time", "time dimension", 1, unlim=TRUE)
+
+# créer les variables
+varDemersal <- ncvar_def("demersal", "probability", list(dimLongitude,dimLatitude,dimTime), 
+                             missval=NA, prec="float")
+# créer nc fichier
+map_CGFS <-
+  nc_create(
+    "survey_maps.nc",
+    list(
+      varDemersal
+    ),
+    force_v4 = TRUE
+  )
+
+# put values
+survey_presence <- ncvar_get(map_eec, varid = "stage0")[,,1]
+ncvar_put(map_CGFS, varDemersal, survey_presence)
+
+nc_close(map_CGFS)
+# verify the values
+map_CGFS <- nc_open("osmose-eec_v4.4_yansong/input/fishing/survey_maps.nc")
+presence_CGFS <- ncvar_get(map_CGFS, varid = "demersal")
+
+
 
 
 
