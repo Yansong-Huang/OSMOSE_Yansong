@@ -47,7 +47,7 @@ fisheries.yield.ndtPerYear.sp4 = 1
 
 species.egg.stage.duration.sp5 = 2
 observed.biomass.cutoff.size.sp5 = 5.0
-observed.biomass.guess.sp5 = 1638 # in cases that we don't have any biomass data
+observed.biomass.guess.sp5 = 2610 # in cases that we don't have any biomass data
 fisheries.yield.file.sp5 = ../../initialization_data/eec_yield_year.csv
 fisheries.yield.ndtPerYear.sp5 = 1
 fisheries.selectivity.type.sp5 = 3
