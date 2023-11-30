@@ -1,14 +1,12 @@
-
 # library(devtools)
 # install_github("osmose-model/osmose", force = TRUE)
 # usethis::edit_r_environ()
-
 library(osmose)
 # library(ggplot2)
 library(calibrar)
 
-# java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
-java_path   = "C:/Users/yhuang/Documents/OSMOSE/osmose-private/inst/java"
+java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
+# java_path   = "C:/Users/yhuang/Documents/OSMOSE/osmose-private/inst/java"
 jar_file    = file.path(java_path, "osmose_4.4.0-jar-with-dependencies.jar")
 version    = "4.4.0"
 
