@@ -122,7 +122,7 @@ species.K.sp1;0.18
 species.K.sp2;0.46
 species.K.sp3;0.63
 species.K.sp4;0.462
-species.K.sp5;0.333
+species.K.sp5;0.19
 species.K.sp6;0.471
 species.K.sp7;0.35
 species.K.sp8;0.23
@@ -173,7 +173,7 @@ species.lInf.sp1;53.3
 species.lInf.sp2;37.6
 species.lInf.sp3;40.24
 species.lInf.sp4;22.23
-species.lInf.sp5;110.8
+species.lInf.sp5;103.9
 species.lInf.sp6;28.254
 species.lInf.sp7;37.25
 species.lInf.sp8;71.65
@@ -207,7 +207,7 @@ species.t0.sp1;-1.23
 species.t0.sp2;-0.77
 species.t0.sp3;-0.37
 species.t0.sp4;-0.679
-species.t0.sp5;0.77
+species.t0.sp5;-0.1
 species.t0.sp6;-0.443
 species.t0.sp7;-1.61
 species.t0.sp8;-0.83
@@ -224,7 +224,7 @@ species.vonbertalanffy.threshold.age.sp1;1
 species.vonbertalanffy.threshold.age.sp2;0.5
 species.vonbertalanffy.threshold.age.sp3;1
 species.vonbertalanffy.threshold.age.sp4;0.5
-species.vonbertalanffy.threshold.age.sp5;1
+species.vonbertalanffy.threshold.age.sp5;0.5
 species.vonbertalanffy.threshold.age.sp6;0.5
 species.vonbertalanffy.threshold.age.sp7;0.5
 species.vonbertalanffy.threshold.age.sp8;0.5
