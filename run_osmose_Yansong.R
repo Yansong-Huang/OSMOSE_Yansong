@@ -31,12 +31,24 @@ run_osmose(input = config_file, osmose=jar_file, version = "4.4.0",
 
 output_osmose = read_osmose(output_dir)
 plot(output_osmose)
+plot(output_osmose, what="biomass.acousticSurvey")
 
 # calibration set-up
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
-                                            version = "4.4.0", data_path = "calibration_data")
+                                            version = "4.4.0", type = "survey", 
+                                            name="survey_test3")
+
+calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
+                                            version = "4.4.0", type = "survey", 
+                                            name="survey_test3", data_path = "data_templates")
+
 osmose_calibration_test(calibration_path)
+
+
+
+
+# not run
 
 biomass = get_var(output_osmose, "biomass", expected=TRUE)
 class(biomass)
