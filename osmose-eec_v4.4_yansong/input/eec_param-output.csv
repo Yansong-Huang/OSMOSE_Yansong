@@ -1,6 +1,6 @@
 #output.dir.path;output-Yansong
 output.file.prefix;Yansong
-output.recordfrequency.ndt;24
+output.recordfrequency.ndt;2
 output.start.year;0
 
 # Osmose 4.3.4 - Renamed parameter output.fishery.enabled into output.fisheries.enabled
