@@ -10,8 +10,10 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong-11-17.results")
+calibration_results <- readRDS("calibration_survey_test3/osmose-test.results")
 
+opt_par = get_par(calibration_results$par, linear = TRUE)
+write_osmose(opt_par, file="calibration-parameters.csv")
 
 ## partial fitness by generation
 p_fitness_phase1 <- calibration_results$phases[[1]]$trace$fitness
