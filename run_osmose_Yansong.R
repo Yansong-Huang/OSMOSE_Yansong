@@ -5,8 +5,8 @@ library(osmose)
 # library(ggplot2)
 library(calibrar)
 
-java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
-# java_path   = "C:/Users/yhuang/Documents/OSMOSE/osmose-private/inst/java"
+#java_path   = "R:/sync/Github/osmose-private-ricardo/inst/java"
+java_path   = "C:/Users/yhuang/Documents/OSMOSE/osmose-private/inst/java"
 jar_file    = file.path(java_path, "osmose_4.4.0-jar-with-dependencies.jar")
 version    = "4.4.0"
 
@@ -38,7 +38,7 @@ plot(output_osmose, what="biomass.acousticSurvey")
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "survey", 
                                             name="survey_test3")
-
+# modify the run_model.R and copy the catchability matrix
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "survey", 
                                             name="survey_test3", data_path = "data_templates")
