@@ -37,7 +37,7 @@ plot(output_osmose, what="biomass.acousticSurvey")
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "survey", 
-                                            name="survey_test3")
+                                            name="survey_test4")
 # modify the run_model.R and copy the catchability matrix
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "survey", 
@@ -45,10 +45,7 @@ calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
 
 osmose_calibration_test(calibration_path)
 
-
-
-
-# not run
+# read outputs
 
 biomass = get_var(output_osmose, "biomass", expected=TRUE)
 class(biomass)

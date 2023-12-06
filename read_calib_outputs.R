@@ -5,7 +5,7 @@
 # and write new calibration-parameters.csv
 #######################################################################
 
-
+library("osmose")
 library("calibrar")
 library("dplyr")
 

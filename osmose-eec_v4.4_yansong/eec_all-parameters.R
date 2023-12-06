@@ -67,10 +67,8 @@ surveys.movement.variable.map1    = demersal
 surveys.movement.nsteps.year.map1 = 1
 surveys.movement.file.map1        = input/fishing/survey_maps.nc
 
-osmose.user.yansong.par1 = 0.5
-osmose.user.yansong.par2 = 0, 0, 1, 0, 0, 1
-osmose.user.yansong.par3 = 0.2
-osmose.user.yansong.par4 = 0.1
+osmose.user.catchability.fsh0.sp0 = 0.5
+
 
 
 
