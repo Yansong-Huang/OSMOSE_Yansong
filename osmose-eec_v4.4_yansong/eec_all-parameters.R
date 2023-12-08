@@ -52,20 +52,20 @@ osmose.version = 4.4.0
 surveys.movement.netcdf.enabled = TRUE
 
 # Survey 1 (acousticSurvey: Pelagics)
-surveys.enabled.sr1 = TRUE
-surveys.name.sr1 = acousticSurvey
-
-surveys.selectivity.type.sr1 = 1
-surveys.selectivity.l50.sr1  = 4
-surveys.selectivity.l75.sr1  = 4.5
-surveys.selectivity.tiny.sr1 = 1e-3
-
-# surveys.targetspecies.sr1    = 0,2,3,4,5,7
-
-surveys.movement.survey.map1      = acousticSurvey
-surveys.movement.variable.map1    = demersal
-surveys.movement.nsteps.year.map1 = 1
-surveys.movement.file.map1        = input/fishing/survey_maps.nc
+surveys.enabled.sr1 = FALSE
+# surveys.name.sr1 = acousticSurvey
+# 
+# surveys.selectivity.type.sr1 = 1
+# surveys.selectivity.l50.sr1  = 4
+# surveys.selectivity.l75.sr1  = 4.5
+# surveys.selectivity.tiny.sr1 = 1e-3
+# 
+# # surveys.targetspecies.sr1    = 0,2,3,4,5,7
+# 
+# surveys.movement.survey.map1      = acousticSurvey
+# surveys.movement.variable.map1    = demersal
+# surveys.movement.nsteps.year.map1 = 1
+# surveys.movement.file.map1        = input/fishing/survey_maps.nc
 
 osmose.user.catchability.fsh0.sp0 = 0.5
 
