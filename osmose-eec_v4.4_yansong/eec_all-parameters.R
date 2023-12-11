@@ -17,7 +17,6 @@ osmose.configuration.newpar = input/eec-new_parameters.R
 osmose.configuration.init.setup = input/eec_initialization_params.R
 osmose.configuration.initialization = input/initial_conditions.osm
 
-population.seeding.year.max = 20
 simulation.time.start = 2002
 output.step0.include = FALSE
 
@@ -49,7 +48,7 @@ osmose.version = 4.4.0
 
 # Survey Configuration ----------------------------------------------------
 
-surveys.movement.netcdf.enabled = TRUE
+surveys.movement.netcdf.enabled = FALSE
 
 # Survey 1 (acousticSurvey: Pelagics)
 surveys.enabled.sr1 = FALSE
