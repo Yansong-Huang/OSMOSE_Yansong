@@ -10,7 +10,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("calibration_survey_test3/osmose-test.results")
+calibration_results <- readRDS("calibration_simple_test2/osmose-test.results")
 
 opt_par = get_par(calibration_results$par, linear = TRUE)
 write_osmose(opt_par, file="calibration-parameters.csv")

@@ -34,6 +34,13 @@ plot(output_osmose)
 plot(output_osmose, what="biomass.acousticSurvey")
 
 # calibration set-up
+calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
+                                            version = "4.4.0", type = "simple", 
+                                            name="simple_test2")
+
+calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
+                                            version = "4.4.0", type = "simple", 
+                                            name="simple_test2",data_path = "calibration_data")
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "survey", 
