@@ -31,7 +31,7 @@ list_planktons <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/"
 # définir les dimensions
 dimLongitude <- ncdim_def( "longitude", "degree", seq(-1.95,2.45,0.1))
 dimLatitude <- ncdim_def( "latitude", "degree", seq(49.05,51.15,0.1))
-dimTime <- ncdim_def( "time", "fortnights since 2000-01-01", seq(1,480,1), unlim=FALSE,calendar = "standard")
+dimTime <- ncdim_def( "time", "months since 2000-01-01", seq(1,240,1), unlim=FALSE,calendar = "standard")
 
 # créer les variables
 varBenthicDeposit <- ncvar_def("depositBenthos", "carbon_ton", list(dimLongitude,dimLatitude,dimTime), 

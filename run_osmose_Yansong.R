@@ -43,12 +43,12 @@ calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             name="simple_test2",data_path = "calibration_data")
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
-                                            version = "4.4.0", type = "survey", 
-                                            name="survey_test4")
+                                            version = "4.4.0", type = "simple", 
+                                            name="simple_test3")
 # modify the run_model.R and copy the catchability matrix
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
-                                            version = "4.4.0", type = "survey", 
-                                            name="survey_test3", data_path = "data_templates")
+                                            version = "4.4.0", type = "simple", 
+                                            name="simple_test3", data_path = "calibration_data")
 
 osmose_calibration_test(calibration_path)
 
