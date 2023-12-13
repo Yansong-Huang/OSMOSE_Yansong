@@ -9,27 +9,27 @@ species.file.sp23,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
 species.file.sp24,largeBenthos_veryLargeBenthos.nc
 species.file.sp25,largeBenthos_veryLargeBenthos.nc
 
-#species.accessibility2fish.sp16,0.028
-#species.accessibility2fish.sp17,0.01
-#species.accessibility2fish.sp18,0.187
-#species.accessibility2fish.sp19,0.032
-#species.accessibility2fish.sp20,0.073
-#species.accessibility2fish.sp21,0.001
-#species.accessibility2fish.sp22,5.70E-05
-#species.accessibility2fish.sp23,0.002
-#species.accessibility2fish.sp24,0.018
-#species.accessibility2fish.sp25,0.014
+species.accessibility2fish.sp16,0.028
+species.accessibility2fish.sp17,0.01
+species.accessibility2fish.sp18,0.187
+species.accessibility2fish.sp19,0.032
+species.accessibility2fish.sp20,0.073
+species.accessibility2fish.sp21,0.005
+species.accessibility2fish.sp22,0.005
+species.accessibility2fish.sp23,0.005
+species.accessibility2fish.sp24,0.018
+species.accessibility2fish.sp25,0.014
 
-species.accessibility2fish.sp16,0.5
-species.accessibility2fish.sp17,0.5
-species.accessibility2fish.sp18,0.5
-species.accessibility2fish.sp19,0.5
-species.accessibility2fish.sp20,0.5
-species.accessibility2fish.sp21,0.5
-species.accessibility2fish.sp22,0.5
-species.accessibility2fish.sp23,0.5
-species.accessibility2fish.sp24,0.5
-species.accessibility2fish.sp25,0.5
+#species.accessibility2fish.sp16,0.5
+#species.accessibility2fish.sp17,0.5
+#species.accessibility2fish.sp18,0.5
+#species.accessibility2fish.sp19,0.5
+#species.accessibility2fish.sp20,0.5
+#species.accessibility2fish.sp21,0.5
+#species.accessibility2fish.sp22,0.5
+#species.accessibility2fish.sp23,0.5
+#species.accessibility2fish.sp24,0.5
+#species.accessibility2fish.sp25,0.5
 
 species.name.sp16,diatoms
 species.name.sp17,microPhytoplankton
