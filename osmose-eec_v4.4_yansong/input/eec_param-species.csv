@@ -64,7 +64,7 @@ species.lifespan.sp11;11
 species.lifespan.sp12;15
 species.lifespan.sp13;2
 species.lifespan.sp14;2
-species.lifespan.sp15;15
+species.lifespan.sp15;20
 
 species.name.sp0;lesserSpottedDogfish
 species.name.sp1;redMullet
@@ -130,7 +130,7 @@ species.K.sp9;0.18
 species.K.sp10;0.24
 species.K.sp11;0.37
 species.K.sp12;0.79
-species.K.sp13;2
+species.K.sp13;0.6
 species.K.sp14;1.25
 species.K.sp15;0.14
 
@@ -181,7 +181,7 @@ species.lInf.sp9;39.2
 species.lInf.sp10;42
 species.lInf.sp11;29.2
 species.lInf.sp12;24.6
-species.lInf.sp13;50
+species.lInf.sp13;60
 species.lInf.sp14;30.5
 species.lInf.sp15;108
 
