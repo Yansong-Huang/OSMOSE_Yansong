@@ -194,5 +194,5 @@ movement.species.map32,thornbackRay
 movement.variable.map32,stage0
 movement.nsteps.year.map32,24
 movement.initialAge.map32,0
-movement.lastAge.map32,15
+movement.lastAge.map32,20
 movement.file.map32,maps_nc/thornbackRay.nc
