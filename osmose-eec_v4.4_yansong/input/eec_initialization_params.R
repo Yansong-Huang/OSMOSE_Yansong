@@ -1,6 +1,6 @@
 
 species.egg.stage.duration.sp0 = 2
-observed.biomass.cutoff.size.sp0 = 5.0
+observed.biomass.cutoff.size.sp0 = 10.0
 observed.biomass.guess.sp0 = 22500 # in cases that we don't have any biomass data
 fisheries.yield.file.sp0 = ../../initialization_data/eec_yield_year.csv
 fisheries.yield.ndtPerYear.sp0 = 1
@@ -117,9 +117,9 @@ fisheries.selectivity.type.sp12 = 2
 fisheries.selectivity.l50.sp12 = 22.5
 fisheries.selectivity.l75.sp12 = 24.5
 
-species.egg.stage.duration.sp13 = 7
+species.egg.stage.duration.sp13 = 2
 observed.biomass.cutoff.size.sp13 = 5.0
-observed.biomass.guess.sp13 = 14000 # in cases that we don't have any biomass data
+observed.biomass.guess.sp13 = 70000 # in cases that we don't have any biomass data
 fisheries.yield.file.sp13 = ../../initialization_data/eec_yield_year.csv
 fisheries.yield.ndtPerYear.sp13 = 1
 fisheries.selectivity.type.sp13 = 3
@@ -136,7 +136,7 @@ fisheries.selectivity.l50.sp14 = 13
 fisheries.selectivity.l75.sp14 = 17
 
 species.egg.stage.duration.sp15 = 2
-observed.biomass.cutoff.size.sp15 = 5.0
+observed.biomass.cutoff.size.sp15 = 10.0
 observed.biomass.guess.sp15 = 7500 # in cases that we don't have any biomass data
 fisheries.yield.file.sp15 = ../../initialization_data/eec_yield_year.csv
 fisheries.yield.ndtPerYear.sp15 = 1
