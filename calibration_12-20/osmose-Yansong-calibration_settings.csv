@@ -1,6 +1,6 @@
 variable,type,calibrate,cv,use_data,file,varid,nrows
 biomass.lesserSpottedDogfish,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,lesserSpottedDogfish,NA
-biomass.redMullet,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,redMullet,NA
+biomass.redMullet,lnorm3,FALSE,0.25,TRUE,Yansong_biomass-index_month.csv,redMullet,NA
 biomass.pouting,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,pouting,NA
 biomass.whiting,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,whiting,NA
 biomass.poorCod,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,poorCod,NA
@@ -14,14 +14,14 @@ biomass.herring,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,herring,NA
 biomass.sardine,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,sardine,NA
 biomass.squids,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,squids,NA
 biomass.cuttlefish,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,cuttlefish,NA
-biomass.thornbackRay,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,thornbackRay,NA
+biomass.thornbackRay,lnorm3,FALSE,0.25,TRUE,Yansong_biomass-index_month.csv,thornbackRay,NA
 yield.lesserSpottedDogfish,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,lesserSpottedDogfish,NA
 yield.redMullet,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,redMullet,NA
 yield.pouting,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,pouting,NA
 yield.whiting,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,whiting,NA
-yield.poorCod,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,poorCod,NA
+yield.poorCod,lnorm2,FALSE,0.05,TRUE,Yansong_yield_year.csv,poorCod,NA
 yield.cod,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,cod,NA
-yield.dragonet,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,dragonet,NA
+yield.dragonet,lnorm2,FALSE,0.05,TRUE,Yansong_yield_year.csv,dragonet,NA
 yield.sole,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,sole,NA
 yield.plaice,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,plaice,NA
 yield.horseMackerel,lnorm2,TRUE,0.05,TRUE,Yansong_yield_year.csv,horseMackerel,NA
