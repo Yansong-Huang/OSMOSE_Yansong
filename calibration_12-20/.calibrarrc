@@ -32,7 +32,7 @@ verbose     = TRUE # FALSE to keep it quiet, unless you are nervous and want to 
 #   2: relative tolerance (reltol) on function value (this is the RECOMMENDED option for OSMOSE)
 #   3: maximum number of generations without improvement of best value.
 
-maxgen  = 2000 # maximum number of generations (for the ES)
+maxgen  = 50,50,100,150 # maximum number of generations (for the ES)
 termination_criteria = 2 # recommended for OSMOSE is 2.
 max_no_improvement = 10 # maximum number of generations with no improvement (according to termination criteria)
 
