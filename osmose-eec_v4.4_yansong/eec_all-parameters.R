@@ -66,43 +66,43 @@ surveys.enabled.sr1 = FALSE
 # surveys.movement.nsteps.year.map1 = 1
 # surveys.movement.file.map1        = input/fishing/survey_maps.nc
 
-osmose.user.catchability.fsh0.sp0 = 0.36
-osmose.user.catchability.fsh0.sp1 = 0.27
-osmose.user.catchability.fsh0.sp2 = 0.41
-osmose.user.catchability.fsh0.sp3 = 1
-osmose.user.catchability.fsh0.sp5 = 0.2
-osmose.user.catchability.fsh0.sp7 = 0.25
-osmose.user.catchability.fsh0.sp8 = 0.45
-osmose.user.catchability.fsh0.sp9 = 0.12
-osmose.user.catchability.fsh0.sp10 = 0.86
-osmose.user.catchability.fsh0.sp13 = 0.47
-osmose.user.catchability.fsh0.sp14 = 0.26
-osmose.user.catchability.fsh0.sp15 = 0.13
+#osmose.user.catchability.fsh0.sp0 = 0.36
+#osmose.user.catchability.fsh0.sp1 = 0.27
+#osmose.user.catchability.fsh0.sp2 = 0.41
+#osmose.user.catchability.fsh0.sp3 = 1
+#osmose.user.catchability.fsh0.sp5 = 0.2
+#osmose.user.catchability.fsh0.sp7 = 0.25
+#osmose.user.catchability.fsh0.sp8 = 0.45
+#osmose.user.catchability.fsh0.sp9 = 0.12
+#osmose.user.catchability.fsh0.sp10 = 0.86
+#osmose.user.catchability.fsh0.sp13 = 0.47
+#osmose.user.catchability.fsh0.sp14 = 0.26
+#osmose.user.catchability.fsh0.sp15 = 0.13
 
-osmose.user.catchability.fsh1.sp9 = 0.1
-osmose.user.catchability.fsh1.sp10 = 0.36
-osmose.user.catchability.fsh1.sp11 = 1
-osmose.user.catchability.fsh1.sp12 = 0.47
+#osmose.user.catchability.fsh1.sp9 = 0.1
+#osmose.user.catchability.fsh1.sp10 = 0.36
+#osmose.user.catchability.fsh1.sp11 = 1
+#osmose.user.catchability.fsh1.sp12 = 0.47
 
-osmose.user.catchability.fsh2.sp0 = 0.24
-osmose.user.catchability.fsh2.sp5 = 0.28
-osmose.user.catchability.fsh2.sp7 = 1
-osmose.user.catchability.fsh2.sp8 = 0.38
+#osmose.user.catchability.fsh2.sp0 = 0.24
+#osmose.user.catchability.fsh2.sp5 = 0.28
+#osmose.user.catchability.fsh2.sp7 = 1
+#osmose.user.catchability.fsh2.sp8 = 0.38
 
-osmose.user.catchability.fsh3.sp0 = 0.19
-osmose.user.catchability.fsh3.sp1 = 0.12
-osmose.user.catchability.fsh3.sp2 = 0.18
-osmose.user.catchability.fsh3.sp3 = 0.43
-osmose.user.catchability.fsh3.sp5 = 0.13
-osmose.user.catchability.fsh3.sp7 = 0.27
-osmose.user.catchability.fsh3.sp8 = 0.26
-osmose.user.catchability.fsh3.sp9 = 0.15
-osmose.user.catchability.fsh3.sp10 = 0.69
-osmose.user.catchability.fsh3.sp11 = 1
-osmose.user.catchability.fsh3.sp12 = 0.46
-osmose.user.catchability.fsh3.sp13 = 0.2
-osmose.user.catchability.fsh3.sp14 = 0.17
-osmose.user.catchability.fsh3.sp15 = 0.07
+#osmose.user.catchability.fsh3.sp0 = 0.19
+#osmose.user.catchability.fsh3.sp1 = 0.12
+#osmose.user.catchability.fsh3.sp2 = 0.18
+#osmose.user.catchability.fsh3.sp3 = 0.43
+#osmose.user.catchability.fsh3.sp5 = 0.13
+#osmose.user.catchability.fsh3.sp7 = 0.27
+#osmose.user.catchability.fsh3.sp8 = 0.26
+#osmose.user.catchability.fsh3.sp9 = 0.15
+#osmose.user.catchability.fsh3.sp10 = 0.69
+#osmose.user.catchability.fsh3.sp11 = 1
+#osmose.user.catchability.fsh3.sp12 = 0.46
+#osmose.user.catchability.fsh3.sp13 = 0.2
+#osmose.user.catchability.fsh3.sp14 = 0.17
+#osmose.user.catchability.fsh3.sp15 = 0.07
 
 
 

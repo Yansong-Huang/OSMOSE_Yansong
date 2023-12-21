@@ -31,25 +31,19 @@ run_osmose(input = config_file, osmose=jar_file, version = "4.4.0",
 
 output_osmose = read_osmose(output_dir)
 plot(output_osmose)
-plot(output_osmose, what="biomass.acousticSurvey")
+plot(output_osmose, what="yield")
+plot(output_osmose, what="biomassBySize")
 
-# calibration set-up
-calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
-                                            version = "4.4.0", type = "simple", 
-                                            name="simple_test2")
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "simple", 
-                                            name="simple_test2",data_path = "calibration_data")
-
+                                            name="12-20")
+# modify the run_model.R, parameter phases and values, calibration-setting 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "simple", 
-                                            name="simple_test3")
-# modify the run_model.R and copy the catchability matrix
-calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
-                                            version = "4.4.0", type = "simple", 
-                                            name="simple_test3", data_path = "calibration_data")
+                                            name="12-20", data_path = "calibration_data")
 
+# copy the catchability matrix and osmose-calibration.osm into the master folder
 osmose_calibration_test(calibration_path)
 
 # read outputs

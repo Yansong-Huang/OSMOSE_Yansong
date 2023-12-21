@@ -58,13 +58,6 @@ species.delta.lmax.factor.sp12 = 1.47333554386219
 species.delta.lmax.factor.sp13 = 1.49321732442714
 species.delta.lmax.factor.sp14 = 1.85711914715664
 species.delta.lmax.factor.sp15 = 1.93434314303743
-fisheries.rate.base.fsh0 = 0.436242508721282
-
-fisheries.rate.base.fsh1 = 0.0689833959276018
-
-fisheries.rate.base.fsh2 = 0.939152613999983
-
-fisheries.rate.base.fsh3 = 1.00304831891472
 
 osmose.user.catchability.fsh0.sp0 = 0.380720854328597
 osmose.user.catchability.fsh0.sp1 = 0.250307160111118
