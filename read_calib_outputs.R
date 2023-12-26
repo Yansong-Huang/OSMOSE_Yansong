@@ -31,11 +31,11 @@ g_fitness_phase4 <- apply(p_fitness_phase4, 1, sum)
 ## plot fitness
 g_fitness <- c(g_fitness_phase1, g_fitness_phase2, g_fitness_phase3, g_fitness_phase4)
 plot(g_fitness, type = "l", bty = "l", xlab = "Generations", ylab = "Fitness")
-abline(v=c(50,100,250,450), lty = c(2,2), col = c("grey", "grey"))
-text(50, 18000, "Phase 1")
-text(100, 16000, "Phase 2")
-text(250, 14000, "Phase 3")
-text(450, 12000, "Phase 4")
+abline(v=c(50,100,200,400), lty = c(2,2), col = c("grey", "grey"))
+text(50, 20000, "Phase 1")
+text(100, 20000, "Phase 2")
+text(200, 20000, "Phase 3")
+text(400, 20000, "Phase 4")
 
 
 
