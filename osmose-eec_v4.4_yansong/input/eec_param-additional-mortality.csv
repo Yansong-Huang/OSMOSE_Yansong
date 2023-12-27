@@ -1,33 +1,33 @@
-#mortality.additional.rate.sp0;0.01
-#mortality.additional.rate.sp1;0.01
-#mortality.additional.rate.sp2;0.01
-#mortality.additional.rate.sp3;0.01
-#mortality.additional.rate.sp4;0.01
-#mortality.additional.rate.sp5;0.01
-#mortality.additional.rate.sp6;0.01
-#mortality.additional.rate.sp7;0.01
-#mortality.additional.rate.sp8;0.01
-#mortality.additional.rate.sp9;0.01
-#mortality.additional.rate.sp10;0.01
-#mortality.additional.rate.sp11;0.01
-#mortality.additional.rate.sp12;0.01
-#mortality.additional.rate.sp13;0.01
-#mortality.additional.rate.sp14;0.01
-#mortality.additional.rate.sp15;0.01
+mortality.additional.rate.sp0 = 0.12946763606465
+mortality.additional.rate.sp1 = 0.0414338172211033
+mortality.additional.rate.sp2 = 0.00317195110054669
+mortality.additional.rate.sp3 = 0.00441231592900797
+mortality.additional.rate.sp4 = 0.000688133727687566
+mortality.additional.rate.sp5 = 0.092097779492651
+mortality.additional.rate.sp6 = 0.752862625955514
+mortality.additional.rate.sp7 = 0.00976588997712183
+mortality.additional.rate.sp8 = 0.00218601529324794
+mortality.additional.rate.sp9 = 0.00161056741019966
+mortality.additional.rate.sp10 = 0.00141789749113119
+mortality.additional.rate.sp11 = 0.00537517698123681
+mortality.additional.rate.sp12 = 0.276499978949825
+mortality.additional.rate.sp13 = 0.010425752980891
+mortality.additional.rate.sp14 = 0.0163407794712494
+mortality.additional.rate.sp15 = 0.00945861666250447
 
-#mortality.additional.larva.rate.sp0;185.6
-#mortality.additional.larva.rate.sp1;252
-#mortality.additional.larva.rate.sp2;242.6
-#mortality.additional.larva.rate.sp3;274
-#mortality.additional.larva.rate.sp4;271.7
-#mortality.additional.larva.rate.sp5;151.9
-#mortality.additional.larva.rate.sp6;278.5
-#mortality.additional.larva.rate.sp7;235
-#mortality.additional.larva.rate.sp8;190.1
-#mortality.additional.larva.rate.sp9;253.7
-#mortality.additional.larva.rate.sp10;238
-#mortality.additional.larva.rate.sp11;250.3
-#mortality.additional.larva.rate.sp12;303
-#mortality.additional.larva.rate.sp13;192.3
-#mortality.additional.larva.rate.sp14;229.2
-#mortality.additional.larva.rate.sp15;145.8
+mortality.additional.larva.rate.sp0 = 1.67597597641489
+mortality.additional.larva.rate.sp1 = 0.583164505006469
+mortality.additional.larva.rate.sp2 = 0.608926460831027
+mortality.additional.larva.rate.sp3 = 0.487684691318895
+mortality.additional.larva.rate.sp4 = 1.34039159742826
+mortality.additional.larva.rate.sp5 = 1.22426100297949
+mortality.additional.larva.rate.sp6 = 0.307207699198847
+mortality.additional.larva.rate.sp7 = 0.536881741320839
+mortality.additional.larva.rate.sp8 = 0.408700739572446
+mortality.additional.larva.rate.sp9 = 0.504996822970576
+mortality.additional.larva.rate.sp10 = 4.48237978594511
+mortality.additional.larva.rate.sp11 = 0.447073888729499
+mortality.additional.larva.rate.sp12 = 21.375033748472
+mortality.additional.larva.rate.sp13 = 0.873343909605752
+mortality.additional.larva.rate.sp14 = 7.78303654176007
+mortality.additional.larva.rate.sp15 = 584.696969587928

@@ -67,6 +67,23 @@ mortality.additional.larva.rate.log10.sp13 = 1
 mortality.additional.larva.rate.log10.sp14 = 1
 mortality.additional.larva.rate.log10.sp15 = 1
 
+osmose.user.larval.deviate.log.sp0 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp1 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp2 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp3 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp4 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp5 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp6 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp7 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp8 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp9 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp10 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp11 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp12 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp13 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp14 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+osmose.user.larval.deviate.log.sp15 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+
 species.delta.lmax.factor.sp0 = 2
 species.delta.lmax.factor.sp1 = 2
 species.delta.lmax.factor.sp2 = 2
@@ -128,22 +145,6 @@ osmose.user.selectivity.delta75.fsh3 = -4
 
 #---- User parameters
 
-osmose.user.larval.deviate.sp0 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp1 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp2 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp3 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp4 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp5 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp6 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp7 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp8 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp9 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp10 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp11 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp12 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp13 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp14 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-osmose.user.larval.deviate.sp15 = 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
 osmose.user.catchability.fsh0.sp0 = 2
 osmose.user.catchability.fsh0.sp1 = 2
 osmose.user.catchability.fsh0.sp2 = 2

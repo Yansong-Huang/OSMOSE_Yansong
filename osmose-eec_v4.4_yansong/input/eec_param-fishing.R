@@ -3,7 +3,24 @@ process.multispecies.fisheries.enabled = TRUE
 simulation.nfisheries = 4
 
 simulation.fishing.mortality.enabled = TRUE
+
 fisheries.movement.netcdf.enabled = TRUE
+fisheries.rate.base.fsh0 = 1.05289862292413
+fisheries.rate.byperiod.fsh0 = 1.6,1.87,1.8,1.46,1.36,1.3,1.08,0.83,0.93,0.87,0.89,0.78,0.75,0.74,0.67,0.65,0.67,0.63,0.56,0.56
+fisheries.selectivity.l50.fsh0 = 18
+osmose.user.selectivity.delta75.fsh0 = 3.5
+fisheries.rate.base.fsh1 = 2.25166066105292
+fisheries.rate.byperiod.fsh1 = 0.96,1.51,1.26,1.88,1.3,1.1,1.11,0.99,0.98,0.97,0.7,0.94,0.7,0.67,0.59,1.04,0.57,0.97,0.77,0.99
+fisheries.selectivity.l50.fsh1 = 18
+osmose.user.selectivity.delta75.fsh1 = 4
+fisheries.rate.base.fsh2 = 0.195009038338876
+fisheries.rate.byperiod.fsh2 = 1.44,1.6,1.57,1.54,1.26,1.29,1.27,0.86,0.92,1.04,1.05,1.02,1.01,0.79,0.69,0.63,0.62,0.48,0.45,0.47
+fisheries.selectivity.l50.fsh2 = 29
+osmose.user.selectivity.delta75.fsh2 = 4
+fisheries.rate.base.fsh3 = 0.946179746995663
+fisheries.rate.byperiod.fsh3 = 0.533861889071893,3.7779785191631,0.171560330769593,1.82331049909239,2.55106855966009,2.46103996328587,0.155624727589638,0.419053327521264,0.80432725049241,0.366815635131053,0.996644529235568,1.37396703940024,0.462559016708898,0.154748895298452,1.14588300274343,2.04717436752627,3.61227481509157,0.129609285684097,0.42538662157194,1.55954446288165
+fisheries.selectivity.l50.fsh3 = 18.5
+osmose.user.selectivity.delta75.fsh3 = 3.5
 
 ######################### Selectivities
 

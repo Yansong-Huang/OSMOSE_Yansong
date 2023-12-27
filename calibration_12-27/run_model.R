@@ -7,7 +7,7 @@ run_model = function(par, conf, osmose, is_a_test=FALSE, version="4.3.3", option
   nyear      = get_par(conf, 'simulation.time.nyear')
   ndt = nyear*ndtperyear
   
-  larval_deviates  = get_par(par, 'osmose.user.larval.deviate')
+  larval_deviates  = get_par(par, 'osmose.user.larval.deviate.log')
   fishing_deviates = get_par(par, 'fisheries.rate.byperiod.log')
   
   for(isp in nspp) {
