@@ -36,4 +36,4 @@ maxgen  = 100,100,100,200 # maximum number of generations (for the ES)
 termination_criteria = 2 # recommended for OSMOSE is 2.
 max_no_improvement = 10 # maximum number of generations with no improvement (according to termination criteria)
 
-reltol = 0.001, 5e-04, 1e-04, 5e-05
+reltol = 0.001, 0.00025, 1e-04, 5e-05

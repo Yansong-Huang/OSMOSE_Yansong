@@ -2,7 +2,7 @@ variable,type,calibrate,cv,use_data,file,varid,nrows
 biomass.lesserSpottedDogfish,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,lesserSpottedDogfish,NA
 biomass.redMullet,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,redMullet,NA
 biomass.pouting,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,pouting,NA
-biomass.whiting,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,whiting,NA
+biomass.whiting,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,whiting,NA
 biomass.poorCod,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,poorCod,NA
 biomass.cod,lnorm2,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,cod,NA
 biomass.dragonet,lnorm3,TRUE,0.25,TRUE,Yansong_biomass-index_month.csv,dragonet,NA

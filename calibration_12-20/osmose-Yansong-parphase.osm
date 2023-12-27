@@ -137,7 +137,6 @@ osmose.user.selectivity.delta75.fsh2 = -4
 
 fisheries.rate.base.log.fsh3 = 2
 
-
 fisheries.rate.byperiod.log.fsh3 = 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
 
 fisheries.selectivity.l50.fsh3 = -4
