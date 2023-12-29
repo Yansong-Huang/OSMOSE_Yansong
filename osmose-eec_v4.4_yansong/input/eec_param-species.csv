@@ -236,19 +236,19 @@ species.vonbertalanffy.threshold.age.sp13;0.7
 species.vonbertalanffy.threshold.age.sp14;0.25
 species.vonbertalanffy.threshold.age.sp15;0
 
-species.delta.lmax.factor.sp0 = 2.45053753162411
-species.delta.lmax.factor.sp1 = 2.35538686413844
-species.delta.lmax.factor.sp2 = 2.48811362538519
-species.delta.lmax.factor.sp3 = 1.25865269615485
-species.delta.lmax.factor.sp4 = 1.35829609930692
-species.delta.lmax.factor.sp5 = 1.18102222651473
-species.delta.lmax.factor.sp6 = 2.56524748437374
-species.delta.lmax.factor.sp7 = 2.8538067817085
-species.delta.lmax.factor.sp8 = 2.02949168717516
-species.delta.lmax.factor.sp9 = 2.6654518632407
-species.delta.lmax.factor.sp10 = 1.40812508582797
-species.delta.lmax.factor.sp11 = 2.83191952296448
-species.delta.lmax.factor.sp12 = 1.81965665328027
-species.delta.lmax.factor.sp13 = 1.30861672411279
-species.delta.lmax.factor.sp14 = 2.71614279077374
-species.delta.lmax.factor.sp15 = 2.04664778708065
+#species.delta.lmax.factor.sp0 = 2.45053753162411
+#species.delta.lmax.factor.sp1 = 2.35538686413844
+#species.delta.lmax.factor.sp2 = 2.48811362538519
+#species.delta.lmax.factor.sp3 = 1.25865269615485
+#species.delta.lmax.factor.sp4 = 1.35829609930692
+#species.delta.lmax.factor.sp5 = 1.18102222651473
+#species.delta.lmax.factor.sp6 = 2.56524748437374
+#species.delta.lmax.factor.sp7 = 2.8538067817085
+#species.delta.lmax.factor.sp8 = 2.02949168717516
+#species.delta.lmax.factor.sp9 = 2.6654518632407
+#species.delta.lmax.factor.sp10 = 1.40812508582797
+#species.delta.lmax.factor.sp11 = 2.83191952296448
+#species.delta.lmax.factor.sp12 = 1.81965665328027
+#species.delta.lmax.factor.sp13 = 1.30861672411279
+#species.delta.lmax.factor.sp14 = 2.71614279077374
+#species.delta.lmax.factor.sp15 = 2.04664778708065
