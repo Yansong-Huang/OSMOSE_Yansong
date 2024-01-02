@@ -10,7 +10,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong-12-27.results")
+calibration_results <- readRDS("osmose-Yansong-12-29.results")
 
 opt_par = get_par(calibration_results$par, linear = TRUE)
 write_osmose(opt_par, file="calibration-parameters.csv")
@@ -31,10 +31,10 @@ g_fitness_phase4 <- apply(p_fitness_phase4, 1, sum)
 g_fitness <- c(g_fitness_phase1, g_fitness_phase2, g_fitness_phase3, g_fitness_phase4)
 plot(g_fitness, type = "l", bty = "l", xlab = "Generations", ylab = "Fitness")
 abline(v=c(100,200,300,500), lty = c(2,2), col = c("grey", "grey"))
-text(100, 20000, "Phase 1")
-text(200, 20000, "Phase 2")
-text(300, 20000, "Phase 3")
-text(500, 20000, "Phase 4")
+text(100, 15000, "Phase 1")
+text(200, 15000, "Phase 2")
+text(300, 15000, "Phase 3")
+text(450, 15000, "Phase 4")
 
 
 

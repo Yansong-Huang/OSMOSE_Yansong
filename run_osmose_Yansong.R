@@ -37,14 +37,14 @@ plot(output_osmose, what="biomassBySize")
 
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "simple", 
-                                            name="12-29")
+                                            name="01-02")
 # modify the run_model.R, parameter phases and values, calibration-setting, copy the catchability matrix
 calibration_path = osmose_calibration_setup(input=config_file, osmose=jar_file,
                                             version = "4.4.0", type = "simple", 
-                                            name="12-29", data_path = "calibration_data")
-# modify number of generations, pbs script 
+                                            name="01-02", data_path = "calibration_data")
 # copy osmose-calibration.osm into the master folder
 osmose_calibration_test(calibration_path)
+# modify number of generations, pbs script 
 
 # read outputs
 
