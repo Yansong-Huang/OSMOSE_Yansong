@@ -1,6 +1,0 @@
-method   = AHR-ES 
-maxgen   = 2 
-REPORT   = 1 
-trace    = 3 
-verbose  = TRUE 
-

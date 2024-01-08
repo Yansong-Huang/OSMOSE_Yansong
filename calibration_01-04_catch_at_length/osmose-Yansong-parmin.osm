@@ -84,22 +84,22 @@ osmose.user.larval.deviate.log.sp13 = -4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 osmose.user.larval.deviate.log.sp14 = -4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4
 osmose.user.larval.deviate.log.sp15 = -4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4
 
-species.delta.lmax.factor.sp0 = 1
-species.delta.lmax.factor.sp1 = 1
-species.delta.lmax.factor.sp2 = 1
-species.delta.lmax.factor.sp3 = 1
-species.delta.lmax.factor.sp4 = 1
-species.delta.lmax.factor.sp5 = 1
-species.delta.lmax.factor.sp6 = 1
-species.delta.lmax.factor.sp7 = 1
-species.delta.lmax.factor.sp8 = 1
-species.delta.lmax.factor.sp9 = 1
-species.delta.lmax.factor.sp10 = 1
-species.delta.lmax.factor.sp11 = 1
-species.delta.lmax.factor.sp12 = 1
-species.delta.lmax.factor.sp13 = 1
-species.delta.lmax.factor.sp14 = 1
-species.delta.lmax.factor.sp15 = 1
+species.delta.lmax.factor.sp0 = 0.5
+species.delta.lmax.factor.sp1 = 0.5
+species.delta.lmax.factor.sp2 = 0.5
+species.delta.lmax.factor.sp3 = 0.5
+species.delta.lmax.factor.sp4 = 0.5
+species.delta.lmax.factor.sp5 = 0.5
+species.delta.lmax.factor.sp6 = 0.5
+species.delta.lmax.factor.sp7 = 0.5
+species.delta.lmax.factor.sp8 = 0.5
+species.delta.lmax.factor.sp9 = 0.5
+species.delta.lmax.factor.sp10 = 0.5
+species.delta.lmax.factor.sp11 = 0.5
+species.delta.lmax.factor.sp12 = 0.5
+species.delta.lmax.factor.sp13 = 0.5
+species.delta.lmax.factor.sp14 = 0.5
+species.delta.lmax.factor.sp15 = 0.5
 
 #---- Fisheries
 
