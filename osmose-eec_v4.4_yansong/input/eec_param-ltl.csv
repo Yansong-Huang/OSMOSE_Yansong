@@ -3,33 +3,25 @@ species.file.sp17,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
 species.file.sp18,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
 species.file.sp19,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
 species.file.sp20,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
-species.file.sp21,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
+species.file.sp21,macroZooplankton.nc
 species.file.sp22,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
 species.file.sp23,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
-species.file.sp24,largeBenthos_veryLargeBenthos.nc
+species.file.sp24,ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc
 species.file.sp25,largeBenthos_veryLargeBenthos.nc
+species.file.sp26,largeBenthos_veryLargeBenthos.nc
 
-#species.accessibility2fish.sp16 = 0.946308425162165
-#species.accessibility2fish.sp17 = 7.58818117544469e-06
-#species.accessibility2fish.sp18 = 0.973660872340946
-#species.accessibility2fish.sp19 = 0.739411059406113
-#species.accessibility2fish.sp20 = 0.999990919549288
-#species.accessibility2fish.sp21 = 0.999999337243328
-#species.accessibility2fish.sp22 = 0.00397060928652258
-#species.accessibility2fish.sp23 = 0.00184311328193274
-#species.accessibility2fish.sp24 = 0.00711920387197026
-#species.accessibility2fish.sp25 = 3.51838104518333e-05
 
 species.name.sp16,diatoms
 species.name.sp17,microPhytoplankton
 species.name.sp18,heterotrophicFlagellates
 species.name.sp19,microZooplankton
 species.name.sp20,mesoZooplankton
-species.name.sp21,meioBenthos
-species.name.sp22,depositBenthos
-species.name.sp23,suspensionBenthos
-species.name.sp24,largeBenthos
-species.name.sp25,veryLargeBenthos
+species.name.sp21,Macrozoo
+species.name.sp22,meioBenthos
+species.name.sp23,depositBenthos
+species.name.sp24,suspensionBenthos
+species.name.sp25,largeBenthos
+species.name.sp26,veryLargeBenthos
 
 species.type.sp16,resource
 species.type.sp17,resource
@@ -41,36 +33,40 @@ species.type.sp22,resource
 species.type.sp23,resource
 species.type.sp24,resource
 species.type.sp25,resource
+species.type.sp26,resource
 
 species.size.max.sp16,0.02
 species.size.max.sp17,0.02
 species.size.max.sp18,0.002
 species.size.max.sp19,0.02
 species.size.max.sp20,0.5
-species.size.max.sp21,0.5
-species.size.max.sp22,2
-species.size.max.sp23,5
-species.size.max.sp24,10
-species.size.max.sp25,15
+species.size.max.sp21,2
+species.size.max.sp22,0.5
+species.size.max.sp23,2
+species.size.max.sp24,5
+species.size.max.sp25,10
+species.size.max.sp26,15
 
 species.size.min.sp16,0.002
 species.size.min.sp17,0.002
 species.size.min.sp18,0.0002
 species.size.min.sp19,0.002
 species.size.min.sp20,0.02
-species.size.min.sp21,0.0045
-species.size.min.sp22,0.1
-species.size.min.sp23,2
-species.size.min.sp24,5
-species.size.min.sp25,10
+species.size.min.sp21,0.2
+species.size.min.sp22,0.0045
+species.size.min.sp23,0.1
+species.size.min.sp24,2
+species.size.min.sp25,5
+species.size.min.sp26,10
 
 species.TL.sp16,1
 species.TL.sp17,1
 species.TL.sp18,2
 species.TL.sp19,2
 species.TL.sp20,2.3
-species.TL.sp21,3
-species.TL.sp22,2
-species.TL.sp23,2.2
-species.TL.sp24,2.6
-species.TL.sp25,3.6
+species.TL.sp21,3.3
+species.TL.sp22,3
+species.TL.sp23,2
+species.TL.sp24,2.2
+species.TL.sp25,2.6
+species.TL.sp26,3.6
