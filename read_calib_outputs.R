@@ -81,7 +81,7 @@ q_fsh3_sp14 = get_par(q_fsh3, sp=14)
 q_fsh3_sp15 = get_par(q_fsh3, sp=15)
 
 # 2. read the catchability matrix
-catchability.matrix = read.csv(file="osmose-eec_v4.4_yansong/input/eec_fisheries_catchability.csv", check.names = FALSE, row.names = 1)
+catchability.matrix = read.csv(file="osmose-eec_v4.4_yansong/input/fishing/eec_fisheries_catchability.csv", check.names = FALSE, row.names = 1)
 
 # 3. modify the catchability matrix
 catchability.matrix[1,1] = q_fsh0_sp0
