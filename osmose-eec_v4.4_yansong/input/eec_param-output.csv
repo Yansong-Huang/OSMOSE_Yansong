@@ -63,7 +63,7 @@ output.meanTL.bySize.enabled;true
 output.biomass.byTL.enabled;true
 output.yield.abundance.enabled;true
 output.yield.biomass.enabled;true
-output.biomass.byage.enabled;false
+output.biomass.byage.enabled;true
 output.abundance.byage.enabled;false
 output.mortality.perSpecies.byage.enabled;false
 output.mortality.perSpecies.bysize.enabled;false
@@ -71,7 +71,7 @@ output.mortality.additional.bySize.enabled;false
 output.mortality.additional.byAge.enabled;false
 output.mortality.additionalN.bySize.enabled;false
 output.mortality.additionalN.byAge.enabled;false
-output.yield.abundance.bySize.enabled;false
+output.yield.abundance.bySize.enabled;true
 output.yield.biomass.bySize.enabled;false
 output.meanSize.byAge.enabled;true
 output.yield.abundance.byAge.enabled;false
