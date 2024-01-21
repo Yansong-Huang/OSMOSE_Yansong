@@ -13,7 +13,7 @@ observed.biomass.guess.sp11 = 215680
 observed.biomass.guess.sp12 = 330000
 observed.biomass.guess.sp13 = 75000
 observed.biomass.guess.sp14 = 25500
-observed.biomass.guess.sp15 = 7500
+observed.biomass.guess.sp15 = 600
 
 species.egg.stage.duration.sp0 = 2
 observed.biomass.cutoff.size.sp0 = 10.0
