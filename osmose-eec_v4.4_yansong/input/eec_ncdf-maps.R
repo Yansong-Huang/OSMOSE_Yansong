@@ -38,7 +38,7 @@ movement.species.map6,poorCod
 movement.variable.map6,stage1
 movement.nsteps.year.map6,24
 movement.initialAge.map6,2
-movement.lastAge.map6,4
+movement.lastAge.map6,5
 movement.file.map6,maps_nc/poorCod.nc
 movement.species.map7,cod
 movement.variable.map7,stage0
