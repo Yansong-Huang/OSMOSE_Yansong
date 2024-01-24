@@ -49,7 +49,7 @@ output.diet.stage.threshold.sp15;
 output.mortality.enabled;true
 output.size.catch.enabled;true
 output.size.enabled;true
-output.biomass.bySize.enabled;false
+output.biomass.bySize.enabled;true
 output.abundance.bySize.enabled;false
 output.distrib.bySize.max;125
 output.distrib.bySize.min;0
