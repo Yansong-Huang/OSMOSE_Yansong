@@ -13,18 +13,30 @@ population.initialization.biomass.sp0 = 21984.1940000003
 population.initialization.biomass.sp1 = 5873.02699999997
 population.initialization.biomass.sp2 = 23195.7499999999
 population.initialization.biomass.sp3 = 59623.0229999995
+<<<<<<< HEAD
 population.initialization.biomass.sp4 = 8220.31200000007
 population.initialization.biomass.sp5 = 7393.15899999996
 population.initialization.biomass.sp6 = 22064.0219999998
 population.initialization.biomass.sp7 = 48559.9330000001
 population.initialization.biomass.sp8 = 27917.0780000001
+=======
+population.initialization.biomass.sp4 = 8133.74899999997
+population.initialization.biomass.sp5 = 7393.15899999996
+population.initialization.biomass.sp6 = 22064.0219999998
+population.initialization.biomass.sp7 = 53343.9089999996
+population.initialization.biomass.sp8 = 35297.5090000003
+>>>>>>> b37fc95ae38c9550c0156ad2eabd5b73cefb0ab5
 population.initialization.biomass.sp9 = 130040.487000001
 population.initialization.biomass.sp10 = 93283.516000001
 population.initialization.biomass.sp11 = 671450.284999999
 population.initialization.biomass.sp12 = 339595.502999997
 population.initialization.biomass.sp13 = 148671.582999999
 population.initialization.biomass.sp14 = 27224.4819999999
+<<<<<<< HEAD
 population.initialization.biomass.sp15 = 600.278000000001
+=======
+population.initialization.biomass.sp15 = 7500.21999999995
+>>>>>>> b37fc95ae38c9550c0156ad2eabd5b73cefb0ab5
 mortality.additional.rate.sp0 = 0.00158132028926223
 mortality.additional.rate.sp1 = 0.000464426331527254
 mortality.additional.rate.sp2 = 0.000679231346847189

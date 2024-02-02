@@ -21,18 +21,30 @@ population.initialization.biomass.log10.sp0 = 4.34211054783751
 population.initialization.biomass.log10.sp1 = 3.76886199742461
 population.initialization.biomass.log10.sp2 = 4.3654084193465
 population.initialization.biomass.log10.sp3 = 4.77541399180623
+<<<<<<< HEAD
 population.initialization.biomass.log10.sp4 = 3.91488830139734
 population.initialization.biomass.log10.sp5 = 3.86883004639501
 population.initialization.biomass.log10.sp6 = 4.3436846818663
 population.initialization.biomass.log10.sp7 = 4.68627807885488
 population.initialization.biomass.log10.sp8 = 4.44586995997958
+=======
+population.initialization.biomass.log10.sp4 = 3.91029076634778
+population.initialization.biomass.log10.sp5 = 3.86883004639501
+population.initialization.biomass.log10.sp6 = 4.3436846818663
+population.initialization.biomass.log10.sp7 = 4.72708483728049
+population.initialization.biomass.log10.sp8 = 4.54774405763353
+>>>>>>> b37fc95ae38c9550c0156ad2eabd5b73cefb0ab5
 population.initialization.biomass.log10.sp9 = 5.11407858725455
 population.initialization.biomass.log10.sp10 = 4.96980490695419
 population.initialization.biomass.log10.sp11 = 5.8270138625007
 population.initialization.biomass.log10.sp12 = 5.53096193058482
 population.initialization.biomass.log10.sp13 = 5.1722279656593
 population.initialization.biomass.log10.sp14 = 4.43495962518881
+<<<<<<< HEAD
 population.initialization.biomass.log10.sp15 = 2.7783524268913
+=======
+population.initialization.biomass.log10.sp15 = 3.87507400250966
+>>>>>>> b37fc95ae38c9550c0156ad2eabd5b73cefb0ab5
 
 mortality.additional.rate.log10.sp0 = -2.80098015677796
 mortality.additional.rate.log10.sp1 = -3.33308316509023
