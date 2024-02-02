@@ -9,7 +9,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong-01-21.results")
+calibration_results <- readRDS("osmose-Yansong-01-29.results")
 
 opt_par = get_par(calibration_results$par, linear = TRUE)
 write_osmose(opt_par, file="calibration-parameters.csv")
@@ -29,10 +29,10 @@ g_fitness_phase3 <- apply(p_fitness_phase3, 1, sum)
 ## plot fitness
 g_fitness <- c(g_fitness_phase1, g_fitness_phase2, g_fitness_phase3)
 plot(g_fitness, type = "l", bty = "l", xlab = "Generations", ylab = "Fitness")
-abline(v=c(100,200,300), lty = c(2,2), col = c("grey", "grey","grey"))
-text(50, 90000, "Phase 1")
-text(150, 90000, "Phase 2")
-text(250, 90000, "Phase 3")
+abline(v=c(200,400,800), lty = c(2,2), col = c("grey", "grey","grey"))
+text(100, 90000, "Phase 1")
+text(300, 90000, "Phase 2")
+text(600, 90000, "Phase 3")
 
 # update catchability matrix
 # update object conf in run_osmose script
