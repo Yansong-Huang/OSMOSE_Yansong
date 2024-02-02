@@ -1,0 +1,182 @@
+
+#------- Parameters to be calibrated -------
+
+#---- Resources species
+
+species.accessibility2fish.logit.sp16 = 8.62840969072972
+species.accessibility2fish.logit.sp17 = -5.95603183970839
+species.accessibility2fish.logit.sp18 = 14.2667860295019
+species.accessibility2fish.logit.sp19 = -6.72269662843186
+species.accessibility2fish.logit.sp20 = -0.304657579719829
+species.accessibility2fish.logit.sp21 = 13.8319646636895
+species.accessibility2fish.logit.sp22 = 16.0332753267121
+species.accessibility2fish.logit.sp23 = -2.58852313903531
+species.accessibility2fish.logit.sp24 = -4.66033259449295
+species.accessibility2fish.logit.sp25 = 8.34213474019727
+species.accessibility2fish.logit.sp26 = 7.16901877346089
+
+#---- Focal species
+
+population.initialization.biomass.log10.sp0 = 4.34211054783751
+population.initialization.biomass.log10.sp1 = 3.76886199742461
+population.initialization.biomass.log10.sp2 = 4.3654084193465
+population.initialization.biomass.log10.sp3 = 4.77541399180623
+population.initialization.biomass.log10.sp4 = 3.91593764728866
+population.initialization.biomass.log10.sp5 = 3.86883004639501
+population.initialization.biomass.log10.sp6 = 4.3436846818663
+population.initialization.biomass.log10.sp7 = 4.72708483728049
+population.initialization.biomass.log10.sp8 = 4.64944857834118
+population.initialization.biomass.log10.sp9 = 5.11407858725455
+population.initialization.biomass.log10.sp10 = 4.96980490695419
+population.initialization.biomass.log10.sp11 = 5.74274328569114
+population.initialization.biomass.log10.sp12 = 5.53096193058482
+population.initialization.biomass.log10.sp13 = 5.1722279656593
+population.initialization.biomass.log10.sp14 = 4.43495962518881
+population.initialization.biomass.log10.sp15 = 3.87507400250966
+
+mortality.additional.rate.log10.sp0 = -2.24246044432907
+mortality.additional.rate.log10.sp1 = -2.7155908817822
+mortality.additional.rate.log10.sp2 = -1.78656180285196
+mortality.additional.rate.log10.sp3 = -0.873337875243009
+mortality.additional.rate.log10.sp4 = -3.6086581921554
+mortality.additional.rate.log10.sp5 = -1.18619680953696
+mortality.additional.rate.log10.sp6 = -3.95577384553899
+mortality.additional.rate.log10.sp7 = -2.55252875851914
+mortality.additional.rate.log10.sp8 = -1.06584738251486
+mortality.additional.rate.log10.sp9 = -2.23710855462656
+mortality.additional.rate.log10.sp10 = -0.520792285296431
+mortality.additional.rate.log10.sp11 = -3.12406789393121
+mortality.additional.rate.log10.sp12 = -1.67430319527389
+mortality.additional.rate.log10.sp13 = 0.06149333296918
+mortality.additional.rate.log10.sp14 = -3.60248129483334
+mortality.additional.rate.log10.sp15 = -1.66113869405081
+
+mortality.additional.larva.rate.log10.sp0 = 1.74063241118459
+mortality.additional.larva.rate.log10.sp1 = 2.14358147147426
+mortality.additional.larva.rate.log10.sp2 = 0.714105917346434
+mortality.additional.larva.rate.log10.sp3 = 2.23462327486285
+mortality.additional.larva.rate.log10.sp4 = 0.619028635113733
+mortality.additional.larva.rate.log10.sp5 = 2.35185729788074
+mortality.additional.larva.rate.log10.sp6 = -0.556906951325455
+mortality.additional.larva.rate.log10.sp7 = -0.435499634235519
+mortality.additional.larva.rate.log10.sp8 = 2.25181996909686
+mortality.additional.larva.rate.log10.sp9 = 1.45401787123281
+mortality.additional.larva.rate.log10.sp10 = 2.16275357484765
+mortality.additional.larva.rate.log10.sp11 = 1.36705877017038
+mortality.additional.larva.rate.log10.sp12 = 2.25376718276757
+mortality.additional.larva.rate.log10.sp13 = 0.739287803832129
+mortality.additional.larva.rate.log10.sp14 = -0.0562183162693253
+mortality.additional.larva.rate.log10.sp15 = 1.41492841607813
+
+osmose.user.larval.deviate.log.sp0 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp1 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp2 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp3 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp4 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp5 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp6 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp7 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp8 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp9 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp10 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp11 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp12 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp13 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp14 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+osmose.user.larval.deviate.log.sp15 = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+species.delta.lmax.factor.sp0 = 1
+species.delta.lmax.factor.sp1 = 1
+species.delta.lmax.factor.sp2 = 1
+species.delta.lmax.factor.sp3 = 1
+species.delta.lmax.factor.sp4 = 1
+species.delta.lmax.factor.sp5 = 1
+species.delta.lmax.factor.sp6 = 1
+species.delta.lmax.factor.sp7 = 1
+species.delta.lmax.factor.sp8 = 1
+species.delta.lmax.factor.sp9 = 1
+species.delta.lmax.factor.sp10 = 1
+species.delta.lmax.factor.sp11 = 1
+species.delta.lmax.factor.sp12 = 1
+species.delta.lmax.factor.sp13 = 1
+species.delta.lmax.factor.sp14 = 1
+species.delta.lmax.factor.sp15 = 1
+
+#---- Fisheries
+
+-- Fishery 0: bottom.trawlers
+
+fisheries.rate.base.log.fsh0 = -2.02437016893214
+
+fisheries.rate.byperiod.log.fsh0 = 0.470003629245736,0.625938430866495,0.587786664902119,0.378436435720245,0.307484699747961,0.262364264467491,0.0769610411361284,-0.186329578191493,-0.0725706928348354,-0.139262067333508,-0.116533816255952,-0.2484613592985,-0.287682072451781,-0.301105092783922,-0.400477566597125,-0.430782916092454,-0.400477566597125,-0.462035459596559,-0.579818495252942,-0.579818495252942
+
+fisheries.selectivity.l50.fsh0 = 18
+
+osmose.user.selectivity.delta75.fsh0 = 3.5
+
+-- Fishery 1: midwater.trawlers
+
+fisheries.rate.base.log.fsh1 = -0.426854038824455
+
+fisheries.rate.byperiod.log.fsh1 = -0.0408219945202552,0.412109650826833,0.231111720963387,0.631271776841858,0.262364264467491,0.0953101798043249,0.104360015324243,-0.0100503358535015,-0.0202027073175195,-0.0304592074847086,-0.356674943938732,-0.0618754037180875,-0.356674943938732,-0.400477566597125,-0.527632742082372,0.0392207131532813,-0.562118918153541,-0.0304592074847086,-0.261364764134408,-0.0100503358535015
+
+fisheries.selectivity.l50.fsh1 = 18
+
+osmose.user.selectivity.delta75.fsh1 = 4
+
+-- Fishery 2: netters
+
+fisheries.rate.base.log.fsh2 = -0.868943221427925
+
+fisheries.rate.byperiod.log.fsh2 = 0.364643113587909,0.470003629245736,0.451075619360217,0.431782416425538,0.231111720963387,0.254642218373581,0.2390169004705,-0.150822889734584,-0.083381608939051,0.0392207131532813,0.048790164169432,0.0198026272961797,0.00995033085316809,-0.23572233352107,-0.371063681390832,-0.462035459596559,-0.478035800943,-0.7339691750802,-0.798507696217772,-0.755022584278033
+
+fisheries.selectivity.l50.fsh2 = 29
+
+osmose.user.selectivity.delta75.fsh2 = 4
+
+-- Fishery 3: others
+
+fisheries.rate.base.log.fsh3 = -3.09181419269664
+
+fisheries.rate.byperiod.log.fsh3 = -1.31111986182843,-0.682868550076743,-2.82948865260966,-1.17024584548398,-2.07343657726395,1.46394902108232,1.46891335100231,1.09421107725908,0.703099746834367,-0.344954368679687,-2.05929140037866,-1.68660012967801,-0.0077827289287883,0.773501613164414,1.26285928645482,-1.0785344596651,-0.103472551830114,0.516638312709512,-0.290247860417474,-1.60085891536369
+
+fisheries.selectivity.l50.fsh3 = 18.5
+
+osmose.user.selectivity.delta75.fsh3 = 3.5
+
+#---- User parameters
+
+osmose.user.catchability.fsh0.sp0 = 0.325166797957404
+osmose.user.catchability.fsh0.sp1 = 0.277781386490029
+osmose.user.catchability.fsh0.sp2 = 0.391371324667081
+osmose.user.catchability.fsh0.sp3 = 0.869582612091934
+osmose.user.catchability.fsh0.sp5 = 0.164391474774763
+osmose.user.catchability.fsh0.sp7 = 0.203896977044553
+osmose.user.catchability.fsh0.sp8 = 0.362492716824809
+osmose.user.catchability.fsh0.sp9 = 0.107379942791619
+osmose.user.catchability.fsh0.sp10 = 1.04858619296979
+osmose.user.catchability.fsh0.sp13 = 0.541349313209858
+osmose.user.catchability.fsh0.sp14 = 0.345829475063307
+osmose.user.catchability.fsh0.sp15 = 0.0886442456932966
+osmose.user.catchability.fsh1.sp9 = 0.116537603672656
+osmose.user.catchability.fsh1.sp10 = 0.341457814651976
+osmose.user.catchability.fsh1.sp11 = 0.960573384155366
+osmose.user.catchability.fsh1.sp12 = 0.362365737761451
+osmose.user.catchability.fsh2.sp0 = 0.242405221803721
+osmose.user.catchability.fsh2.sp5 = 0.212203977997211
+osmose.user.catchability.fsh2.sp7 = 1.32990550288342
+osmose.user.catchability.fsh2.sp8 = 0.389448297264628
+osmose.user.catchability.fsh3.sp0 = 0.178331137021947
+osmose.user.catchability.fsh3.sp1 = 0.130009538184967
+osmose.user.catchability.fsh3.sp2 = 0.215381707332888
+osmose.user.catchability.fsh3.sp3 = 0.353119299942964
+osmose.user.catchability.fsh3.sp5 = 0.131845190095631
+osmose.user.catchability.fsh3.sp7 = 0.275589706483385
+osmose.user.catchability.fsh3.sp8 = 0.225082864911033
+osmose.user.catchability.fsh3.sp9 = 0.108429051657427
+osmose.user.catchability.fsh3.sp10 = 0.543514631559478
+osmose.user.catchability.fsh3.sp11 = 0.826237215743792
+osmose.user.catchability.fsh3.sp12 = 0.465738356975392
+osmose.user.catchability.fsh3.sp13 = 0.217145921610864
+osmose.user.catchability.fsh3.sp14 = 0.108793574399524
+osmose.user.catchability.fsh3.sp15 = 0.0840801384926284
