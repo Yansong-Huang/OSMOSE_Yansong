@@ -1,31 +1,24 @@
 library('ncdf4')
-nc_ersem_1 <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/hist/interpolated_CERES_NorthSea_2d_monthly_hist_2005.nc")
-nc_ersem_2 <- nc_open("osmose-eec_v4.4_yansong/input/ERSEM_nc/interpolated_CERESsigma_NorthSea_2d_monthly_hist_2005.nc")
-nc_eco <- nc_open("osmose-eec_v4.4_yansong/input/largeBenthos_veryLargeBenthos.nc")
 
-# modifier les noms des fichiers
-list_nc <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERESsigma_NorthSea_2d_monthly\\.rcp85\\.",full.names = TRUE)
+####### 1.modifier les noms des fichiers ######
+list_benthos <- list.files("ERSEM_nc/","interpolated_CERESsigma_NorthSea_2d_monthly\\.rcp85\\.",full.names = TRUE)
 
 for(i in 1:length(list_nc)){
   new_name_nc <- gsub("\\.rcp85\\.","_rcp85_",list_nc[i])
   file.rename(list_nc[i],new_name_nc)
 }
 
-# modifier les noms des variables
-list_nc_2 <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERES_NorthSea_2d_monthly_rcp85_",full.names = TRUE)
+list_planktons <- list.files("ERSEM_nc/","interpolated_CERESsigma_NorthSea_2d_monthly\\.rcp85\\.",full.names = TRUE)
 
-for(i in length(list_nc_2)-1:length(list_nc_2)){
-  nc_file <- nc_open(list_nc_2[i],write = TRUE)
-  nc_file <- ncvar_rename(nc_file, "benthic_deposit", "benthicDeposit")
-  nc_file <- ncvar_rename(nc_file, "benthic_filter", "benthicFilter")
-  nc_file <- ncvar_rename(nc_file, "benthic_meio", "benthicMeio")
+for(i in 1:length(list_nc)){
+  new_name_nc <- gsub("\\.rcp85\\.","_rcp85_",list_nc[i])
+  file.rename(list_nc[i],new_name_nc)
 }
 
-
 ######## 2. combiner les fichiers ERSEM #######
-library('ncdf4')
-list_benthos <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERES_NorthSea_2d_monthly.*",full.names = TRUE)
-list_planktons <- list.files("osmose-eec_v4.4_yansong/input/ERSEM_nc/2002-2022/","interpolated_CERESsigma_NorthSea_2d_monthly.*",full.names = TRUE)
+
+list_benthos <- list.files("ERSEM_nc/","interpolated_CERES_NorthSea_2d_monthly.*",full.names = TRUE)
+list_planktons <- list.files("ERSEM_nc/","interpolated_CERESsigma_NorthSea_2d_monthly.*",full.names = TRUE)
 
 
 # définir les dimensions
@@ -171,43 +164,43 @@ nc_morgane_modified <- nc_open("largeBenthos_veryLargeBenthos.nc")
 largeBenthos_temp <- ncvar_get(nc_morgane_modified, varid = "largeBenthos")
 
 ####### 5.mask for survey #######
-library('ncdf4')
-survey_example <- nc_open("osmose-eec_v4.4_yansong/input/fishing/allmaps.nc")
-map_eec <- nc_open("osmose-eec_v4.4_yansong/input/maps_nc/thornbackRay.nc")
-
-# définir les dimensions
-dimLongitude <- ncdim_def( "longitude", "degree", seq(-1.95,2.45,0.1))
-dimLatitude <- ncdim_def( "latitude", "degree", seq(49.05,51.15,0.1))
-dimTime <- ncdim_def( "time", "time dimension", 1, unlim=TRUE)
-
-# créer les variables
-varDemersal <- ncvar_def("demersal", "probability", list(dimLongitude,dimLatitude,dimTime), 
-                             missval=NA, prec="float")
-# créer nc fichier
-map_CGFS <-
-  nc_create(
-    "survey_maps.nc",
-    list(
-      varDemersal
-    ),
-    force_v4 = TRUE
-  )
-
-# put values
-survey_presence <- ncvar_get(map_eec, varid = "stage0")[,,1]
-ncvar_put(map_CGFS, varDemersal, survey_presence)
-
-nc_close(map_CGFS)
-# verify the values
-map_CGFS <- nc_open("osmose-eec_v4.4_yansong/input/fishing/survey_maps.nc")
-presence_CGFS <- ncvar_get(map_CGFS, varid = "demersal")
-
-library(ggplot2)
-
-diatoms_eco <- as.data.frame(diatoms_eCO)
-
-ggplot(diatoms_eco)+
-  geom_raster()
+# library('ncdf4')
+# survey_example <- nc_open("osmose-eec_v4.4_yansong/input/fishing/allmaps.nc")
+# map_eec <- nc_open("osmose-eec_v4.4_yansong/input/maps_nc/thornbackRay.nc")
+# 
+# # définir les dimensions
+# dimLongitude <- ncdim_def( "longitude", "degree", seq(-1.95,2.45,0.1))
+# dimLatitude <- ncdim_def( "latitude", "degree", seq(49.05,51.15,0.1))
+# dimTime <- ncdim_def( "time", "time dimension", 1, unlim=TRUE)
+# 
+# # créer les variables
+# varDemersal <- ncvar_def("demersal", "probability", list(dimLongitude,dimLatitude,dimTime), 
+#                              missval=NA, prec="float")
+# # créer nc fichier
+# map_CGFS <-
+#   nc_create(
+#     "survey_maps.nc",
+#     list(
+#       varDemersal
+#     ),
+#     force_v4 = TRUE
+#   )
+# 
+# # put values
+# survey_presence <- ncvar_get(map_eec, varid = "stage0")[,,1]
+# ncvar_put(map_CGFS, varDemersal, survey_presence)
+# 
+# nc_close(map_CGFS)
+# # verify the values
+# map_CGFS <- nc_open("osmose-eec_v4.4_yansong/input/fishing/survey_maps.nc")
+# presence_CGFS <- ncvar_get(map_CGFS, varid = "demersal")
+# 
+# library(ggplot2)
+# 
+# diatoms_eco <- as.data.frame(diatoms_eCO)
+# 
+# ggplot(diatoms_eco)+
+#   geom_raster()
 
 
 
