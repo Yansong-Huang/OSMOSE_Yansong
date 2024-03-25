@@ -9,8 +9,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong-02-02.results")
-
+calibration_results <- readRDS("osmose-Yansong-03-13.results")
 
 opt_par = get_par(calibration_results$par, linear = TRUE)
 write_osmose(opt_par, file="calibration-parameters.csv")
@@ -22,6 +21,7 @@ p_fitness_phase1 <- calibration_results$phases[[1]]$trace$fitness
 p_fitness_phase2 <- calibration_results$phases[[2]]$trace$fitness
 p_fitness_phase3 <- calibration_results$phases[[3]]$trace$fitness
 
+
 ## global fitness by generation
 g_fitness_phase1 <- apply(p_fitness_phase1, 1, sum)
 g_fitness_phase2 <- apply(p_fitness_phase2, 1, sum)
@@ -30,10 +30,10 @@ g_fitness_phase3 <- apply(p_fitness_phase3, 1, sum)
 ## plot fitness
 g_fitness <- c(g_fitness_phase1, g_fitness_phase2, g_fitness_phase3)
 plot(g_fitness, type = "l", bty = "l", xlab = "Generations", ylab = "Fitness")
-abline(v=c(400,800,1400), lty = c(2,2), col = c("grey", "grey","grey"))
-text(200, 70000, "Phase 1")
-text(600, 70000, "Phase 2")
-text(1100, 70000, "Phase 3")
+abline(v=c(200,400,1000), lty = c(2,2), col = c("grey", "grey","grey"))
+text(100, 60000, "Phase 1")
+text(300, 60000, "Phase 2")
+text(550, 60000, "Phase 3")
 
 
 # update catchability matrix
