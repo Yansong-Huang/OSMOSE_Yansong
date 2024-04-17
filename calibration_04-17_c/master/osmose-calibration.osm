@@ -1,0 +1,5 @@
+osmose.configuration.calibration.parameters = calibration_parameters.osm
+osmose.configuration.outputs = output-configuration.osm
+osmose.java.options = -Xmx3g -Xms1g
+fisheries.catchability.file = eec_fisheries_catchability.csv
+osmose.configuration.main = ../../osmose-eec_v4.4_yansong/eec_all-parameters.R
