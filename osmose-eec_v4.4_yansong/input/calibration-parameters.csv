@@ -44,23 +44,6 @@ mortality.additional.larva.rate.sp13 = 74.2633542688172
 mortality.additional.larva.rate.sp14 = 33.8626152543915
 mortality.additional.larva.rate.sp15 = 3.55957695251641
 
-osmose.user.larval.deviate.sp0 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp1 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp2 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp3 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp4 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp5 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp6 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp7 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp8 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp9 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp10 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp11 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp12 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp13 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp14 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.larval.deviate.sp15 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-
 species.delta.lmax.factor.sp0 = 1.10387870222807
 species.delta.lmax.factor.sp1 = 1.88998172832664
 species.delta.lmax.factor.sp2 = 0.992725176296006
