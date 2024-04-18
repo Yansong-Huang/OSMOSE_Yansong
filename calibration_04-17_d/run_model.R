@@ -31,6 +31,94 @@ run_model = function(par, conf, osmose, is_a_test=FALSE, version="4.3.3", option
   
   ### BEGIN USER ADDED
   
+  # 1. load all the parameters related to the catchability matrix
+  q_fsh0 = get_par(conf=par, par="osmose.user.catchability.fsh0")
+  q_fsh0_sp0 = get_par(q_fsh0, sp=0)
+  q_fsh0_sp1 = get_par(q_fsh0, sp=1)
+  q_fsh0_sp2 = get_par(q_fsh0, sp=2)
+  q_fsh0_sp3 = get_par(q_fsh0, sp=3)
+  q_fsh0_sp5 = get_par(q_fsh0, sp=5)
+  q_fsh0_sp7 = get_par(q_fsh0, sp=7)
+  q_fsh0_sp8 = get_par(q_fsh0, sp=8)
+  q_fsh0_sp9 = get_par(q_fsh0, sp=9)
+  q_fsh0_sp10 = get_par(q_fsh0, sp=10)
+  q_fsh0_sp13 = get_par(q_fsh0, sp=13)
+  q_fsh0_sp14 = get_par(q_fsh0, sp=14)
+  q_fsh0_sp15 = get_par(q_fsh0, sp=15)
+  
+  q_fsh1 = get_par(conf=par, par="osmose.user.catchability.fsh1")
+  q_fsh1_sp9 = get_par(q_fsh1, sp=9)
+  q_fsh1_sp10 = get_par(q_fsh1, sp=10)
+  q_fsh1_sp11 = get_par(q_fsh1, sp=11)
+  q_fsh1_sp12 = get_par(q_fsh1, sp=12)
+  
+  q_fsh2 = get_par(conf=par, par="osmose.user.catchability.fsh2")
+  q_fsh2_sp0 = get_par(q_fsh2, sp=0)
+  q_fsh2_sp5 = get_par(q_fsh2, sp=5)
+  q_fsh2_sp7 = get_par(q_fsh2, sp=7)
+  q_fsh2_sp8 = get_par(q_fsh2, sp=8)
+  
+  q_fsh3 = get_par(conf=par, par="osmose.user.catchability.fsh3")
+  q_fsh3_sp0 = get_par(q_fsh3, sp=0)
+  q_fsh3_sp1 = get_par(q_fsh3, sp=1)
+  q_fsh3_sp2 = get_par(q_fsh3, sp=2)
+  q_fsh3_sp3 = get_par(q_fsh3, sp=3)
+  q_fsh3_sp5 = get_par(q_fsh3, sp=5)
+  q_fsh3_sp7 = get_par(q_fsh3, sp=7)
+  q_fsh3_sp8 = get_par(q_fsh3, sp=8)
+  q_fsh3_sp9 = get_par(q_fsh3, sp=9)
+  q_fsh3_sp10 = get_par(q_fsh3, sp=10)
+  q_fsh3_sp11 = get_par(q_fsh3, sp=11)
+  q_fsh3_sp12 = get_par(q_fsh3, sp=12)
+  q_fsh3_sp13 = get_par(q_fsh3, sp=13)
+  q_fsh3_sp14 = get_par(q_fsh3, sp=14)
+  q_fsh3_sp15 = get_par(q_fsh3, sp=15)
+
+  # 2. read the catchability matrix
+  catchability.matrix = read.csv(file="eec_fisheries_catchability_template.csv", check.names = FALSE, row.names = 1)
+  # 3. modify the catchability matrix
+  catchability.matrix[1,1] = q_fsh0_sp0
+  catchability.matrix[2,1] = q_fsh0_sp1
+  catchability.matrix[3,1] = q_fsh0_sp2
+  catchability.matrix[4,1] = q_fsh0_sp3
+  catchability.matrix[6,1] = q_fsh0_sp5
+  catchability.matrix[8,1] = q_fsh0_sp7
+  catchability.matrix[9,1] = q_fsh0_sp8
+  catchability.matrix[10,1] = q_fsh0_sp9
+  catchability.matrix[11,1] = q_fsh0_sp10
+  catchability.matrix[14,1] = q_fsh0_sp13
+  catchability.matrix[15,1] = q_fsh0_sp14
+  catchability.matrix[16,1] = q_fsh0_sp15
+
+  catchability.matrix[10,2] = q_fsh1_sp9
+  catchability.matrix[11,2] = q_fsh1_sp10
+  catchability.matrix[12,2] = q_fsh1_sp11
+  catchability.matrix[13,2] = q_fsh1_sp12
+
+  catchability.matrix[1,3] = q_fsh2_sp0
+  catchability.matrix[6,3] = q_fsh2_sp5
+  catchability.matrix[8,3] = q_fsh2_sp7
+  catchability.matrix[9,3] = q_fsh2_sp8
+
+  catchability.matrix[1,4] = q_fsh3_sp0
+  catchability.matrix[2,4] = q_fsh3_sp1
+  catchability.matrix[3,4] = q_fsh3_sp2
+  catchability.matrix[4,4] = q_fsh3_sp3
+  catchability.matrix[6,4] = q_fsh3_sp5
+  catchability.matrix[8,4] = q_fsh3_sp7
+  catchability.matrix[9,4] = q_fsh3_sp8
+  catchability.matrix[10,4] = q_fsh3_sp9
+  catchability.matrix[11,4] = q_fsh3_sp10
+  catchability.matrix[12,4] = q_fsh3_sp11
+  catchability.matrix[13,4] = q_fsh3_sp12
+  catchability.matrix[14,4] = q_fsh3_sp13
+  catchability.matrix[15,4] = q_fsh3_sp14
+  catchability.matrix[16,4] = q_fsh3_sp15
+
+  # 4. write the new modified catchability matrix
+  write.csv(catchability.matrix, file="eec_fisheries_catchability.csv")
+  #write_osmose(catchability.matrix, file="eec_fisheries_catchability_wo.csv", col.names = TRUE) # problem with row names 2023-12-01
+
   ### END USER ADDED
   
   # remove all osmose.user parameters and clean-up
