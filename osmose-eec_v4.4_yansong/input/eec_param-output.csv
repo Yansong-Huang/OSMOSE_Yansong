@@ -49,6 +49,7 @@ output.diet.stage.threshold.sp15;
 output.mortality.enabled;true
 output.size.catch.enabled;true
 output.size.enabled;true
+# biomass by size
 output.biomass.bySize.enabled;true
 output.abundance.bySize.enabled;false
 output.distrib.bySize.max;125
@@ -56,13 +57,14 @@ output.distrib.bySize.min;0
 output.distrib.bySize.incr;5
 output.spatial.enabled;false
 output.spatial.ltl.enabled;false
-output.TL.catch.enabled;true
+output.TL.catch.enabled;false
 output.TL.enabled;true
 output.meanTL.byAge.enabled;false
-output.meanTL.bySize.enabled;true
-output.biomass.byTL.enabled;true
+output.meanTL.bySize.enabled;false
+output.biomass.byTL.enabled;false
 output.yield.abundance.enabled;true
 output.yield.biomass.enabled;true
+# biomass by age
 output.biomass.byage.enabled;true
 output.abundance.byage.enabled;false
 output.mortality.perSpecies.byage.enabled;false
@@ -76,6 +78,7 @@ output.yield.biomass.bySize.enabled;false
 output.meanSize.byAge.enabled;true
 output.yield.abundance.byAge.enabled;false
 output.yield.biomass.byAge.enabled;false
+# diet by age
 output.diet.composition.byage.enabled;true
 output.diet.composition.bysize.enabled;false
 output.diet.pressure.byage.enabled;false
