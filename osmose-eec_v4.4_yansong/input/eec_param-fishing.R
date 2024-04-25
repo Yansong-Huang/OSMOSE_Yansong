@@ -27,6 +27,11 @@ fisheries.selectivity.l75.fsh2 = 33
 fisheries.selectivity.l50.fsh3 = 18.5
 fisheries.selectivity.l75.fsh3 = 22
 
+# fisheries.selectivity.tiny.fsh0 = 0.1
+# fisheries.selectivity.tiny.fsh1 = 0.1
+# fisheries.selectivity.tiny.fsh2 = 0.1
+# fisheries.selectivity.tiny.fsh3 = 0.1
+
 # base fishing effort (source: SIH/SACROIS)
 #fisheries.rate.base.fsh0 = 4.65
 #fisheries.rate.base.fsh1 = 0.56
