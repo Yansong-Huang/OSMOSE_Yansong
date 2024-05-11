@@ -1,4 +1,5 @@
-#mortality.additional.larva.rate.bytDt.file.sp8 = additional_mortality/additional_mortality-plaice.csv
+mortality.additional.rate.bytDt.file.sp7 = additional_mortality/additional_mortality-sole.csv
+mortality.additional.rate.bytDt.file.sp8 = additional_mortality/additional_mortality-plaice.csv
 
 #mortality.additional.rate.sp0 = 0.12946763606465
 #mortality.additional.rate.sp1 = 0.0414338172211033
