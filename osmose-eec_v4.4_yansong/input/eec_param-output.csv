@@ -1,6 +1,6 @@
 #output.dir.path;output-Yansong
 output.file.prefix;Yansong
-output.recordfrequency.ndt;24
+output.recordfrequency.ndt;2
 output.start.year;0
 
 # Osmose 4.3.4 - Renamed parameter output.fishery.enabled into output.fisheries.enabled
@@ -50,7 +50,7 @@ output.mortality.enabled;true
 output.size.catch.enabled;true
 output.size.enabled;true
 # biomass by size
-output.biomass.bySize.enabled;true
+output.biomass.bySize.enabled;false
 output.abundance.bySize.enabled;false
 output.distrib.bySize.max;125
 output.distrib.bySize.min;0
@@ -65,7 +65,7 @@ output.biomass.byTL.enabled;false
 output.yield.abundance.enabled;true
 output.yield.biomass.enabled;true
 # biomass by age
-output.biomass.byage.enabled;true
+output.biomass.byage.enabled;false
 output.abundance.byage.enabled;false
 output.mortality.perSpecies.byage.enabled;false
 output.mortality.perSpecies.bysize.enabled;false
@@ -79,7 +79,7 @@ output.meanSize.byAge.enabled;true
 output.yield.abundance.byAge.enabled;false
 output.yield.biomass.byAge.enabled;false
 # diet by age
-output.diet.composition.byage.enabled;true
+output.diet.composition.byage.enabled;false
 output.diet.composition.bysize.enabled;false
 output.diet.pressure.byage.enabled;false
 output.diet.pressure.bysize.enabled;false
