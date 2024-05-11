@@ -9,7 +9,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong.results")
+calibration_results <- readRDS("osmose-Yansong-05-02.results")
 
 opt_par = get_par(calibration_results$par, linear = TRUE)
 write_osmose(opt_par, file="calibration-parameters.csv")
@@ -20,15 +20,17 @@ write_osmose(opt_par, file="calibration-parameters.csv")
 p_fitness_phase1 <- calibration_results$phases[[1]]$trace$fitness
 p_fitness_phase2 <- calibration_results$phases[[2]]$trace$fitness
 p_fitness_phase3 <- calibration_results$phases[[3]]$trace$fitness
+p_fitness_phase4 <- calibration_results$phases[[4]]$trace$fitness
 
 
 ## global fitness by generation
 g_fitness_phase1 <- apply(p_fitness_phase1, 1, sum)
 g_fitness_phase2 <- apply(p_fitness_phase2, 1, sum)
 g_fitness_phase3 <- apply(p_fitness_phase3, 1, sum)
+g_fitness_phase4 <- apply(p_fitness_phase4, 1, sum)
 
 ## plot fitness
-g_fitness <- c(g_fitness_phase1, g_fitness_phase2, g_fitness_phase3)
+g_fitness <- c(g_fitness_phase2, g_fitness_phase3, g_fitness_phase4)
 plot(g_fitness, type = "l", bty = "l", xlab = "Generations", ylab = "Fitness")
 abline(v=c(200,400,700), lty = c(2,2), col = c("grey", "grey","grey"))
 text(100, 60000, "Phase 1")
@@ -125,3 +127,29 @@ catchability.matrix[16,4] = q_fsh3_sp15
 # 4. write modified catchability matrix
 write.csv(catchability.matrix, file="eec_fisheries_catchability.csv")
 
+# update larval mortality and/or additional mortality
+
+# 1. load calibration outputs
+m.larval.deviate.sp7 <- get_par(conf,"osmose.user.larval.deviate.sp7")
+m.larval.constant.sp7 <- get_par(conf,"mortality.additional.larva.rate.sp7")
+
+m.larval.deviate.sp8 <- get_par(conf,"osmose.user.larval.deviate.sp8")
+m.larval.constant.sp8 <- get_par(conf,"mortality.additional.larva.rate.sp8")
+
+# 2.calculate annual mortality
+m.larval.annual.sp7 <- m.larval.deviate.sp7 + m.larval.constant.sp7
+m.larval.annual.sp8 <- m.larval.deviate.sp8 + m.larval.constant.sp8
+
+# 3.calculate mortality by time step
+year = seq(1,21)
+time_step_per_year = seq(1,21,length.out=480)
+m.larval.dt.sp7 = approx(year, m.larval.annual.sp7 , xout=time_step_per_year)
+m.larval.dt.sp7 = m.larval.dt.sp7$y/24
+
+m.larval.dt.sp8 = approx(year, m.larval.annual.sp8, xout=time_step_per_year)
+m.larval.dt.sp8 = m.larval.dt.sp8$y/24
+
+
+# 4. write the new modified mortality vector
+write.csv(m.larval.dt.sp7, file="larval_mortality-sole.csv")
+write.csv(m.larval.dt.sp8, file="larval_mortality-plaice.csv")
