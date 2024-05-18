@@ -136,18 +136,15 @@ m.larval.constant.sp7 <- get_par(conf,"mortality.additional.larva.rate.sp7")
 m.larval.deviate.sp8 <- get_par(conf,"osmose.user.larval.deviate.sp8")
 m.larval.constant.sp8 <- get_par(conf,"mortality.additional.larva.rate.sp8")
 
-# 2.calculate annual mortality
-m.larval.annual.sp7 <- m.larval.deviate.sp7 + m.larval.constant.sp7
-m.larval.annual.sp8 <- m.larval.deviate.sp8 + m.larval.constant.sp8
-
-# 3.calculate mortality by time step
+# 2.interpolate mortality deviates by time step
 year = seq(1,21)
 time_step_per_year = seq(1,21,length.out=480)
-m.larval.dt.sp7 = approx(year, m.larval.annual.sp7 , xout=time_step_per_year)
-m.larval.dt.sp7 = m.larval.dt.sp7$y/24
+m.larval.deviate.dt.sp7 = spline(year, m.larval.deviate.sp7 , xout=time_step_per_year)
+m.larval.deviate.dt.sp8 = spline(year, m.larval.deviate.sp8 , xout=time_step_per_year)
 
-m.larval.dt.sp8 = approx(year, m.larval.annual.sp8, xout=time_step_per_year)
-m.larval.dt.sp8 = m.larval.dt.sp8$y/24
+# 2.calculate annual mortality
+m.larval.dt.sp7 <- exp(m.larval.deviate.dt.sp7$y) * m.larval.constant.sp7 /24
+m.larval.dt.sp8 <- exp(m.larval.deviate.dt.sp8$y) * m.larval.constant.sp8 /24
 
 
 # 4. write the new modified mortality vector
