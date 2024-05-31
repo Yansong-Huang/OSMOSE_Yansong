@@ -101,10 +101,6 @@ surveys.enabled.sr1 = FALSE
 # osmose.user.catchability.fsh3.sp14 = 0.147026456154422
 # osmose.user.catchability.fsh3.sp15 = 0.0825934080919064
 
-osmose.user.multiplier.additional.mortality.sp7 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-osmose.user.multiplier.additional.mortality.sp8 = 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-
-
 
 
 

@@ -9,7 +9,7 @@ library("calibrar")
 library("dplyr")
 
 ## loading calibration results 
-calibration_results <- readRDS("osmose-Yansong-05-02.results")
+calibration_results <- readRDS("osmose-Yansong-05-24.results")
 
 opt_par = get_par(calibration_results$par, linear = TRUE)
 write_osmose(opt_par, file="calibration-parameters.csv")
@@ -30,13 +30,13 @@ g_fitness_phase3 <- apply(p_fitness_phase3, 1, sum)
 g_fitness_phase4 <- apply(p_fitness_phase4, 1, sum)
 
 ## plot fitness
-g_fitness <- c(g_fitness_phase2, g_fitness_phase3, g_fitness_phase4)
+g_fitness <- c(g_fitness_phase1,g_fitness_phase2, g_fitness_phase3, g_fitness_phase4)
 plot(g_fitness, type = "l", bty = "l", xlab = "Generations", ylab = "Fitness")
-abline(v=c(200,400,700), lty = c(2,2), col = c("grey", "grey","grey"))
+abline(v=c(200,400,700,1100), lty = c(2,2), col = c("grey", "grey","grey"))
 text(100, 60000, "Phase 1")
 text(300, 60000, "Phase 2")
 text(550, 60000, "Phase 3")
-
+text(900, 60000, "Phase 4")
 
 # update catchability matrix
 # update object conf in run_osmose script
@@ -129,24 +129,26 @@ write.csv(catchability.matrix, file="eec_fisheries_catchability.csv")
 
 # update larval mortality and/or additional mortality
 
-# 1. load calibration outputs
-m.larval.deviate.sp7 <- get_par(conf,"osmose.user.larval.deviate.sp7")
-m.larval.constant.sp7 <- get_par(conf,"mortality.additional.larva.rate.sp7")
+# Define species list
+species_list <- c("lesserSpottedDogfish", "redMullet", "pouting", "whiting", "poorCod", "cod", "dragonet", "sole", "plaice", "horseMackerel", "mackerel", "herring", "sardine", "squids", "cuttlefish", "thornbackRay")
+m.larval.deviate.all.species <- get_par(conf, "osmose.user.larval.deviate")
+m.larval.constant.all.species <- get_par(conf, "mortality.additional.larva.rate")
 
-m.larval.deviate.sp8 <- get_par(conf,"osmose.user.larval.deviate.sp8")
-m.larval.constant.sp8 <- get_par(conf,"mortality.additional.larva.rate.sp8")
+# 1. Load calibration outputs and perform operations for each species
+for (i in 0:15) {
+  # Load calibration outputs
+  m.larval.deviate <- get_par(m.larval.deviate.all.species, sp=i)
+  m.larval.constant <- get_par(m.larval.constant.all.species, sp=i)
+  
+  # 2. Interpolate mortality deviates by time step
+  year <- seq(1, 21)
+  time_step_per_year <- seq(1, 21, length.out = 480)
+  m.larval.deviate.dt <- spline(year, m.larval.deviate, xout = time_step_per_year)
+  
+  # 3. Calculate annual mortality
+  m.larval.dt <- exp(m.larval.deviate.dt$y) * m.larval.constant / 24
+  
+  # 4. Write the new modified mortality vector
+  write.csv(m.larval.dt, file = paste0("larval_mortality-", species_list[i + 1], ".csv"))
+}
 
-# 2.interpolate mortality deviates by time step
-year = seq(1,21)
-time_step_per_year = seq(1,21,length.out=480)
-m.larval.deviate.dt.sp7 = spline(year, m.larval.deviate.sp7 , xout=time_step_per_year)
-m.larval.deviate.dt.sp8 = spline(year, m.larval.deviate.sp8 , xout=time_step_per_year)
-
-# 2.calculate annual mortality
-m.larval.dt.sp7 <- exp(m.larval.deviate.dt.sp7$y) * m.larval.constant.sp7 /24
-m.larval.dt.sp8 <- exp(m.larval.deviate.dt.sp8$y) * m.larval.constant.sp8 /24
-
-
-# 4. write the new modified mortality vector
-write.csv(m.larval.dt.sp7, file="larval_mortality-sole.csv")
-write.csv(m.larval.dt.sp8, file="larval_mortality-plaice.csv")

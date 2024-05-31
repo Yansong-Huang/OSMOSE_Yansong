@@ -152,7 +152,7 @@ movement.species.map25,sardine
 movement.variable.map25,stage0
 movement.nsteps.year.map25,24
 movement.initialAge.map25,0
-movement.lastAge.map25,16
+movement.lastAge.map25,15
 movement.file.map25,maps_nc/sardine.nc
 movement.species.map26,squids
 movement.variable.map26,stage0
