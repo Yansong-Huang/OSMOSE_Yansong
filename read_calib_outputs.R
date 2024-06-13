@@ -38,7 +38,7 @@ text(300, 60000, "Phase 2")
 text(550, 60000, "Phase 3")
 text(900, 60000, "Phase 4")
 
-# update catchability matrix
+####### update catchability matrix ######
 # update object conf in run_osmose script
 q_fsh0 = get_par(conf, par="osmose.user.catchability.fsh0")
 q_fsh0_sp0 = get_par(q_fsh0, sp=0)
@@ -127,7 +127,7 @@ catchability.matrix[16,4] = q_fsh3_sp15
 # 4. write modified catchability matrix
 write.csv(catchability.matrix, file="eec_fisheries_catchability.csv")
 
-# update larval mortality and/or additional mortality
+####### update larval mortality and/or additional mortality ######
 
 # Define species list
 species_list <- c("lesserSpottedDogfish", "redMullet", "pouting", "whiting", "poorCod", "cod", "dragonet", "sole", "plaice", "horseMackerel", "mackerel", "herring", "sardine", "squids", "cuttlefish", "thornbackRay")
