@@ -13,7 +13,7 @@ regulation_scenarios <- c("sans_fermeture","fermeture_chalut")
 CC_scenarios <- c("ON","OFF")
 cut_off_year_begin <- 35 # 1 22 35
 cut_off_year_end <- 49 # 21 34 49
-n_replicate <- 10
+n_replicate <- 30
 
 
 process_biomass <- function(base_results_path, current_results_path) {
@@ -36,28 +36,6 @@ process_biomass <- function(base_results_path, current_results_path) {
   biomass_relative <- as.vector(biomass_relative) %>% as.numeric()
   #biomass_ratio <- c(biomass_ratio_mean = mean(biomass_relative),biomass_ratio_sd = sd(biomass_relative))
   return(biomass_relative)
-}
-
-process_yield <- function(base_results_path, current_results_path) {
-  list_yield_base <- list.files(base_results_path, "Yansong_yield_Simu.", full.names = TRUE)
-  list_yield_current <- list.files(current_results_path, "Yansong_yield_Simu.", full.names = TRUE)
-  
-  yield_relative <- lapply(1:n_replicate, function(simulation) {
-    yield_brut_base <- read.csv(list_yield_base[simulation], skip = 1)
-    yield_brut_current <- read.csv(list_yield_current[simulation], skip = 1)
-    yield_total_base <- yield_brut_base %>% 
-      filter(Time>cut_off_year_begin)%>%
-      filter(Time<cut_off_year_end)%>% 
-      colMeans() %>% sum()
-    yield_total_current <- yield_brut_current %>%       
-      filter(Time>cut_off_year_begin)%>%
-      filter(Time<cut_off_year_end)%>% 
-      colMeans() %>% sum()
-    yield_ratio <- yield_total_current/yield_total_base
-  })
-  yield_relative <- as.vector(yield_relative) %>% as.numeric()
-  #yield_ratio <- c(yield_ratio_mean = mean(yield_relative),yield_ratio_sd = sd(yield_relative))
-  return(yield_relative)
 }
 
 # chemin pour tous les résultats
@@ -166,8 +144,8 @@ combined_plot_biomass <- plot_SER_biomass_1 + plot_SER_biomass_2 +
   plot_layout(guides = "collect") + 
   theme(legend.position = "right")
 print(combined_plot_biomass)
-ggsave(file.path("figures","publication","boxplot", 
-"biomass_after_OWF_2510.png"), combined_plot_biomass, width = 11, height = 4, dpi = 600)
+# ggsave(file.path("figures","publication","boxplot", 
+# "biomass_after_OWF_2510.png"), combined_plot_biomass, width = 11, height = 4, dpi = 600)
 
 # combined_plot_yield <- plot_SER_yield_1 + plot_SER_yield_2 + 
 #   plot_layout(guides = "collect") & 
@@ -177,73 +155,73 @@ ggsave(file.path("figures","publication","boxplot",
 # ggsave(file.path("figures_CIEM_CC_old","boxplot", 
        # "combined_yield_boxplot.png"), combined_plot_yield, width = 11, height = 4, dpi = 600)
 
-###### test statistiques ######
-shapiro.test(yield_SER$relative_yield)
-kruskal.test(relative_yield~scenario, data = yield_SER) 
-
-# data:  relative_yield by scenario (trawler closure)
-# Kruskal-Wallis chi-squared = 11.129, df =
-#   3, p-value = 0.01105
-
-###### normality test ######
-# shapiro.test(biomass_SER_1$relative_biomass)
-shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="cost",]$relative_biomass)
-# 0.7221
-shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="protection",]$relative_biomass)
-# 0.3783
-shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="distance",]$relative_biomass)
-# 0.008623
-shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="balance",]$relative_biomass)
-# 0.07595
-
-
-shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="cost",]$relative_biomass)
-# 0.09219
-shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="protection",]$relative_biomass)
-# 0.5906
-shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="distance",]$relative_biomass)
-# 0.06158
-shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="balance",]$relative_biomass)
-# 0.4847
-
-# Wilcoxon test for comparing SER scenarios with reference
-wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="cost",]$relative_biomass, mu = 1, alternative = "less")
-# p-value = 1.895e-06
-wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="protection",]$relative_biomass, mu = 1, alternative = "less")
-# p-value = 4.61e-06
-wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="distance",]$relative_biomass, mu = 1, alternative = "less")
-# p-value = 3.955e-05
-wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="balance",]$relative_biomass, mu = 1, alternative = "less")
-# p-value = 5.305e-06
-
-
-# Kruskal-Walllis for comparing four SER scenarios
-# scenario "no closure" three groups out of four meet normality
-kruskal.test(relative_biomass~scenario, data = biomass_SER_1)
-# 0.1461
-
-# scenario "trawlers closure" three groups out of four meet normality
-kruskal.test(relative_biomass~scenario, data = biomass_SER_2) 
-# 0.003575
-
-# Mann-Whitney test for comparing two fishing scenarios
-mann_test_1 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="cost",],biomass_SER_2[biomass_SER_2$scenario=="cost",])
-mann_test_1$scenario <- c(rep("no",30),rep("trawl",30))
-wilcox.test(relative_biomass~scenario, data = mann_test_1, paired =FALSE)
-# p-value = 0.008383 alternative hypothesis: true location shift is not equal to 0
-
-mann_test_2 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="protection",],biomass_SER_2[biomass_SER_2$scenario=="protection",])
-mann_test_2$scenario <- c(rep("no",30),rep("trawl",30))
-wilcox.test(relative_biomass~scenario, data = mann_test_2, paired =FALSE)
-# p-value = 0.007301 alternative hypothesis: true location shift is not equal to 0
-
-mann_test_3 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="distance",],biomass_SER_2[biomass_SER_2$scenario=="distance",])
-mann_test_3$scenario <- c(rep("no",30),rep("trawl",30))
-wilcox.test(relative_biomass~scenario, data = mann_test_3, paired =FALSE)
-# p-value = 0.924
-
-mann_test_4 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="balance",],biomass_SER_2[biomass_SER_2$scenario=="balance",])
-mann_test_4$scenario <- c(rep("no",30),rep("trawl",30))
-wilcox.test(relative_biomass~scenario, data = mann_test_4, paired =FALSE)
-# p-value = 0.1229
-
+# ###### test statistiques ######
+# shapiro.test(yield_SER$relative_yield)
+# kruskal.test(relative_yield~scenario, data = yield_SER) 
+# 
+# # data:  relative_yield by scenario (trawler closure)
+# # Kruskal-Wallis chi-squared = 11.129, df =
+# #   3, p-value = 0.01105
+# 
+# ###### normality test ######
+# # shapiro.test(biomass_SER_1$relative_biomass)
+# shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="cost",]$relative_biomass)
+# # 0.7221
+# shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="protection",]$relative_biomass)
+# # 0.3783
+# shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="distance",]$relative_biomass)
+# # 0.008623
+# shapiro.test(biomass_SER_1[biomass_SER_1$scenario=="balance",]$relative_biomass)
+# # 0.07595
+# 
+# 
+# shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="cost",]$relative_biomass)
+# # 0.09219
+# shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="protection",]$relative_biomass)
+# # 0.5906
+# shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="distance",]$relative_biomass)
+# # 0.06158
+# shapiro.test(biomass_SER_2[biomass_SER_2$scenario=="balance",]$relative_biomass)
+# # 0.4847
+# 
+# # Wilcoxon test for comparing SER scenarios with reference
+# wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="cost",]$relative_biomass, mu = 1, alternative = "less")
+# # p-value = 1.895e-06
+# wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="protection",]$relative_biomass, mu = 1, alternative = "less")
+# # p-value = 4.61e-06
+# wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="distance",]$relative_biomass, mu = 1, alternative = "less")
+# # p-value = 3.955e-05
+# wilcox.test(biomass_SER_1[biomass_SER_1$scenario=="balance",]$relative_biomass, mu = 1, alternative = "less")
+# # p-value = 5.305e-06
+# 
+# 
+# # Kruskal-Walllis for comparing four SER scenarios
+# # scenario "no closure" three groups out of four meet normality
+# kruskal.test(relative_biomass~scenario, data = biomass_SER_1)
+# # 0.1461
+# 
+# # scenario "trawlers closure" three groups out of four meet normality
+# kruskal.test(relative_biomass~scenario, data = biomass_SER_2) 
+# # 0.003575
+# 
+# # Mann-Whitney test for comparing two fishing scenarios
+# mann_test_1 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="cost",],biomass_SER_2[biomass_SER_2$scenario=="cost",])
+# mann_test_1$scenario <- c(rep("no",30),rep("trawl",30))
+# wilcox.test(relative_biomass~scenario, data = mann_test_1, paired =FALSE)
+# # p-value = 0.008383 alternative hypothesis: true location shift is not equal to 0
+# 
+# mann_test_2 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="protection",],biomass_SER_2[biomass_SER_2$scenario=="protection",])
+# mann_test_2$scenario <- c(rep("no",30),rep("trawl",30))
+# wilcox.test(relative_biomass~scenario, data = mann_test_2, paired =FALSE)
+# # p-value = 0.007301 alternative hypothesis: true location shift is not equal to 0
+# 
+# mann_test_3 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="distance",],biomass_SER_2[biomass_SER_2$scenario=="distance",])
+# mann_test_3$scenario <- c(rep("no",30),rep("trawl",30))
+# wilcox.test(relative_biomass~scenario, data = mann_test_3, paired =FALSE)
+# # p-value = 0.924
+# 
+# mann_test_4 <- rbind(biomass_SER_1[biomass_SER_1$scenario=="balance",],biomass_SER_2[biomass_SER_2$scenario=="balance",])
+# mann_test_4$scenario <- c(rep("no",30),rep("trawl",30))
+# wilcox.test(relative_biomass~scenario, data = mann_test_4, paired =FALSE)
+# # p-value = 0.1229
+# 
