@@ -20,18 +20,18 @@ year_begin_proj <- 2022
 year_end <- 2050
 n_years <- 49
 cut_off_year <- 9 # commence la visualisation de l'année 2010
-n_replicate <- 10
+n_replicate <- 30
 n_species <- 16
 biomass_sd_colour_palette <- c("#8a2be2","#ff1493","#ff3800","#0892d0")
 biomass_mean_colour_palette <- c("#8a2be2","#8a2be2","#ff1493","#ff1493","#ff3800","#ff3800","#0892d0","#0892d0")
 
 # chemin pour tous les résultats
-regulation <- regulation_scenarios[1]
-results_path_1 <- file.path("outputs/results_tl","Base_simu","output","CIEM")
-results_path_2 <- file.path("outputs/results_tl",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[1],"_",regulation),"Base","output","CIEM")
-results_path_3 <- file.path("outputs/results_tl",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[2],"_",regulation),"Base","output","CIEM")
-results_path_4 <- file.path("outputs/results_tl",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[3],"_",regulation),"Base","output","CIEM")
-results_path_5 <- file.path("outputs/results_tl",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[4],"_",regulation),"Base","output","CIEM")
+regulation <- regulation_scenarios[3]
+results_path_1 <- file.path("outputs/results_2510","Base_simu","output","CIEM")
+results_path_2 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[1],"_",regulation),"Base","output","CIEM")
+results_path_3 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[2],"_",regulation),"Base","output","CIEM")
+results_path_4 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[3],"_",regulation),"Base","output","CIEM")
+results_path_5 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[4],"_",regulation),"Base","output","CIEM")
 
 scenario_path <- list(results_path_2, results_path_3, results_path_4, results_path_5)
 
@@ -113,6 +113,6 @@ biomass_plot <- ggplot() +
 
 print(biomass_plot)
 # Sauvegarder le graphique de comparaison
-ggsave(file.path("figures/publication/time_series",regulation, "biomass_by_species_rep_tl.png", sep=""), biomass_plot, width = 15, height = 8, dpi = 600)
+ggsave(file.path("figures/publication/time_series",regulation, "biomass_by_species.png", sep=""), biomass_plot, width = 15, height = 8, dpi = 600)
 
 

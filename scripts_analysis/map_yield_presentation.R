@@ -11,7 +11,7 @@ library(purrr)
 library(ncdf4)
 
 # global variables
-source("OWF_mask.R")
+source("scripts_analysis/OWF_mask.R")
 deployment_scenarios <- c("cout","protection","loin","equilibre")
 regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
 deployment <- deployment_scenarios[4]
@@ -27,11 +27,11 @@ dem_species <- c(1:9,15:16)
 species_group_list <- list(all_species, pel_species, dem_species)
 species_group_name <- c("all","pelagic","demersal")
 
-results_path_1 <- file.path("results_tl",paste0("CC.",CC_scenarios[1],"_",deployment,"_",regulation_scenarios[1]),"Base","output","CIEM")
-results_path_2 <- file.path("results_tl",paste0("CC.",CC_scenarios[1],"_",deployment,"_",regulation_scenarios[2]),"Base","output","CIEM")
-results_path_3 <- file.path("results_tl",paste0("CC.",CC_scenarios[1],"_",deployment,"_",regulation_scenarios[3]),"Base","output","CIEM")
+results_path_1 <- file.path("output/results_tl",paste0("CC.",CC_scenarios[1],"_",deployment,"_",regulation_scenarios[1]),"Base","output","CIEM")
+results_path_2 <- file.path("output/results_tl",paste0("CC.",CC_scenarios[1],"_",deployment,"_",regulation_scenarios[2]),"Base","output","CIEM")
+results_path_3 <- file.path("output/results_tl",paste0("CC.",CC_scenarios[1],"_",deployment,"_",regulation_scenarios[3]),"Base","output","CIEM")
 results_path <- c(results_path_1,results_path_2,results_path_3)
-results_path_base<- file.path("results_tl","Base_simu","output","CIEM")
+results_path_base<- file.path("output/results_tl","Base_simu","output","CIEM")
 
 # set longitude and latitude
 lon <- seq(-1.95,2.45,by=0.1)
@@ -85,7 +85,7 @@ process_maps <- function(species_group,species_group_name,n_years_begin, n_years
   # expand grid
   map_grid <- expand.grid(lon=lon, lat=lat)
   map_grid$ratio <- as.vector(map_ratio)
-  map_grid$OWF <- as.vector(mask_OWF)
+  map_grid$OWF <- as.vector(mask_OWF_equilibre)
   
   map_grid_alt <- filter(map_grid, lon>-1.6)
   return(map_grid_alt)
@@ -139,5 +139,5 @@ ratio_map_plot <- ggplot() +
 print(ratio_map_plot)
 
 
-ggsave(file.path("figures_CIEM_CC_old", "presentation_yield_map.png"),
-       ratio_map_plot, width = 13, height = 5, dpi = 600)
+# ggsave(file.path("figures_CIEM_CC_old", "presentation_yield_map.png"),
+#        ratio_map_plot, width = 13, height = 5, dpi = 600)

@@ -1,7 +1,0 @@
-osmose.configuration.calibration.parameters = calibration_parameters.osm
-osmose.configuration.outputs = output-configuration.osm
-osmose.java.options = -Xmx3g -Xms1g
-fisheries.catchability.file = eec_fisheries_catchability.csv
-mortality.additional.rate.bytDt.file.sp7 = additional_mortality-sole.csv
-mortality.additional.rate.bytDt.file.sp8 = additional_mortality-plaice.csv
-osmose.configuration.main = ../../osmose-eec_v4.4_yansong/eec_all-parameters.R

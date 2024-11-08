@@ -15,7 +15,6 @@ deployment_scenarios <- c("cout","protection","loin","equilibre")
 regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
 CC_scenarios <- c("ON","OFF")
 year_begin <- 2002
-# year_begin_proj <- 2022
 year_end <- 2050
 n_years <- 49
 # cut_off_year <- 9 # commence la visualisation de l'année 2010

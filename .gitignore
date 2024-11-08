@@ -6,7 +6,10 @@
 .simulated
 .results
 .resultes.backup*
+osmose_4.4.0-jar-with-dependencies.jar
 
 */output/*
 /.run_calibration/*
 /.run_calibration_survey_test3/*
+/outputs/*
+/figures/*
