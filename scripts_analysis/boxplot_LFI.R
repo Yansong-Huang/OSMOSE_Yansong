@@ -14,7 +14,6 @@ library(patchwork)
 # variable globales
 deployment_scenarios <- c("cout","protection","loin","equilibre")
 regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
-CC_scenarios <- c("ON","OFF")
 n_years_cut <- c(10,21,22,34,35,49)
 n_replicate <- 30
 
@@ -80,13 +79,13 @@ lfi_after_list <- list()
 for (regulation in regulation_scenarios){
   
   # 构建每个场景的路径
-  results_path_1 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM","Indicators")
-  results_path_2 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[2], "_", regulation), "Base", "output", "CIEM","Indicators")
-  results_path_3 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[3], "_", regulation), "Base", "output", "CIEM","Indicators")
-  results_path_4 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM","Indicators")
+  results_path_1 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM","Indicators")
+  results_path_2 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[2], "_", regulation), "Base", "output", "CIEM","Indicators")
+  results_path_3 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[3], "_", regulation), "Base", "output", "CIEM","Indicators")
+  results_path_4 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM","Indicators")
   
   # 基础路径
-  results_path_base <- file.path("outputs/results_2510", "Base_simu", "output", "CIEM","Indicators")
+  results_path_base <- file.path("outputs/results_1111", "Base_simu", "Base", "output", "CIEM","Indicators")
   # 将路径合并为列表
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
   
@@ -187,7 +186,7 @@ for (regulation in regulation_scenarios){
   
   
   ggsave(file.path("figures","publication","boxplot", regulation,
-                  "LFI_40.png"), combined_boxplot, width = 15, height = 4, dpi = 600)
+                  "LFI_40_1111.png"), combined_boxplot, width = 15, height = 4, dpi = 600)
   
 }
 

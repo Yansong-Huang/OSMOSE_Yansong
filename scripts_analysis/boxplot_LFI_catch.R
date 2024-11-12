@@ -14,7 +14,6 @@ library(patchwork)
 # variable globales
 deployment_scenarios <- c("cout","protection","loin","equilibre")
 regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
-CC_scenarios <- c("ON","OFF")
 n_years_cut <- c(10,21,22,34,35,49)
 n_replicate <- 30
 
@@ -43,8 +42,8 @@ LFI <- function(data_yield_size, thresholds = 40) {
 
 process_lfi <- function(current_results_path, cut_off_year_begin, cut_off_year_end) {
   # 获取文件列表
-  list_yield_base <- list.files(results_path_base, "Yansong_yieldDistribBySize_Simu.", full.names = TRUE)
-  list_yield_current <- list.files(current_results_path, "Yansong_yieldDistribBySize_Simu.", full.names = TRUE)
+  list_yield_base <- list.files(results_path_base, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
+  list_yield_current <- list.files(current_results_path, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   
   # 计算相对
   lfi_relative <- lapply(1:n_replicate, function(simulation) {
@@ -60,7 +59,7 @@ process_lfi <- function(current_results_path, cut_off_year_begin, cut_off_year_e
     lfi_base <- LFI(yield_base_filtered)
     lfi_current <- LFI(yield_current_filtered)
     
-    # 计算营养级比例
+    # 计算LFI比例
     lfi_ratio <- lfi_current / lfi_base
     return(lfi_ratio)
   })
@@ -80,13 +79,13 @@ lfi_after_list <- list()
 for (regulation in regulation_scenarios){
   
   # 构建每个场景的路径
-  results_path_1 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
-  results_path_2 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[2], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
-  results_path_3 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[3], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
-  results_path_4 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
+  results_path_1 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
+  results_path_2 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[2], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
+  results_path_3 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[3], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
+  results_path_4 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM","SizeIndicators")
   
   # 基础路径
-  results_path_base <- file.path("outputs/results_2510", "Base_simu", "output", "CIEM","SizeIndicators")
+  results_path_base <- file.path("outputs/results_1111", "Base_simu", "Base", "output", "CIEM","SizeIndicators")
   # 将路径合并为列表
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
   
@@ -132,7 +131,7 @@ for (regulation in regulation_scenarios){
     geom_hline(yintercept = 1, color = "black", linetype = "dotted") + 
     ggtitle(regulation)+
     ylab("LFI catch change")+
-    # ylim(0.8,1.9)+
+    ylim(0.5,2)+
     scale_fill_manual(
       values = c("purple", "pink", "orange", "lightblue"),
       labels = c("energy cost minimisation", "exclusion from environmental protection zones", "long distance from the coast ", "balance")) + 
@@ -149,7 +148,7 @@ for (regulation in regulation_scenarios){
   lfi_boxplot_during <- ggplot(lfi_during_table)+
     geom_boxplot(aes(x = scenario, y = relative_lfi, fill = scenario)) +
     geom_hline(yintercept = 1, color = "black", linetype = "dotted") + 
-    # ylim(0.8,1.9)+
+    ylim(0.5,2)+
     scale_fill_manual(
       values = c("purple", "pink", "orange", "lightblue"),
       labels = c("energy cost minimisation", "exclusion from environmental protection zones", "long distance from the coast ", "balance")) + 
@@ -166,7 +165,7 @@ for (regulation in regulation_scenarios){
   lfi_boxplot_after <- ggplot(lfi_after_table)+
     geom_boxplot(aes(x = scenario, y = relative_lfi, fill = scenario)) +
     geom_hline(yintercept = 1, color = "black", linetype = "dotted") + 
-    # ylim(0.8,1.9)+
+    ylim(0.5,2)+
     scale_fill_manual(
       values = c("purple", "pink", "orange", "lightblue"),
       labels = c("energy cost minimisation", "exclusion from environmental protection zones", "long distance from the coast ", "balance")) + 
@@ -186,8 +185,8 @@ for (regulation in regulation_scenarios){
   print(combined_boxplot)
   
   
-  # ggsave(file.path("figures","publication","boxplot", regulation,
-  #                  "LFI_catch_40.png"), combined_boxplot, width = 15, height = 4, dpi = 600)
+  ggsave(file.path("figures","publication","boxplot", regulation,
+                   "LFI_catch_40.png"), combined_boxplot, width = 15, height = 4, dpi = 600)
   
 }
 
