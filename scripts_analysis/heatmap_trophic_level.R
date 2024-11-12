@@ -23,7 +23,7 @@ n_replicates <- 30
 lon <- seq(-1.95,2.45,by=0.1)
 lat <- seq(49.05,51.15,by=0.1)
 # define reference results path
-results_path_base<- file.path("outputs/results_2510","Base_simu","output","CIEM")
+results_path_base<- file.path("outputs/results_1111","Base_simu","Base","output","CIEM")
 process_maps <- function(n_years_begin, n_years_end){
   map_base_list <- lapply(1:n_replicates, function(simulation){
     # open and read nc files
@@ -105,7 +105,7 @@ process_maps <- function(n_years_begin, n_years_end){
 
 for (regulation in regulation_scenarios){
   for (deployment in deployment_scenarios){
-    results_path_scenario <- file.path("outputs/results_2510",paste0("CC.ON_",deployment,"_",regulation),"Base","output","CIEM")
+    results_path_scenario <- file.path("outputs/results_1111",paste0("CC.ON_",deployment,"_",regulation),"Base","output","CIEM")
     list_tl_nc_current <- list.files(results_path_scenario, "Yansong_spatializedTL_Simu.", full.names = TRUE)
     list_tl_nc_base <- list.files(results_path_base, "Yansong_spatializedTL_Simu.", full.names = TRUE)
     list_biomass_nc_current <- list.files(results_path_scenario, "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
@@ -143,7 +143,7 @@ for (regulation in regulation_scenarios){
     
     print(ratio_map_plot)
     
-    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"trophic_level_heatmap_significant.png"),
+    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"trophic_level_heatmap_significant_1111.png"),
            ratio_map_plot, width = 16, height = 4, dpi = 600)
   }
 }
