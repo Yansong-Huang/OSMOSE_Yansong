@@ -1,6 +1,6 @@
-# biomass heatmap
+# LFI heatmap
 # Auteur : Yansong Huang
-# Date de création : 2024-08-21
+# Date de création : 2024-11-08
 
 library(ggplot2)
 library(tidyr)
@@ -28,23 +28,23 @@ results_path_base<- file.path("outputs/results_1111","Base_simu","Base","output"
 process_maps <- function(n_years_begin, n_years_end){
   map_base_list <- lapply(1:n_replicates, function(simulation){
     # open and read nc files
-    biomass_nc_base <- nc_open(list_biomass_nc_base[simulation])
-    biomass_base <- ncvar_get(biomass_nc_base, "Biomass")
-    nc_close(biomass_nc_base)
+    LFI_nc_base <- nc_open(list_LFI_nc_base[simulation])
+    LFI_base <- ncvar_get(LFI_nc_base, "Biomass")
+    nc_close(LFI_nc_base)
     
     # select period and sum over species and years
-    biomass_base <- biomass_base[,,,n_years_begin:n_years_end]
-    apply(biomass_base, c(1, 2), sum)
+    LFI_base <- LFI_base[,,,n_years_begin:n_years_end]
+    apply(LFI_base, c(1, 2), sum)
   })
   
   map_current_list <- lapply(1:n_replicates, function(simulation){
-    biomass_nc_current <- nc_open(list_biomass_nc_current[simulation])
-    biomass_current <- ncvar_get(biomass_nc_current, "Biomass")
-    nc_close(biomass_nc_current)
+    LFI_nc_current <- nc_open(list_LFI_nc_current[simulation])
+    LFI_current <- ncvar_get(LFI_nc_current, "Biomass")
+    nc_close(LFI_nc_current)
     
     # select period and sum over species and years
-    biomass_current <- biomass_current[,,,n_years_begin:n_years_end]
-    apply(biomass_current, c(1, 2), sum)
+    LFI_current <- LFI_current[,,,n_years_begin:n_years_end]
+    apply(LFI_current, c(1, 2), sum)
   })
   
   # Convert lists to 3D arrays
@@ -87,39 +87,38 @@ process_maps <- function(n_years_begin, n_years_end){
 
 for (regulation in regulation_scenarios){
   for (deployment in deployment_scenarios){
-    results_path_scenario <- file.path("outputs/results_1111",paste0("CC.ON_",deployment,"_",regulation),"Base","output","CIEM")
-    list_biomass_nc_current <- list.files(results_path_scenario, "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
-    list_biomass_nc_base <- list.files(results_path_base, "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
+    results_path_scenario <- file.path("outputs/results_2510",paste0("CC.ON_",deployment,"_",regulation),"Base","output","CIEM","SizeIndicators")
+    list_LFI_nc_current <- list.files(results_path_scenario, "Yansong_biomassDistribBySize_Simu.", full.names = TRUE)
+    list_LFI_nc_base <- list.files(results_path_base, "Yansong_biomassDistribBySize_Simu.", full.names = TRUE)
     
-    biomass_table_1 <- process_maps(n_years_cut[1],n_years_cut[2])
-    biomass_table_2 <- process_maps(n_years_cut[3],n_years_cut[4])
-    biomass_table_3 <- process_maps(n_years_cut[5],n_years_cut[6])
+    LFI_table_1 <- process_maps(n_years_cut[1],n_years_cut[2])
+    LFI_table_2 <- process_maps(n_years_cut[3],n_years_cut[4])
+    LFI_table_3 <- process_maps(n_years_cut[5],n_years_cut[6])
     
     # add label "period"
-    biomass_table_1$period <- "2011-2022"
-    biomass_table_2$period <- "2023-2034"
-    biomass_table_3$period <- "2035-2049"
+    LFI_table_1$period <- "2011-2022"
+    LFI_table_2$period <- "2023-2034"
+    LFI_table_3$period <- "2035-2049"
     # combine three periods
-    biomass_table <- rbind(biomass_table_1,biomass_table_2,biomass_table_3)
-    biomass_table$period <- factor(biomass_table$period, levels = c("2011-2022", "2023-2034", "2035-2049"))
+    LFI_table <- rbind(LFI_table_1,LFI_table_2,LFI_table_3)
+    LFI_table$period <- factor(LFI_table$period, levels = c("2011-2022", "2023-2034", "2035-2049"))
     
     ratio_map_plot <- ggplot() +
-      geom_tile(data = biomass_table, aes(x = lon, y = lat, fill = ratio)) +
+      geom_tile(data = LFI_table, aes(x = lon, y = lat, fill = ratio)) +
       scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
       facet_grid(~period)+
-      geom_point(data = biomass_table[biomass_table$OWF,],           
+      geom_point(data = LFI_table[LFI_table$OWF,],           
                  aes(x = lon, y = lat), color = "black", size = 1)+
-      labs(title = paste0("total biomass ",deployment," * ",regulation),
-           x = "Longitude (°)", y = "Latitude (°)", fill="biomass change") +
+      labs(title = paste0("total LFI ",deployment," * ",regulation),
+           x = "Longitude (°)", y = "Latitude (°)", fill="LFI change") +
       theme_bw()+
       theme(plot.title = element_text(size = 14),
             text = element_text(size = 14),
             strip.text = element_text(size = 14, face = "bold"))
-
+    
     print(ratio_map_plot)
     
-    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"biomass_heatmap_significant.png"),
+    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"LFI_heatmap_significant.png"),
            ratio_map_plot, width = 16, height = 4, dpi = 600)
   }
 }
-    

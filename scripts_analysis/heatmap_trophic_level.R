@@ -143,7 +143,7 @@ for (regulation in regulation_scenarios){
     
     print(ratio_map_plot)
     
-    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"trophic_level_heatmap_significant_1111.png"),
+    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"trophic_level_heatmap_significant.png"),
            ratio_map_plot, width = 16, height = 4, dpi = 600)
   }
 }
