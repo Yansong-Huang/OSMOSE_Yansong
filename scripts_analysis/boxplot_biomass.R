@@ -11,7 +11,7 @@ library(purrr)
 library(ncdf4)
 library(patchwork)
 
-# variable globales
+# variables globales
 deployment_scenarios <- c("cout","protection","loin","equilibre")
 regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
 CC_scenarios <- c("ON","OFF")
@@ -39,30 +39,22 @@ process_biomass <- function(base_results_path, current_results_path,cut_off_year
   return(biomass_relative)
 }
 
+# 初始化全局数据框
+total_biomass_all <- data.frame()
 
-# 初始化空列表，用于存储所有结果
-total_biomass_before_list <- list()
-total_biomass_during_list <- list()
-total_biomass_after_list <- list()
-
-for (regulation in regulation_scenarios){
-
-  # 构建每个场景的路径
+# 遍历每个捕鱼政策情境
+for (regulation in regulation_scenarios) {
+  
+  # 构建场景路径
   results_path_1 <- file.path("outputs/results_1111", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM")
   results_path_2 <- file.path("outputs/results_1111", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[2], "_", regulation), "Base", "output", "CIEM")
   results_path_3 <- file.path("outputs/results_1111", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[3], "_", regulation), "Base", "output", "CIEM")
   results_path_4 <- file.path("outputs/results_1111", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM")
   
-  # 基础路径
-  results_path_base <- file.path("outputs/results_1111", "Base_simu","Base", "output", "CIEM")
-  # 将路径合并为列表
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
+  results_path_base <- file.path("outputs/results_1111", "Base_simu", "Base", "output", "CIEM")
   
-
-  
-  # apply the function to four deployment scenarios, respectively for three periods (before, during and after OWF construction)
-  library(purrr)
-  
+  # 分别计算三个时间段的数据
   total_biomass_before_list <- map(results_path_scenario, ~ process_biomass(
     base_results_path = results_path_base,
     current_results_path = .x,
@@ -84,85 +76,67 @@ for (regulation in regulation_scenarios){
     cut_off_year_end = n_years_cut[6]
   ))
   
-  
-  # 为结果命名
   names(total_biomass_before_list) <- c("cost", "protection", "distance", "balance")
   names(total_biomass_during_list) <- c("cost", "protection", "distance", "balance")
   names(total_biomass_after_list) <- c("cost", "protection", "distance", "balance")
   
-  # 将所有结果转换为数据框
-  total_biomass_before_table <- stack(total_biomass_before_list)
-  total_biomass_during_table <- stack(total_biomass_during_list)
-  total_biomass_after_table <- stack(total_biomass_after_list)
-  colnames(total_biomass_before_table) <- c("relative_biomass", "scenario")
-  colnames(total_biomass_during_table) <- c("relative_biomass", "scenario")
-  colnames(total_biomass_after_table) <- c("relative_biomass", "scenario")
-
-# create plot 
-biomass_boxplot_before <- ggplot(total_biomass_before_table)+
-  geom_boxplot(aes(x = scenario, y = relative_biomass, fill = scenario)) +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") + 
-  ggtitle("before OWF construction")+
-  ylab("total biomass change")+
-  ylim(0.95,1.055)+
-  scale_fill_manual(
-    values = c("purple", "pink", "orange", "lightblue"),
-    labels = c("energy cost minimisation", "exclusion from environmental protection zones", "long distance from the coast ", "balance")) + 
-  labs(fill = "deployment scenario")+
-  theme_bw()+
-  theme(  plot.title = element_text(size = 13),
-          axis.title.x = element_blank(),
-          axis.title.y = element_text(size = 13),
-          axis.text.x = element_text(size = 13, angle = 45, hjust = 1),
-          axis.text.y = element_text(size = 13),
-          legend.title = element_text(size = 13),
-          legend.text = element_text(size = 13))
-
-biomass_boxplot_during <- ggplot(total_biomass_during_table)+
-  geom_boxplot(aes(x = scenario, y = relative_biomass, fill = scenario)) +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") + 
-  ggtitle("during OWF construction")+
-  ylim(0.95,1.055)+
-  scale_fill_manual(
-    values = c("purple", "pink", "orange", "lightblue"),
-    labels = c("energy cost minimisation", "exclusion from environmental protection zones", "long distance from the coast ", "balance")) + 
-  labs(fill = "deployment scenario")+
-  theme_bw()+
-  theme(  plot.title = element_text(size = 13),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
-          axis.text.x = element_text(size = 13, angle = 45, hjust = 1),
-          axis.text.y = element_text(size = 13),
-          legend.title = element_text(size = 13),
-          legend.text = element_text(size = 13))
-
-biomass_boxplot_after <- ggplot(total_biomass_after_table)+
-  geom_boxplot(aes(x = scenario, y = relative_biomass, fill = scenario)) +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") + 
-  ggtitle("after OWF construction")+
-  ylim(0.95,1.055)+
-  scale_fill_manual(
-    values = c("purple", "pink", "orange", "lightblue"),
-    labels = c("energy cost minimisation", "exclusion from environmental protection zones", "long distance from the coast ", "balance")) + 
-  labs(fill = "deployment scenario")+
-  theme_bw()+
-  theme(  plot.title = element_text(size = 13),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
-          axis.text.x = element_text(size = 13, angle = 45, hjust = 1),
-          axis.text.y = element_text(size = 13),
-          legend.title = element_text(size = 13),
-          legend.text = element_text(size = 13))
-
-combined_boxplot <- biomass_boxplot_before + biomass_boxplot_during + biomass_boxplot_after +
-  plot_layout(guides = "collect") + 
-  theme(legend.position = "right")
-print(combined_boxplot)
-
-
-ggsave(file.path("figures","publication","boxplot", regulation,
-  "total_biomass.png"), combined_boxplot, width = 15, height = 4, dpi = 600)
-                                                                                                                             
+  # 转换为数据框并添加标识
+  total_biomass_before_table <- stack(total_biomass_before_list) %>%
+    mutate(period = "2011-2022", regulation = regulation)
+  total_biomass_during_table <- stack(total_biomass_during_list) %>%
+    mutate(period = "2023-2034", regulation = regulation)
+  total_biomass_after_table <- stack(total_biomass_after_list) %>%
+    mutate(period = "2035-2050", regulation = regulation)
+  
+  # 合并到全局数据框
+  total_biomass_all <- rbind(
+    total_biomass_all,
+    total_biomass_before_table,
+    total_biomass_during_table,
+    total_biomass_after_table
+  )
 }
+colnames(total_biomass_all) <- c("biomass_ratio", "deployment","period","regulation")
 
+total_biomass_all$regulation <- factor(
+  total_biomass_all$regulation,
+  levels = c("sans_fermeture", "fermeture_chalut", "fermeture_totale"),
+  labels = c("no closure", "trawlers closure", "complete closure")
+)
 
+# 绘制大图
+combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ratio, fill = deployment)) +
+  geom_boxplot() +
+  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
+    period = label_wrap_gen(20), regulation = label_wrap_gen(20)
+  )) +
+  scale_fill_manual(
+    values = c("purple", "pink", "orange", "lightblue"),
+    labels = c(
+      "Cost minimisation", "Exclusion from environmental protection zones",
+      "Long distance from the coast", "Balance"
+    )
+  ) +
+  labs(
+    title = "Total Biomass Across Regulations and Periods",
+    x = "Deployment Scenario",
+    y = "Relative Biomass",
+    fill = "Deployment Scenario"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 10),
+    legend.title = element_text(size = 13),
+    legend.text = element_text(size = 11)
+  )
+
+# 保存图像
+ggsave(
+  file.path("figures", "publication", "boxplot", "total_biomass_combined.png"),
+  combined_boxplot,
+  width = 15, height = 10, dpi = 600
+)
