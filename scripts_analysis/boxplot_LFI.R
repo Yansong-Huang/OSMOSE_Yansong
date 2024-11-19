@@ -185,8 +185,8 @@ for (regulation in regulation_scenarios){
   print(combined_boxplot)
   
   
-  ggsave(file.path("figures","publication","boxplot", regulation,
-                  "LFI_40_1111.png"), combined_boxplot, width = 15, height = 4, dpi = 600)
+  # ggsave(file.path("figures","publication","boxplot", regulation,
+                  # "LFI_40_1111.png"), combined_boxplot, width = 15, height = 4, dpi = 600)
   
 }
 
