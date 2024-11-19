@@ -146,11 +146,11 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
           ncvar_put(nc_output, fishing_area, closure_1, start = c(1,1,i), count = c(-1,-1,1))
         }
         for (i in 27:49) {
-          closure_2 <- grid_closure(fishing_area_base,  OWF_2_cells, value = 0)
+          closure_2 <- grid_closure(closure_1,  OWF_2_cells, value = 0)
           ncvar_put(nc_output, fishing_area, closure_2, start = c(1,1,i), count = c(-1,-1,1))
         }
         for (i in 32:49) {
-          closure_3 <- grid_closure(fishing_area_base,  deployment_scenario_cells, value = 0)
+          closure_3 <- grid_closure(closure_2,  deployment_scenario_cells, value = 0)
           ncvar_put(nc_output, fishing_area, closure_3, start = c(1,1,i), count = c(-1,-1,1))
         }
         nc_close(nc_output)
@@ -161,8 +161,30 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
     }
   }
   
-  
-  
-  
-  
-  
+###### verification of fishing distribution file ######  
+# fermeture_total_nc <- nc_open("data_scenarios/protection/fermeture_totale/fishing-distrib.nc")  
+# fermeture_total_map <- ncvar_get(fermeture_total_nc, "fishing_area", start = c(1,1,49), count = c(-1,-1,1))  
+# # visualise map
+# source("scripts_analysis/OWF_mask.R")
+# # set longitude and latitude
+# lon <- seq(-1.95,2.45,by=0.1)
+# lat <- seq(49.05,51.15,by=0.1)
+# # Prepare grid and mask
+# map_grid <- expand.grid(lon = lon, lat = lat)
+# map_grid$effort <- as.vector(fermeture_total_map)
+# map_grid$OWF <- as.vector(get("mask_OWF_protection")) 
+#   
+# effort_map <- ggplot() +
+#   geom_tile(data = map_grid, aes(x = lon, y = lat, fill = effort)) +
+#   scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen") +
+#   geom_point(data = map_grid[map_grid$OWF,],           
+#              aes(x = lon, y = lat), color = "black", size = 1)+
+#   labs(title = "fishing effort",
+#        x = "Longitude (°)", y = "Latitude (°)", fill="effort") +
+#   theme_bw()+
+#   theme(plot.title = element_text(size = 14),
+#         text = element_text(size = 14),
+#         strip.text = element_text(size = 14, face = "bold"))
+# 
+# print(effort_map)
+
