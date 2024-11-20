@@ -18,8 +18,8 @@ CC_scenarios <- c("ON","OFF")
 n_years_cut <- c(10,21,22,34,35,49)
 n_replicate <- 30
 
-process_biomass <- function(base_results_path, current_results_path,cut_off_year_begin, cut_off_year_end) {
-  list_biomass_base <- list.files(base_results_path, "Yansong_biomass_Simu.*csv", full.names = TRUE)
+process_biomass <- function(current_results_path,cut_off_year_begin, cut_off_year_end) {
+  list_biomass_base <- list.files(results_path_base, "Yansong_biomass_Simu.*csv", full.names = TRUE)
   list_biomass_current <- list.files(current_results_path, "Yansong_biomass_Simu.*csv", full.names = TRUE)
   
   biomass_relative <- lapply(1:n_replicate, function(simulation) {
@@ -56,21 +56,18 @@ for (regulation in regulation_scenarios) {
   
   # 分别计算三个时间段的数据
   total_biomass_before_list <- map(results_path_scenario, ~ process_biomass(
-    base_results_path = results_path_base,
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[1],
     cut_off_year_end = n_years_cut[2]
   ))
   
   total_biomass_during_list <- map(results_path_scenario, ~ process_biomass(
-    base_results_path = results_path_base,
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[3],
     cut_off_year_end = n_years_cut[4]
   ))
   
   total_biomass_after_list <- map(results_path_scenario, ~ process_biomass(
-    base_results_path = results_path_base,
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[5],
     cut_off_year_end = n_years_cut[6]
@@ -111,6 +108,7 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
   facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20), regulation = label_wrap_gen(20)
   )) +
+  ylim(0.9,1.05)+
   scale_fill_manual(
     values = c("purple", "pink", "orange", "lightblue"),
     labels = c(
@@ -119,9 +117,9 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
     )
   ) +
   labs(
-    title = "Total Biomass Across Regulations and Periods",
+    title = "Total biomass across scenarios and periods, relative to reference simulations",
     x = "Deployment Scenario",
-    y = "Relative Biomass",
+    y = "Total biomass relative to reference simulations",
     fill = "Deployment Scenario"
   ) +
   theme_bw() +
@@ -134,9 +132,10 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
     legend.text = element_text(size = 11)
   )
 
-# 保存图像
+print(combined_boxplot)
+
 ggsave(
   file.path("figures", "publication", "boxplot", "total_biomass_combined.png"),
   combined_boxplot,
-  width = 15, height = 10, dpi = 600
+  width = 12, height = 8, dpi = 600
 )
