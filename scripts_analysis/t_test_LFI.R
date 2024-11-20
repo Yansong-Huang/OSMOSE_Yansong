@@ -83,7 +83,7 @@ t_test_lfi <- function(current_results_path, cut_off_year_begin, cut_off_year_en
 # 初始化空列表，用于存储所有结果
 lfi_after_list <- list()
 
-for (regulation in regulation_scenarios[3]){
+for (regulation in regulation_scenarios){
   
   # 构建每个场景的路径
   results_path_1 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM","Indicators")

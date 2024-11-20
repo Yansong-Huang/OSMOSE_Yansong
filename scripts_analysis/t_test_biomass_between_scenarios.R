@@ -22,6 +22,7 @@ t_test_biomass <- function(deployment, cut_off_year_begin, cut_off_year_end) {
   # 获取文件列表
   results_path_no_closure <- file.path("outputs/results_1111", paste0("CC.ON_", deployment, "_", regulation_scenarios[1]), "Base", "output", "CIEM")
   results_path_trawlers_closure <- file.path("outputs/results_1111", paste0("CC.ON_", deployment, "_", regulation_scenarios[2]), "Base", "output", "CIEM")
+  results_path_complete_closure <- file.path("outputs/results_1111", paste0("CC.ON_", deployment, "_", regulation_scenarios[3]), "Base", "output", "CIEM")
   
   list_biomass_no_closure <- list.files(results_path_no_closure, "Yansong_biomass_Simu.*csv", full.names = TRUE)
   list_biomass_trawlers_closure <- list.files(results_path_trawlers_closure, "Yansong_biomass_Simu.*csv", full.names = TRUE)
