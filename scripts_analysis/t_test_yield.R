@@ -1,4 +1,4 @@
-# t-test of biomass between OWF scenarios and reference simulations
+# t-test of yield between OWF scenarios and reference simulations
 # Auteur : Yansong Huang
 # Date de création : 2024-11-13
 
@@ -18,41 +18,41 @@ n_years_cut <- c(10,21,22,34,35,49)
 n_replicate <- 30
 
 
-t_test_biomass <- function(current_results_path, cut_off_year_begin, cut_off_year_end) {
+t_test_yield <- function(current_results_path, cut_off_year_begin, cut_off_year_end) {
   # 获取文件列表
-  list_biomass_base <- list.files(results_path_base, "Yansong_biomass_Simu.*csv", full.names = TRUE)
-  list_biomass_current <- list.files(current_results_path, "Yansong_biomass_Simu.*csv", full.names = TRUE)
+  list_yield_base <- list.files(results_path_base, "Yansong_yield_Simu.*csv", full.names = TRUE)
+  list_yield_current <- list.files(current_results_path, "Yansong_yield_Simu.*csv", full.names = TRUE)
   
-  biomass_base <- lapply(1:n_replicate, function(simulation) {
+  yield_base <- lapply(1:n_replicate, function(simulation) {
     # 读取生物量数据
-    biomass_brut_base <- read.csv(list_biomass_base[simulation], skip = 1)
+    yield_brut_base <- read.csv(list_yield_base[simulation], skip = 1)
     # 筛选时间段并计算总生物量
-    biomass_total_base <- biomass_brut_base %>% 
+    yield_total_base <- yield_brut_base %>% 
       filter(Time>cut_off_year_begin)%>%
       filter(Time<cut_off_year_end)%>% 
       colMeans() %>% sum()
     
-    return(biomass_total_base)
+    return(yield_total_base)
   })
   
-  biomass_current <- lapply(1:n_replicate, function(simulation) {
+  yield_current <- lapply(1:n_replicate, function(simulation) {
     # 读取生物量数据
-    biomass_brut_current <- read.csv(list_biomass_current[simulation], skip = 1)
+    yield_brut_current <- read.csv(list_yield_current[simulation], skip = 1)
     
     # 筛选时间段并计算总生物量
-    biomass_total_current <- biomass_brut_current %>% 
+    yield_total_current <- yield_brut_current %>% 
       filter(Time>cut_off_year_begin)%>%
       filter(Time<cut_off_year_end)%>% 
       colMeans() %>% sum()
-    return(biomass_total_current)
+    return(yield_total_current)
   })
   
   # 转换为数值向量
-  biomass_base <- as.numeric(biomass_base)
-  biomass_current <- as.numeric(biomass_current)
+  yield_base <- as.numeric(yield_base)
+  yield_current <- as.numeric(yield_current)
   
   # 计算统计量
-  t_test_result <- t.test(biomass_base, biomass_current)
+  t_test_result <- t.test(yield_base, yield_current)
   p_value <- t_test_result$p.value
   
   return(p_value)
@@ -60,8 +60,8 @@ t_test_biomass <- function(current_results_path, cut_off_year_begin, cut_off_yea
 
 
 # 初始化空列表，用于存储所有结果
-biomass_during_list <- list()
-biomass_after_list <- list()
+yield_during_list <- list()
+yield_after_list <- list()
 
 for (regulation in regulation_scenarios){
   
@@ -79,13 +79,13 @@ for (regulation in regulation_scenarios){
   
   # apply the function to four deployment scenarios, respectively for period after OWF construction
   
-  biomass_during_list <- map(results_path_scenario, ~ t_test_biomass(
+  yield_during_list <- map(results_path_scenario, ~ t_test_yield(
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[3],
     cut_off_year_end = n_years_cut[4]
   ))
   
-  biomass_after_list <- map(results_path_scenario, ~ t_test_biomass(
+  yield_after_list <- map(results_path_scenario, ~ t_test_yield(
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[5],
     cut_off_year_end = n_years_cut[6]
@@ -93,18 +93,18 @@ for (regulation in regulation_scenarios){
   
   
   # 为结果命名
-  names(biomass_during_list) <- c("cost", "protection", "distance", "balance")
-  names(biomass_after_list) <- c("cost", "protection", "distance", "balance")
+  names(yield_during_list) <- c("cost", "protection", "distance", "balance")
+  names(yield_after_list) <- c("cost", "protection", "distance", "balance")
   
   # 将所有结果转换为数据框
   print("during OWF construction")
-  biomass_during_table <- stack(biomass_during_list)
-  colnames(biomass_during_table) <- c("p_value", "scenario")
+  yield_during_table <- stack(yield_during_list)
+  colnames(yield_during_table) <- c("p_value", "scenario")
   print(regulation)
-  print(biomass_during_table)
+  print(yield_during_table)
   print("after OWF construction")
-  biomass_after_table <- stack(biomass_after_list)
-  colnames(biomass_after_table) <- c("p_value", "scenario")
+  yield_after_table <- stack(yield_after_list)
+  colnames(yield_after_table) <- c("p_value", "scenario")
   print(regulation)
-  print(biomass_after_table)
+  print(yield_after_table)
 }
