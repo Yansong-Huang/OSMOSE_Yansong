@@ -102,25 +102,21 @@ total_biomass_all$regulation <- factor(
 )
 
 # 绘制大图
-combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ratio, fill = deployment)) +
+
+combined_boxplot <- ggplot(total_biomass_all, aes(x = regulation, y = biomass_ratio, fill = regulation)) +
   geom_boxplot() +
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20), regulation = label_wrap_gen(20)
-  )) +
+  facet_grid(~period, scales = "free_y") +
   ylim(0.9,1.05)+
   scale_fill_manual(
-    values = c("purple", "pink", "orange", "lightblue"),
-    labels = c(
-      "Cost minimisation", "Exclusion from environmental protection zones",
-      "Long distance from the coast", "Balance"
-    )
+    values = c("darkred", "darkgreen", "darkblue"),
+    labels = c("no closure", "trawlers closure", "complete closure")
   ) +
   labs(
     title = "Total biomass across scenarios and periods, relative to reference simulations",
-    x = "Deployment Scenario",
+    x = "Regulation Scenario",
     y = "Total biomass relative to reference simulations",
-    fill = "Deployment Scenario"
+    fill = "Regulation Scenario"
   ) +
   theme_bw() +
   theme(
@@ -132,10 +128,11 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
     legend.text = element_text(size = 11)
   )
 
+# 
 print(combined_boxplot)
 
 ggsave(
-  file.path("figures", "publication", "boxplot", "total_biomass_combined.png"),
+  file.path("figures", "publication", "boxplot", "total_biomass_regulations.png"),
   combined_boxplot,
-  width = 12, height = 8, dpi = 600
+  width = 10, height = 4, dpi = 600
 )

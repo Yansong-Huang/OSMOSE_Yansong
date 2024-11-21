@@ -27,15 +27,15 @@ weighted_avg_tl <- function(tl_data, biomass_data) {
   return(mean(weighted_tl, na.rm = TRUE))
 }
 
-process_tl <- function(base_results_path, current_results_path, cut_off_year_begin, cut_off_year_end) {
+process_tl <- function(current_results_path, cut_off_year_begin, cut_off_year_end) {
   # 获取文件列表
-  base_trophic_path <- file.path(base_results_path,"Trophic")
+  base_trophic_path <- file.path(results_path_base,"Trophic")
   current_trophic_path <- file.path(current_results_path,"Trophic")
  
-   list_tl_base <- list.files(base_trophic_path, "Yansong_meanTL_Simu.", full.names = TRUE)
-  list_tl_current <- list.files(current_trophic_path, "Yansong_meanTL_Simu.", full.names = TRUE)
-  list_biomass_base <- list.files(base_results_path, "Yansong_biomass_Simu.", full.names = TRUE)
-  list_biomass_current <- list.files(current_results_path, "Yansong_biomass_Simu.", full.names = TRUE)
+  list_tl_base <- list.files(base_trophic_path, "Yansong_meanTL_Simu.*csv", full.names = TRUE)
+  list_tl_current <- list.files(current_trophic_path, "Yansong_meanTL_Simu.*csv", full.names = TRUE)
+  list_biomass_base <- list.files(results_path_base, "Yansong_biomass_Simu.*csv", full.names = TRUE)
+  list_biomass_current <- list.files(current_results_path, "Yansong_biomass_Simu.*csv", full.names = TRUE)
   
   # 计算相对营养级
   tl_relative <- lapply(1:n_replicate, function(simulation) {
@@ -75,13 +75,13 @@ average_tl_after_list <- list()
 for (regulation in regulation_scenarios){
   
   # 构建每个场景的路径
-  results_path_1 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM")
-  results_path_2 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[2], "_", regulation), "Base", "output", "CIEM")
-  results_path_3 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[3], "_", regulation), "Base", "output", "CIEM")
-  results_path_4 <- file.path("outputs/results_2510", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM")
+  results_path_1 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[1], "_", regulation), "Base", "output", "CIEM")
+  results_path_2 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[2], "_", regulation), "Base", "output", "CIEM")
+  results_path_3 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[3], "_", regulation), "Base", "output", "CIEM")
+  results_path_4 <- file.path("outputs/results_1111", paste0("CC.ON_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM")
   
   # 基础路径
-  results_path_base <- file.path("outputs/results_2510", "Base_simu", "output", "CIEM")
+  results_path_base <- file.path("outputs/results_1111", "Base_simu", "Base", "output", "CIEM")
   # 将路径合并为列表
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
   
@@ -90,21 +90,18 @@ for (regulation in regulation_scenarios){
   library(purrr)
   
   average_tl_before_list <- map(results_path_scenario, ~ process_tl(
-    base_results_path = results_path_base,
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[1],
     cut_off_year_end = n_years_cut[2]
   ))
   
   average_tl_during_list <- map(results_path_scenario, ~ process_tl(
-    base_results_path = results_path_base,
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[3],
     cut_off_year_end = n_years_cut[4]
   ))
   
   average_tl_after_list <- map(results_path_scenario, ~ process_tl(
-    base_results_path = results_path_base,
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[5],
     cut_off_year_end = n_years_cut[6]

@@ -45,7 +45,7 @@ process_LFI <- function(current_results_path, cut_off_year_begin, cut_off_year_e
   list_yield_base <- list.files(results_path_base, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   list_yield_current <- list.files(current_results_path, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   
-  # 计算相对营养级
+  # 计算LFI
   lfi_relative <- lapply(1:n_replicate, function(simulation) {
     # 读取生物量数据
     yield_brut_base <- read.csv(list_yield_base[simulation], skip = 1)
@@ -150,9 +150,9 @@ combined_boxplot <- ggplot(total_LFI_all, aes(x = deployment, y = LFI_ratio, fil
     )
   ) +
   labs(
-    title = "LFI across scenarios and periods, relative to reference simulations",
+    title = "LFI catch across scenarios and periods, relative to reference simulations",
     x = "Deployment Scenario",
-    y = "LFI relative to reference simulations",
+    y = "LFI catch relative to reference simulations",
     fill = "Deployment Scenario"
   ) +
   theme_bw() +
