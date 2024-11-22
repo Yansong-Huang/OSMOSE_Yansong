@@ -83,3 +83,5 @@ leveneTest(biomass_ratio ~ regulation * deployment, data = total_biomass_all)
 #ANOVa
 anova_model <- aov(biomass_ratio ~ regulation * deployment, data = total_biomass_all)
 summary(anova_model)
+
+shapiro.test(residuals(anova_model))

@@ -113,9 +113,21 @@ LFI_all$regulation <- factor(
   labels = c("no closure", "trawlers closure", "complete closure")
 )
 
-# Levene test 
+Levene test
 leveneTest(LFI_ratio ~ regulation * deployment, data = LFI_all)
 
 #ANOVa
 anova_model <- aov(LFI_ratio ~ regulation * deployment, data = LFI_all)
 summary(anova_model)
+
+shapiro.test(residuals(anova_model))
+
+
+qqnorm(residuals(anova_model))
+qqline(residuals(anova_model), col = "red")
+plot(fitted(anova_model), residuals(anova_model))
+abline(h = 0, col = "blue")
+
+kruskal.test(LFI_ratio ~ regulation, data = LFI_all)
+kruskal.test(LFI_ratio ~ deployment, data = LFI_all)
+

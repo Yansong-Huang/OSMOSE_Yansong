@@ -5,6 +5,7 @@
 library(tidyr)
 library(dplyr)
 library(purrr)
+library(car)
 
 # variables globales
 deployment_scenarios <- c("cout","protection","loin","equilibre")
@@ -83,3 +84,5 @@ leveneTest(yield_ratio ~ regulation * deployment, data = total_yield_all)
 #ANOVa
 anova_model <- aov(yield_ratio ~ regulation * deployment, data = total_yield_all)
 summary(anova_model)
+
+shapiro.test(residuals(anova_model))
