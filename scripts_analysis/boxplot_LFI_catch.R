@@ -100,7 +100,7 @@ for (regulation in regulation_scenarios) {
     cut_off_year_end = n_years_cut[4]
   ))
   
-  total_LFI_after_list <- map(results_path_scenario, ~ process_LFI(
+  total_LFI_period_list <- map(results_path_scenario, ~ process_LFI(
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[5],
     cut_off_year_end = n_years_cut[6]
@@ -108,14 +108,14 @@ for (regulation in regulation_scenarios) {
   
   names(total_LFI_before_list) <- c("cost", "protection", "distance", "balance")
   names(total_LFI_during_list) <- c("cost", "protection", "distance", "balance")
-  names(total_LFI_after_list) <- c("cost", "protection", "distance", "balance")
+  names(total_LFI_period_list) <- c("cost", "protection", "distance", "balance")
   
   # 转换为数据框并添加标识
   total_LFI_before_table <- stack(total_LFI_before_list) %>%
     mutate(period = "2011-2022", regulation = regulation)
   total_LFI_during_table <- stack(total_LFI_during_list) %>%
     mutate(period = "2023-2034", regulation = regulation)
-  total_LFI_after_table <- stack(total_LFI_after_list) %>%
+  total_LFI_period_table <- stack(total_LFI_period_list) %>%
     mutate(period = "2035-2050", regulation = regulation)
   
   # 合并到全局数据框
@@ -123,7 +123,7 @@ for (regulation in regulation_scenarios) {
     total_LFI_all,
     total_LFI_before_table,
     total_LFI_during_table,
-    total_LFI_after_table
+    total_LFI_period_table
   )
 }
 colnames(total_LFI_all) <- c("LFI_ratio", "deployment","period","regulation")
@@ -166,8 +166,79 @@ combined_boxplot <- ggplot(total_LFI_all, aes(x = deployment, y = LFI_ratio, fil
   )
 
 # 保存图像
+# ggsave(
+#   file.path("figures", "publication", "boxplot", "LFI_catch_combined.png"),
+#   combined_boxplot,
+#   width = 12, height = 8, dpi = 600
+# )
+
+deployment_boxplot <- ggplot(total_LFI_all, aes(x = deployment, y = LFI_ratio, fill = deployment)) +
+  geom_boxplot() +
+  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  facet_grid(~period, scales = "free_y", labeller = labeller(
+    period = label_wrap_gen(20))) +
+  ylim(0.7,1.2)+
+  scale_fill_manual(
+    values = c("purple", "pink", "orange", "lightblue"),
+    labels = c(
+      "Cost minimisation", "Exclusion from environmental protection zones",
+      "Long distance from the coast", "Balance"
+    )
+  ) +
+  labs(
+    title = "LFI catch across scenarios and periods, relative to reference simulations",
+    x = "Deployment Scenario",
+    y = "LFI catch relative to reference simulations",
+    fill = "Deployment Scenario"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 10),
+    legend.title = element_text(size = 13),
+    legend.text = element_text(size = 11)
+  )
+
+print(deployment_boxplot)
+# 保存图像
 ggsave(
-  file.path("figures", "publication", "boxplot", "LFI_catch_combined.png"),
-  combined_boxplot,
-  width = 12, height = 8, dpi = 600
+  file.path("figures", "publication", "boxplot", "LFI_catch_deployment.png"),
+  deployment_boxplot,
+  width = 12, height = 4, dpi = 600
+)
+
+regulation_boxplot <- ggplot(total_LFI_all, aes(x = regulation, y = LFI_ratio, fill = regulation)) +
+  geom_boxplot() +
+  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  facet_grid(~period, scales = "free_y", labeller = labeller(
+    period = label_wrap_gen(20))) +
+  ylim(0.7,1.2)+
+  scale_fill_manual(
+    values = c("darkred", "darkgreen", "darkblue"),
+    labels = c("no closure", "trawlers closure", "complete closure")
+  ) +
+  labs(
+    title = "LFI catch across scenarios and periods, relative to reference simulations",
+    x = "Regulation Scenario",
+    y = "LFI catch relative to reference simulations",
+    fill = "Regulation Scenario"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 10),
+    legend.title = element_text(size = 13),
+    legend.text = element_text(size = 11)
+  )
+
+print(regulation_boxplot)
+# 保存图像
+ggsave(
+  file.path("figures", "publication", "boxplot", "LFI_catch_regulation.png"),
+  regulation_boxplot,
+  width = 9, height = 4, dpi = 600
 )
