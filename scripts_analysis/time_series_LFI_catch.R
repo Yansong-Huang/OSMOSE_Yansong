@@ -19,8 +19,9 @@ year_end <- 2050
 n_years <- 49
 cut_off_year <- 10 
 n_replicate <- 30
-LFI_sd_colour_palette <- c("#8a2be2","#ff1493","#ff3800","#0892d0")
-LFI_mean_colour_palette <- c("#8a2be2","#8a2be2","#ff1493","#ff1493","#ff3800","#ff3800","#0892d0","#0892d0")
+LFI_sd_colour_palette <- c("#8a2be2","#0892d0","#ff3800","#ff1493")
+LFI_mean_colour_palette <- c("#8a2be2","#0892d0","#ff3800","#ff1493")
+results_path_base <- file.path("outputs/results_1111","Base_simu","Base","output","CIEM","SizeIndicators")
 
 LFI_series <- function(data_yield_size, thresholds = 40) {
   data_yield_size_40 <- data_yield_size %>%
@@ -42,7 +43,7 @@ LFI_series <- function(data_yield_size, thresholds = 40) {
   return(lfi_series)
 }
 
-process_LFI <- function(current_results_path) {
+process_LFI_ratio <- function(current_results_path) {
   list_yield_base <- list.files(results_path_base, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   list_yield_current <- list.files(current_results_path, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   
@@ -76,67 +77,49 @@ process_LFI <- function(current_results_path) {
 }
 
 
-# chemin pour tous les résultats
-for(regulation in regulation_scenarios){
-  results_path_1 <- file.path("outputs/results_1111","Base_simu","Base","output","CIEM","SizeIndicators")
+# Prepare the data for all regulation scenarios
+all_LFI_ratio_df <- list()  # Initialize an empty list to store all results
+for (regulation in regulation_scenarios) {
+  # Define the paths for each scenario
   results_path_2 <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[1],"_",regulation),"Base","output","CIEM","SizeIndicators")
   results_path_3 <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[2],"_",regulation),"Base","output","CIEM","SizeIndicators")
   results_path_4 <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[3],"_",regulation),"Base","output","CIEM","SizeIndicators")
   results_path_5 <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[4],"_",regulation),"Base","output","CIEM","SizeIndicators")
   
+  # List of paths for processing
   scenario_path <- list(results_path_2, results_path_3, results_path_4, results_path_5)
   
-  # Chargement les résultats de sortie du modèle
-  all_LFI_ratio <- list()
+  # Process LFI ratio for all scenarios
+  all_LFI_ratio <- lapply(scenario_path, process_LFI_ratio)
   
-  # apply to all scenarios
-  all_LFI_ratio <- lapply(scenario_path, process_LFI)
-  
-  relative_LFI_plot <- ggplot() +
-    geom_line(data = all_LFI_ratio[[1]], aes(x = year, y = LFI_output_mean, color = "mean cost")) +
-    geom_ribbon(data = all_LFI_ratio[[1]], aes(x = year,
-                                                 ymin = LFI_output_mean - LFI_output_sd,
-                                                 ymax = LFI_output_mean + LFI_output_sd,
-                                                 fill = "sd cost"),
-                alpha = 0.2) +
-    geom_line(data = all_LFI_ratio[[2]], aes(x = year, y = LFI_output_mean, color = "mean protection")) +
-    geom_ribbon(data = all_LFI_ratio[[2]], aes(x = year,
-                                                 ymin = LFI_output_mean - LFI_output_sd,
-                                                 ymax = LFI_output_mean + LFI_output_sd,
-                                                 fill = "sd protection"),
-                alpha = 0.2) +
-    geom_line(data = all_LFI_ratio[[3]], aes(x = year, y = LFI_output_mean, color = "mean distance")) +
-    geom_ribbon(data = all_LFI_ratio[[3]], aes(x = year,
-                                                 ymin = LFI_output_mean - LFI_output_sd,
-                                                 ymax = LFI_output_mean + LFI_output_sd,
-                                                 fill = "sd distance"),
-                alpha = 0.2) +
-    geom_line(data = all_LFI_ratio[[4]], aes(x = year, y = LFI_output_mean, color = "mean balance")) +
-    geom_ribbon(data = all_LFI_ratio[[4]], aes(x = year,
-                                                 ymin = LFI_output_mean - LFI_output_sd,
-                                                 ymax = LFI_output_mean + LFI_output_sd,
-                                                 fill = "sd balance"),
-                alpha = 0.2) +
-    geom_hline(yintercept = 1, color = "black", linetype = "dotted")+
-    geom_rect(aes(xmin = 2023, xmax = 2025, ymin = -Inf, ymax = Inf), fill = "grey", alpha = 0.5) +
-    geom_rect(aes(xmin = 2028, xmax = 2030, ymin = -Inf, ymax = Inf), fill = "grey", alpha = 0.5) +
-    geom_rect(aes(xmin = 2033, xmax = 2035, ymin = -Inf, ymax = Inf), fill = "grey", alpha = 0.5) +
-    scale_color_manual(name = element_blank(),
-                       values = LFI_mean_colour_palette,
-                       breaks = c("mean cost","sd cost","mean protection","sd protection","mean distance","sd distance", "mean balance", "sd balance"),
-                       labels = c("mean cost","sd cost","mean protection","sd protection","mean distance","sd distance", "mean balance", "sd balance")) +
-    scale_fill_manual(name = element_blank(),
-                      values = LFI_sd_colour_palette,
-                      breaks = c("sd cost","sd protection","sd distance","sd balance"),
-                      labels = c("sd cost","sd protection","sd distance","sd balance")) +
-    ylab("LFI catch ratio") +
-    ggtitle(regulation)+
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1),
-          plot.background = element_rect(fill = "white"),
-          legend.title = element_blank())
-  
-  print(relative_LFI_plot)
-  # Sauvegarder le graphique de comparaison
-  ggsave(file.path("figures/publication/time_series",regulation,"LFI_catch.png", sep=""), relative_LFI_plot, width = 10, height = 5, dpi = 600)
+  # Combine the results into one dataframe, including deployment scenario and regulation
+  all_LFI_ratio_df[[regulation]] <- bind_rows(
+    lapply(1:length(all_LFI_ratio), function(i) {
+      df <- all_LFI_ratio[[i]]
+      df$deployment <- deployment_scenarios[i]
+      df$regulation <- regulation
+      return(df)
+    })
+  )
 }
+
+# After the loop, we have all LFI data for each regulation scenario
+# Combine all data into one dataframe
+combined_LFI_ratio_df <- bind_rows(all_LFI_ratio_df)
+
+combined_plot <- ggplot(combined_LFI_ratio_df) +
+  geom_line(aes(x = year, y = LFI_output_mean, color = deployment)) +
+  geom_ribbon(aes(x = year, ymin = LFI_output_mean - LFI_output_sd, ymax = LFI_output_mean + LFI_output_sd, fill = deployment), alpha = 0.2) +
+  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  annotate("rect", xmin = 2023, xmax = 2025, ymin = -Inf, ymax = Inf, fill = "grey", alpha = 0.5) +
+  annotate("rect", xmin = 2028, xmax = 2030, ymin = -Inf, ymax = Inf, fill = "grey", alpha = 0.5) +
+  annotate("rect", xmin = 2033, xmax = 2035, ymin = -Inf, ymax = Inf, fill = "grey", alpha = 0.5) +
+  scale_color_manual(name = "Deployment Scenario", values = LFI_mean_colour_palette) +
+  scale_fill_manual(name = "Deployment Scenario", values = LFI_sd_colour_palette) +
+  ylab("LFI Catch Ratio") +
+  facet_wrap(~ regulation, ncol = 1) +  # 纵向排列子图
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank())
+
+# 保存合并后的图像
+ggsave("figures/publication/time_series/combined_LFI_catch.png", combined_plot, width = 8, height = 8, dpi = 600)
