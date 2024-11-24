@@ -1,10 +1,11 @@
-# Boxplot of total biomass
+# ANOVA of total biomass
 # Auteur : Yansong Huang
 # Date de création : 2024-10-31
 
 library(tidyr)
 library(dplyr)
 library(purrr)
+library(car)
 
 # variables globales
 deployment_scenarios <- c("cout","protection","loin","equilibre")
@@ -51,22 +52,22 @@ for (regulation in regulation_scenarios) {
   
   # 分别计算三个时间段的数据
   
-  total_biomass_after_list <- map(results_path_scenario, ~ process_biomass(
+  total_biomass_period_list <- map(results_path_scenario, ~ process_biomass(
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[5],
     cut_off_year_end = n_years_cut[6]
   ))
   
-  names(total_biomass_after_list) <- c("cost", "protection", "distance", "balance")
+  names(total_biomass_period_list) <- c("cost", "protection", "distance", "balance")
   
   # 转换为数据框并添加标识
-  total_biomass_after_table <- stack(total_biomass_after_list) %>%
+  total_biomass_period_table <- stack(total_biomass_period_list) %>%
     mutate(regulation = regulation)
   
   # 合并到全局数据框
   total_biomass_all <- rbind(
     total_biomass_all,
-    total_biomass_after_table
+    total_biomass_period_table
   )
 }
 colnames(total_biomass_all) <- c("biomass_ratio", "deployment","regulation")
@@ -85,3 +86,7 @@ anova_model <- aov(biomass_ratio ~ regulation * deployment, data = total_biomass
 summary(anova_model)
 
 shapiro.test(residuals(anova_model))
+
+
+
+

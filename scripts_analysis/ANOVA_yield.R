@@ -52,22 +52,22 @@ for (regulation in regulation_scenarios) {
   
   # 分别计算三个时间段的数据
   
-  total_yield_after_list <- map(results_path_scenario, ~ process_yield(
+  total_yield_period_list <- map(results_path_scenario, ~ process_yield(
     current_results_path = .x,
     cut_off_year_begin = n_years_cut[5],
     cut_off_year_end = n_years_cut[6]
   ))
 
-  names(total_yield_after_list) <- c("cost", "protection", "distance", "balance")
+  names(total_yield_period_list) <- c("cost", "protection", "distance", "balance")
   
   # 转换为数据框并添加标识
-  total_yield_after_table <- stack(total_yield_after_list) %>%
+  total_yield_period_table <- stack(total_yield_period_list) %>%
     mutate(regulation = regulation)
   
   # 合并到全局数据框
   total_yield_all <- rbind(
     total_yield_all,
-    total_yield_after_table
+    total_yield_period_table
   )
 }
 colnames(total_yield_all) <- c("yield_ratio", "deployment","regulation")

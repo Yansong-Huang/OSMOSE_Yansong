@@ -113,7 +113,7 @@ LFI_all$regulation <- factor(
   labels = c("no closure", "trawlers closure", "complete closure")
 )
 
-Levene test
+# Levene test
 leveneTest(LFI_ratio ~ regulation * deployment, data = LFI_all)
 
 #ANOVa
