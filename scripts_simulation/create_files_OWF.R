@@ -162,8 +162,9 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
   }
   
 ###### verification of fishing distribution file ######  
-# fermeture_total_nc <- nc_open("data_scenarios/protection/fermeture_totale/fishing-distrib.nc")  
-# fermeture_total_map <- ncvar_get(fermeture_total_nc, "fishing_area", start = c(1,1,49), count = c(-1,-1,1))  
+# fermeture_total_nc <- nc_open("data_scenarios/protection/fermeture_totale/fishing-distrib.nc")
+# fermeture_total_map <- ncvar_get(fermeture_total_nc, "fishing_area", start = c(1,1,31), count = c(-1,-1,1))
+# nc_close(fermeture_total_nc)
 # # visualise map
 # source("scripts_analysis/OWF_mask.R")
 # # set longitude and latitude
@@ -172,12 +173,12 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
 # # Prepare grid and mask
 # map_grid <- expand.grid(lon = lon, lat = lat)
 # map_grid$effort <- as.vector(fermeture_total_map)
-# map_grid$OWF <- as.vector(get("mask_OWF_protection")) 
-#   
+# map_grid$OWF <- as.vector(get("mask_OWF_protection"))
+# 
 # effort_map <- ggplot() +
 #   geom_tile(data = map_grid, aes(x = lon, y = lat, fill = effort)) +
 #   scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen") +
-#   geom_point(data = map_grid[map_grid$OWF,],           
+#   geom_point(data = map_grid[map_grid$OWF,],
 #              aes(x = lon, y = lat), color = "black", size = 1)+
 #   labs(title = "fishing effort",
 #        x = "Longitude (°)", y = "Latitude (°)", fill="effort") +
@@ -187,4 +188,4 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
 #         strip.text = element_text(size = 14, face = "bold"))
 # 
 # print(effort_map)
-
+# 
