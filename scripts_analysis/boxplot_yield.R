@@ -17,26 +17,20 @@ regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale"
 CC_scenarios <- c("ON","OFF")
 n_years_cut <- c(10,21,22,34,35,49)
 n_replicate <- 30
+total_yield_base <- c(59051.26,58021.87,56385.46)
 
 process_yield <- function(current_results_path,cut_off_year_begin, cut_off_year_end) {
-  list_yield_base <- list.files(results_path_base, "Yansong_yield_Simu.*csv", full.names = TRUE)
   list_yield_current <- list.files(current_results_path, "Yansong_yield_Simu.*csv", full.names = TRUE)
   
-  yield_relative <- lapply(1:n_replicate, function(simulation) {
-    yield_brut_base <- read.csv(list_yield_base[simulation], skip = 1)
+  yield_current_list <- lapply(1:n_replicate, function(simulation) {
     yield_brut_current <- read.csv(list_yield_current[simulation], skip = 1)
-    yield_total_base <- yield_brut_base %>% 
-      filter(Time>cut_off_year_begin)%>%
-      filter(Time<cut_off_year_end)%>% 
-      colMeans() %>% sum()
     yield_total_current <- yield_brut_current %>% 
       filter(Time>cut_off_year_begin)%>%
       filter(Time<cut_off_year_end)%>% 
       colMeans() %>% sum()
-    yield_ratio <- yield_total_current/yield_total_base
   })
-  yield_relative <- as.vector(yield_relative) %>% as.numeric()
-  return(yield_relative)
+  yield_current <- as.vector(yield_current_list) %>% as.numeric()
+  return(yield_current)
 }
 
 # 初始化全局数据框
@@ -52,7 +46,6 @@ for (regulation in regulation_scenarios) {
   results_path_4 <- file.path("outputs/results_1111", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM")
   
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
-  results_path_base <- file.path("outputs/results_1111", "Base_simu", "Base", "output", "CIEM")
   
   # 分别计算三个时间段的数据
   total_yield_before_list <- map(results_path_scenario, ~ process_yield(
@@ -79,11 +72,11 @@ for (regulation in regulation_scenarios) {
   
   # 转换为数据框并添加标识
   total_yield_before_table <- stack(total_yield_before_list) %>%
-    mutate(period = "2011-2022", regulation = regulation)
+    mutate(values = values/total_yield_base[1],period = "2011-2022", regulation = regulation)
   total_yield_during_table <- stack(total_yield_during_list) %>%
-    mutate(period = "2023-2034", regulation = regulation)
+    mutate(values = values/total_yield_base[2],period = "2023-2034", regulation = regulation)
   total_yield_after_table <- stack(total_yield_after_list) %>%
-    mutate(period = "2035-2050", regulation = regulation)
+    mutate(values = values/total_yield_base[3],period = "2035-2050", regulation = regulation)
   
   # 合并到全局数据框
   total_yield_all <- rbind(
@@ -108,7 +101,7 @@ deployment_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_rati
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
   facet_grid(~period, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20))) +
-  ylim(0.7,1.2)+
+  ylim(0.85,1.1)+
   scale_fill_manual(
     values = c("purple", "pink", "orange", "lightblue"),
     labels = c(
@@ -135,7 +128,7 @@ deployment_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_rati
 print(deployment_boxplot)
 # 保存图像
 ggsave(
-  file.path("figures", "publication", "boxplot", "total_yield_deployment.png"),
+  file.path("figures", "publication", "boxplot", "total_yield_deployment_unpaired.png"),
   deployment_boxplot,
   width = 12, height = 4, dpi = 600
 )
@@ -145,7 +138,7 @@ regulation_boxplot <- ggplot(total_yield_all, aes(x = regulation, y = yield_rati
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
   facet_grid(~period, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20))) +
-  ylim(0.7,1.2)+
+  ylim(0.85,1.1)+
   scale_fill_manual(
     values = c("darkred", "darkgreen", "darkblue"),
     labels = c("no closure", "trawlers closure", "complete closure")
@@ -169,7 +162,7 @@ regulation_boxplot <- ggplot(total_yield_all, aes(x = regulation, y = yield_rati
 print(regulation_boxplot)
 # 保存图像
 ggsave(
-  file.path("figures", "publication", "boxplot", "total_yield_regulation.png"),
+  file.path("figures", "publication", "boxplot", "total_yield_regulation_unpaired.png"),
   regulation_boxplot,
   width = 9, height = 4, dpi = 600
 )

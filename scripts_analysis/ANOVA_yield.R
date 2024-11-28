@@ -54,8 +54,8 @@ for (regulation in regulation_scenarios) {
   
   total_yield_period_list <- map(results_path_scenario, ~ process_yield(
     current_results_path = .x,
-    cut_off_year_begin = n_years_cut[5],
-    cut_off_year_end = n_years_cut[6]
+    cut_off_year_begin = n_years_cut[3],
+    cut_off_year_end = n_years_cut[4]
   ))
 
   names(total_yield_period_list) <- c("cost", "protection", "distance", "balance")
@@ -86,3 +86,6 @@ anova_model <- aov(yield_ratio ~ regulation * deployment, data = total_yield_all
 summary(anova_model)
 
 shapiro.test(residuals(anova_model))
+
+1-median(total_yield_all[total_yield_all$regulation=="no closure",]$yield_ratio)
+

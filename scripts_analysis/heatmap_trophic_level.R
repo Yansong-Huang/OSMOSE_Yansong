@@ -142,8 +142,8 @@ for (regulation in regulation_scenarios){
             strip.text = element_text(size = 14, face = "bold"))
     
     print(ratio_map_plot)
-    
     ggsave(file.path("figures/publication/heatmap",regulation,deployment,"trophic_level_heatmap_significant.png"),
+    
            ratio_map_plot, width = 16, height = 4, dpi = 600)
   }
 }

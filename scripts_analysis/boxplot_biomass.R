@@ -17,26 +17,20 @@ regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale"
 CC_scenarios <- c("ON","OFF")
 n_years_cut <- c(10,21,22,34,35,49)
 n_replicate <- 30
+total_biomass_base <- c(1322196,1334356,1334056)
 
 process_biomass <- function(current_results_path,cut_off_year_begin, cut_off_year_end) {
-  list_biomass_base <- list.files(results_path_base, "Yansong_biomass_Simu.*csv", full.names = TRUE)
   list_biomass_current <- list.files(current_results_path, "Yansong_biomass_Simu.*csv", full.names = TRUE)
   
-  biomass_relative <- lapply(1:n_replicate, function(simulation) {
-    biomass_brut_base <- read.csv(list_biomass_base[simulation], skip = 1)
+  biomass_current_list <- lapply(1:n_replicate, function(simulation) {
     biomass_brut_current <- read.csv(list_biomass_current[simulation], skip = 1)
-    biomass_total_base <- biomass_brut_base %>% 
-      filter(Time>cut_off_year_begin)%>%
-      filter(Time<cut_off_year_end)%>% 
-      colMeans() %>% sum()
     biomass_total_current <- biomass_brut_current %>% 
       filter(Time>cut_off_year_begin)%>%
       filter(Time<cut_off_year_end)%>% 
       colMeans() %>% sum()
-    biomass_ratio <- biomass_total_current/biomass_total_base
   })
-  biomass_relative <- as.vector(biomass_relative) %>% as.numeric()
-  return(biomass_relative)
+  biomass_current <- as.vector(biomass_current_list) %>% as.numeric()
+  return(biomass_current)
 }
 
 # 初始化全局数据框
@@ -52,8 +46,7 @@ for (regulation in regulation_scenarios) {
   results_path_4 <- file.path("outputs/results_1111", paste0("CC.", CC_scenarios[1], "_", deployment_scenarios[4], "_", regulation), "Base", "output", "CIEM")
   
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
-  results_path_base <- file.path("outputs/results_1111", "Base_simu", "Base", "output", "CIEM")
-  
+
   # 分别计算三个时间段的数据
   total_biomass_before_list <- map(results_path_scenario, ~ process_biomass(
     current_results_path = .x,
@@ -79,11 +72,11 @@ for (regulation in regulation_scenarios) {
   
   # 转换为数据框并添加标识
   total_biomass_before_table <- stack(total_biomass_before_list) %>%
-    mutate(period = "2011-2022", regulation = regulation)
+    mutate(values = values/total_biomass_base[1],period = "2011-2022", regulation = regulation)
   total_biomass_during_table <- stack(total_biomass_during_list) %>%
-    mutate(period = "2023-2034", regulation = regulation)
+    mutate(values = values/total_biomass_base[2],period = "2023-2034", regulation = regulation)
   total_biomass_after_table <- stack(total_biomass_after_list) %>%
-    mutate(period = "2035-2050", regulation = regulation)
+    mutate(values = values/total_biomass_base[3],period = "2035-2050", regulation = regulation)
   
   # 合并到全局数据框
   total_biomass_all <- rbind(
@@ -107,7 +100,7 @@ deployment_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
   facet_grid(~period, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20))) +
-  ylim(0.9,1.05)+
+  # ylim(0.9,1.05)+
   scale_fill_manual(
     values = c("purple", "pink", "orange", "lightblue"),
     labels = c(
@@ -143,7 +136,7 @@ regulation_boxplot <- ggplot(total_biomass_all, aes(x = regulation, y = biomass_
   geom_boxplot() +
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
   facet_grid(~period, scales = "free_y") +
-  ylim(0.9,1.05)+
+  # ylim(0.9,1.05)+
   scale_fill_manual(
     values = c("darkred", "darkgreen", "darkblue"),
     labels = c("no closure", "trawlers closure", "complete closure")

@@ -74,8 +74,8 @@ total_yield_all$regulation <- factor(
 # treat reference simulations
 total_yield_base_list <- process_yield(
   current_results_path = results_path_base,
-  cut_off_year_begin = n_years_cut[3],
-  cut_off_year_end = n_years_cut[4]
+  cut_off_year_begin = n_years_cut[5],
+  cut_off_year_end = n_years_cut[6]
 )
 total_yield_base <- as.vector(total_yield_base_list)
 

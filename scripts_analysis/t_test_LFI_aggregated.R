@@ -102,8 +102,8 @@ LFI_catch_all$regulation <- factor(
 # treat reference simulations
 LFI_catch_base_list <- process_LFI(
   current_results_path = results_path_base,
-  cut_off_year_begin = n_years_cut[5],
-  cut_off_year_end = n_years_cut[6]
+  cut_off_year_begin = n_years_cut[1],
+  cut_off_year_end = n_years_cut[2]
 )
 LFI_catch_base <- as.vector(LFI_catch_base_list)
 

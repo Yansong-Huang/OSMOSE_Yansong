@@ -16,6 +16,7 @@ deployment_scenarios <- c("cout","protection","loin","equilibre")
 regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
 n_years_cut <- c(10,21,22,34,35,49)
 n_replicate <- 30
+LFI_catch_base <- c(0.1255017,0.1032469,0.1388709)
 
 LFI <- function(data_yield_size, thresholds = 40) {
   data_yield_size_40 <- data_yield_size %>%
@@ -42,26 +43,20 @@ LFI <- function(data_yield_size, thresholds = 40) {
 
 process_LFI <- function(current_results_path, cut_off_year_begin, cut_off_year_end) {
   # 获取文件列表
-  list_yield_base <- list.files(results_path_base, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   list_yield_current <- list.files(current_results_path, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   
   # 计算LFI
   lfi_relative <- lapply(1:n_replicate, function(simulation) {
-    # 读取生物量数据
-    yield_brut_base <- read.csv(list_yield_base[simulation], skip = 1)
+    # 读取数据
     yield_brut_current <- read.csv(list_yield_current[simulation], skip = 1)
     
     # 筛选时间段
-    yield_base_filtered <- yield_brut_base %>% filter(Time > cut_off_year_begin & Time < cut_off_year_end)
     yield_current_filtered <- yield_brut_current %>% filter(Time > cut_off_year_begin & Time < cut_off_year_end)
     
     # 计算LFI
-    lfi_base <- LFI(yield_base_filtered)
     lfi_current <- LFI(yield_current_filtered)
     
-    # 计算
-    lfi_ratio <- lfi_current / lfi_base
-    return(lfi_ratio)
+    return(lfi_current)
   })
   
   # 转换为数值向量
@@ -83,9 +78,6 @@ for (regulation in regulation_scenarios) {
   
   # 将路径合并为列表
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
-  
-  # 基础路径
-  results_path_base <- file.path("outputs/results_1111", "Base_simu", "Base", "output", "CIEM","SizeIndicators")
   
   # 分别计算三个时间段的数据
   total_LFI_before_list <- map(results_path_scenario, ~ process_LFI(
@@ -112,11 +104,11 @@ for (regulation in regulation_scenarios) {
   
   # 转换为数据框并添加标识
   total_LFI_before_table <- stack(total_LFI_before_list) %>%
-    mutate(period = "2011-2022", regulation = regulation)
+    mutate(values = values/LFI_catch_base[1],period = "2011-2022", regulation = regulation)
   total_LFI_during_table <- stack(total_LFI_during_list) %>%
-    mutate(period = "2023-2034", regulation = regulation)
+    mutate(values = values/LFI_catch_base[2],period = "2023-2034", regulation = regulation)
   total_LFI_period_table <- stack(total_LFI_period_list) %>%
-    mutate(period = "2035-2050", regulation = regulation)
+    mutate(values = values/LFI_catch_base[3],period = "2035-2050", regulation = regulation)
   
   # 合并到全局数据框
   total_LFI_all <- rbind(
@@ -135,49 +127,13 @@ total_LFI_all$regulation <- factor(
 )
 
 # 绘制大图
-combined_boxplot <- ggplot(total_LFI_all, aes(x = deployment, y = LFI_ratio, fill = deployment)) +
-  geom_boxplot() +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20), regulation = label_wrap_gen(20)
-  )) +
-  ylim(0.7,1.85)+
-  scale_fill_manual(
-    values = c("purple", "pink", "orange", "lightblue"),
-    labels = c(
-      "Cost minimisation", "Exclusion from environmental protection zones",
-      "Long distance from the coast", "Balance"
-    )
-  ) +
-  labs(
-    title = "LFI catch across scenarios and periods, relative to reference simulations",
-    x = "Deployment Scenario",
-    y = "LFI catch relative to reference simulations",
-    fill = "Deployment Scenario"
-  ) +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
-  )
-
-# 保存图像
-# ggsave(
-#   file.path("figures", "publication", "boxplot", "LFI_catch_combined.png"),
-#   combined_boxplot,
-#   width = 12, height = 8, dpi = 600
-# )
 
 deployment_boxplot <- ggplot(total_LFI_all, aes(x = deployment, y = LFI_ratio, fill = deployment)) +
   geom_boxplot() +
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
   facet_grid(~period, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20))) +
-  ylim(0.7,1.2)+
+  # ylim(0.7,1.6)+
   scale_fill_manual(
     values = c("purple", "pink", "orange", "lightblue"),
     labels = c(
@@ -214,7 +170,7 @@ regulation_boxplot <- ggplot(total_LFI_all, aes(x = regulation, y = LFI_ratio, f
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
   facet_grid(~period, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20))) +
-  ylim(0.7,1.2)+
+  # ylim(0.7,1.6)+
   scale_fill_manual(
     values = c("darkred", "darkgreen", "darkblue"),
     labels = c("no closure", "trawlers closure", "complete closure")
