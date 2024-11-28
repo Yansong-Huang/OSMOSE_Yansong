@@ -19,8 +19,7 @@ year_end <- 2050
 n_years <- 49
 cut_off_year <- 10 
 n_replicate <- 30
-LFI_sd_colour_palette <- c("#8a2be2","#0892d0","#ff3800","#ff1493")
-LFI_mean_colour_palette <- c("#8a2be2","#0892d0","#ff3800","#ff1493")
+deployment_colour_palette <- c("#8a2be2","#ff1493","#ff3800","#0892d0")
 results_path_base <- file.path("outputs/results_1111","Base_simu","Base","output","CIEM","SizeIndicators")
 
 LFI_series <- function(data_yield_size, thresholds = 40) {
@@ -43,26 +42,35 @@ LFI_series <- function(data_yield_size, thresholds = 40) {
   return(lfi_series)
 }
 
+# calculate reference LFI catch
+list_yield_base <- list.files(results_path_base, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
+lfi_base_list <- lapply(1:n_replicate, function(simulation) {
+  # 读取生物量数据
+  yield_brut_base <- read.csv(list_yield_base[simulation], skip = 1)
+  # 筛选时间段
+  yield_base_filtered <- yield_brut_base %>% filter(Time >= cut_off_year)
+  # 计算LFI
+  lfi_base <- LFI_series(yield_base_filtered)
+  return(lfi_base)
+})
+
+lfi_base <- data.frame(lfi_base_list)
+lfi_base_mean <- rowMeans(lfi_base)
+
+# calculate LFI catch under scenarios
 process_LFI_ratio <- function(current_results_path) {
-  list_yield_base <- list.files(results_path_base, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   list_yield_current <- list.files(current_results_path, "Yansong_yieldDistribBySize_Simu.*csv", full.names = TRUE)
   
   # 计算LFI
   lfi_replicates <- lapply(1:n_replicate, function(simulation) {
     # 读取生物量数据
-    yield_brut_base <- read.csv(list_yield_base[simulation], skip = 1)
     yield_brut_current <- read.csv(list_yield_current[simulation], skip = 1)
-    
     # 筛选时间段
-    yield_base_filtered <- yield_brut_base %>% filter(Time >= cut_off_year)
     yield_current_filtered <- yield_brut_current %>% filter(Time >= cut_off_year)
-    
     # 计算LFI
-    lfi_base <- LFI_series(yield_base_filtered)
     lfi_current <- LFI_series(yield_current_filtered)
-    
     # 计算
-    lfi_ratio <- lfi_current / lfi_base
+    lfi_ratio <- lfi_current / lfi_base_mean
     return(lfi_ratio)
   })
   
@@ -75,7 +83,6 @@ process_LFI_ratio <- function(current_results_path) {
   )
   return(LFI_summary)
 }
-
 
 # Prepare the data for all regulation scenarios
 all_LFI_ratio_df <- list()  # Initialize an empty list to store all results
@@ -106,7 +113,17 @@ for (regulation in regulation_scenarios) {
 # After the loop, we have all LFI data for each regulation scenario
 # Combine all data into one dataframe
 combined_LFI_ratio_df <- bind_rows(all_LFI_ratio_df)
-
+combined_LFI_ratio_df$regulation <- factor(
+  combined_LFI_ratio_df$regulation,
+  levels = c("sans_fermeture", "fermeture_chalut", "fermeture_totale"),
+  labels = c("no closure", "trawlers closure", "complete closure")
+)
+combined_LFI_ratio_df$deployment <- factor(
+  combined_LFI_ratio_df$deployment,
+  levels = c("cout", "protection", "loin", "equilibre"),
+  labels = c("Cost minisation", "Exclusion from environmental protection zones",
+             "Long distance from the coast", "Balance")
+)
 combined_plot <- ggplot(combined_LFI_ratio_df) +
   geom_line(aes(x = year, y = LFI_output_mean, color = deployment)) +
   geom_ribbon(aes(x = year, ymin = LFI_output_mean - LFI_output_sd, ymax = LFI_output_mean + LFI_output_sd, fill = deployment), alpha = 0.2) +
@@ -120,6 +137,6 @@ combined_plot <- ggplot(combined_LFI_ratio_df) +
   facet_wrap(~ regulation, ncol = 1) +  # 纵向排列子图
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank())
-
+print(combined_plot)
 # 保存合并后的图像
-ggsave("figures/publication/time_series/combined_LFI_catch.png", combined_plot, width = 8, height = 8, dpi = 600)
+ggsave("figures/publication/time_series/LFI_catch.png", combined_plot, width = 8, height = 8, dpi = 600)

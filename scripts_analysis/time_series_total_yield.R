@@ -19,21 +19,17 @@ year_end <- 2050
 n_years <- 49
 cut_off_year <- 10 
 n_replicate <- 30
-yield_sd_colour_palette <- c("#8a2be2","#0892d0","#ff3800","#ff1493")
-yield_mean_colour_palette <- c("#8a2be2","#0892d0","#ff3800","#ff1493")
+deployment_colour_palette <- c("#8a2be2","#ff1493","#ff3800","#0892d0")
 
 process_yield_ratio <- function(current_results_path) {
   list_yield_scenario <- list.files(current_results_path, "Yansong_yield_Simu.*csv", full.names = TRUE)
-  list_yield_reference <- list.files(results_path_1, "Yansong_yield_Simu.*csv", full.names = TRUE)
   
   yield_sum_replicates <- map_dfc(1:n_replicate, function(simulation) {
     yield_brut_scenario <- read.csv(list_yield_scenario[simulation], skip = 1)
-    yield_brut_reference <- read.csv(list_yield_reference[simulation], skip = 1)
     yield_sum_scenario <- apply(yield_brut_scenario[cut_off_year:n_years,-1],1,sum) # yield of all species combined
-    yield_sum_reference <- apply(yield_brut_reference[cut_off_year:n_years,-1],1,sum) # yield of all species combined
-    yield_sum_ratio <- yield_sum_scenario/yield_sum_reference
+    yield_sum_ratio <- yield_sum_scenario/yield_base_mean
   }) 
-  # species_list <- c("lesserSpottedDogfish", "redMullet", "pouting", "whiting", "poorCod", "cod", "dragonet", "sole", "plaice", "horseMackerel", "mackerel", "herring", "sardine", "squids", "cuttlefish", "thornbackRay")
+  
   yield_summary <-  data.frame(
     year = 2011:2050,
     yield_output_mean = rowMeans(yield_sum_replicates),
@@ -42,11 +38,21 @@ process_yield_ratio <- function(current_results_path) {
   return(yield_summary)
 }
 
+# calculate reference data 
+results_path_1 <- file.path("outputs/results_1111","Base_simu","Base","output","CIEM")
+list_yield_reference <- list.files(results_path_1, "Yansong_yield_Simu.*csv", full.names = TRUE)
+
+yield_base_replicates <- map_dfc(1:n_replicate, function(simulation) {
+  yield_brut_reference <- read.csv(list_yield_reference[simulation], skip = 1)
+  yield_sum_reference <- apply(yield_brut_reference[cut_off_year:n_years,-1],1,sum) # yield of all species combined
+}) 
+
+yield_base_mean = rowMeans(yield_base_replicates)
+
 # Prepare the data for all regulation scenarios
 all_yield_ratio_df <- list()  # Initialize an empty list to store all results
 for (regulation in regulation_scenarios) {
   # Define the paths for each scenario
-  results_path_1 <- file.path("outputs/results_1111","Base_simu","Base","output","CIEM")
   results_path_2 <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[1],"_",regulation),"Base","output","CIEM")
   results_path_3 <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[2],"_",regulation),"Base","output","CIEM")
   results_path_4 <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[3],"_",regulation),"Base","output","CIEM")
@@ -72,6 +78,17 @@ for (regulation in regulation_scenarios) {
 # After the loop, we have all yield data for each regulation scenario
 # Combine all data into one dataframe
 combined_yield_ratio_df <- bind_rows(all_yield_ratio_df)
+combined_yield_ratio_df$regulation <- factor(
+  combined_yield_ratio_df$regulation,
+  levels = c("sans_fermeture", "fermeture_chalut", "fermeture_totale"),
+  labels = c("no closure", "trawlers closure", "complete closure")
+)
+combined_yield_ratio_df$deployment <- factor(
+  combined_yield_ratio_df$deployment,
+  levels = c("cout", "protection", "loin", "equilibre"),
+  labels = c("Cost minisation", "Exclusion from environmental protection zones",
+             "Long distance from the coast", "Balance")
+)
 
 combined_plot <- ggplot(combined_yield_ratio_df) +
   geom_line(aes(x = year, y = yield_output_mean, color = deployment)) +
@@ -80,12 +97,12 @@ combined_plot <- ggplot(combined_yield_ratio_df) +
   annotate("rect", xmin = 2023, xmax = 2025, ymin = -Inf, ymax = Inf, fill = "grey", alpha = 0.5) +
   annotate("rect", xmin = 2028, xmax = 2030, ymin = -Inf, ymax = Inf, fill = "grey", alpha = 0.5) +
   annotate("rect", xmin = 2033, xmax = 2035, ymin = -Inf, ymax = Inf, fill = "grey", alpha = 0.5) +
-  scale_color_manual(name = "Deployment Scenario", values = yield_mean_colour_palette) +
-  scale_fill_manual(name = "Deployment Scenario", values = yield_sd_colour_palette) +
+  scale_color_manual(name = "Deployment Scenario", values = deployment_colour_palette) +
+  scale_fill_manual(name = "Deployment Scenario", values = deployment_colour_palette) +
   ylab("Yield Ratio") +
   facet_wrap(~ regulation, ncol = 1) +  # 纵向排列子图
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank())
 
 # 保存合并后的图像
-ggsave("figures/publication/time_series/combined_yield_vertical.png", combined_plot, width = 8, height = 8, dpi = 600)
+ggsave("figures/publication/time_series/combined_yield.png", combined_plot, width = 8, height = 8, dpi = 600)
