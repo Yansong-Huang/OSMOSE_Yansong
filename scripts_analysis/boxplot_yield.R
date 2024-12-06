@@ -123,8 +123,20 @@ deployment_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_rati
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
-  )
-
+  )+
+  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+            aes(x = 1, y = 1.1, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+            aes(x = 2, y = 1.1, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+          aes(x = 3, y = 1.1, label = "***"), 
+          inherit.aes = FALSE, size = 4)+
+geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+          aes(x = 4, y = 1.1, label = "***"), 
+          inherit.aes = FALSE, size = 4)
+ 
 print(deployment_boxplot)
 # 保存图像
 ggsave(
@@ -140,7 +152,7 @@ regulation_boxplot <- ggplot(total_yield_all, aes(x = regulation, y = yield_rati
     period = label_wrap_gen(20))) +
   ylim(0.85,1.1)+
   scale_fill_manual(
-    values = c("darkred", "darkgreen", "darkblue"),
+    values = c("brown", "forestgreen", "dodgerblue4"),
     labels = c("no closure", "trawlers closure", "complete closure")
   ) +
   labs(
@@ -157,7 +169,16 @@ regulation_boxplot <- ggplot(total_yield_all, aes(x = regulation, y = yield_rati
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
-  )
+  )+
+  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+            aes(x = 1, y = 1.1, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+            aes(x = 2, y = 1.1, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+            aes(x = 3, y = 1.1, label = "***"), 
+            inherit.aes = FALSE, size = 4)
 
 print(regulation_boxplot)
 # 保存图像

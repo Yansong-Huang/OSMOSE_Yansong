@@ -122,7 +122,20 @@ deployment_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
-  )
+  )+
+  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
+            aes(x = 1, y = 1.03, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
+            aes(x = 2, y = 1.03, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
+            aes(x = 3, y = 1.03, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
+          aes(x = 4, y = 1.03, label = "***"), 
+          inherit.aes = FALSE, size = 4)
+
 
 print(deployment_boxplot)
 ggsave(
@@ -138,7 +151,7 @@ regulation_boxplot <- ggplot(total_biomass_all, aes(x = regulation, y = biomass_
   facet_grid(~period, scales = "free_y") +
   # ylim(0.9,1.05)+
   scale_fill_manual(
-    values = c("darkred", "darkgreen", "darkblue"),
+    values = c("brown", "forestgreen", "dodgerblue4"),
     labels = c("no closure", "trawlers closure", "complete closure")
   ) +
   labs(
@@ -155,7 +168,16 @@ regulation_boxplot <- ggplot(total_biomass_all, aes(x = regulation, y = biomass_
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
-  )
+  )+
+  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
+            aes(x = 1, y = 1.03, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
+            aes(x = 2, y = 1.03, label = "***"), 
+            inherit.aes = FALSE, size = 4)+
+  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
+            aes(x = 3, y = 1.03, label = "***"), 
+            inherit.aes = FALSE, size = 4)
 
 # 
 print(regulation_boxplot)
