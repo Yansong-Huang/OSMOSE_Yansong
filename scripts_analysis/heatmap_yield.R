@@ -105,7 +105,12 @@ for (regulation in regulation_scenarios){
     
     ratio_map_plot <- ggplot() +
       geom_tile(data = yield_table, aes(x = lon, y = lat, fill = ratio)) +
-      scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
+      scale_fill_gradientn(
+        colors = c("darkorange3", "white", "darkolivegreen"), 
+        values = scales::rescale(c(0, 1, 1.25)),   
+        limits = c(0, 1.25),                        
+        oob = scales::squish,
+      )+
       facet_grid(~period)+
       geom_point(data = yield_table[yield_table$OWF,],           
                  aes(x = lon, y = lat), color = "black", size = 1)+
@@ -118,7 +123,7 @@ for (regulation in regulation_scenarios){
     
     print(ratio_map_plot)
     
-    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"yield_heatmap_significant.png"),
+    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"yield_heatmap.png"),
            ratio_map_plot, width = 16, height = 4, dpi = 600)
   }
 }

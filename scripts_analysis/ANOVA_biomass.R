@@ -86,4 +86,6 @@ anova_model <- aov(biomass_ratio ~ regulation * deployment, data = total_biomass
 summary(anova_model)
 
 shapiro.test(residuals(anova_model))
-
+# LM
+lm <- lm(biomass_ratio ~ regulation * deployment, data = total_biomass_all)
+summary(lm)

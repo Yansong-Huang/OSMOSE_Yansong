@@ -96,12 +96,111 @@ total_yield_all$regulation <- factor(
 
 # 绘制大图
 
-deployment_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio, fill = deployment)) +
-  geom_boxplot() +
+# deployment_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio, fill = deployment)) +
+#   geom_boxplot() +
+#   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+#   facet_grid(~period, scales = "free_y", labeller = labeller(
+#     period = label_wrap_gen(20))) +
+#   ylim(0.85,1.1)+
+#   scale_fill_manual(
+#     values = c("purple", "pink", "orange", "lightblue"),
+#     labels = c(
+#       "Cost minimisation", "Exclusion from environmental protection zones",
+#       "Long distance from the coast", "Balance"
+#     )
+#   ) +
+#   labs(
+#     title = "Total yield across scenarios and periods, relative to reference simulations",
+#     x = "Deployment Scenario",
+#     y = "Total yield relative to reference simulations",
+#     fill = "Deployment Scenario"
+#   ) +
+#   theme_bw() +
+#   theme(
+#     plot.title = element_text(size = 14, face = "bold"),
+#     axis.title.x = element_blank(),
+#     axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
+#     axis.text.y = element_text(size = 10),
+#     legend.title = element_text(size = 13),
+#     legend.text = element_text(size = 11)
+#   )+
+#   geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+#             aes(x = 1, y = 1.1, label = "***"), 
+#             inherit.aes = FALSE, size = 4)+
+#   geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+#             aes(x = 2, y = 1.1, label = "***"), 
+#             inherit.aes = FALSE, size = 4)+
+# geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+#           aes(x = 3, y = 1.1, label = "***"), 
+#           inherit.aes = FALSE, size = 4)+
+# geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+#           aes(x = 4, y = 1.1, label = "***"), 
+#           inherit.aes = FALSE, size = 4)
+#  
+# print(deployment_boxplot)
+# # 保存图像
+# ggsave(
+#   file.path("figures", "publication", "boxplot", "total_yield_deployment_unpaired.png"),
+#   deployment_boxplot,
+#   width = 12, height = 4, dpi = 600
+# )
+# 
+# regulation_boxplot <- ggplot(total_yield_all, aes(x = regulation, y = yield_ratio, fill = regulation)) +
+#   geom_boxplot() +
+#   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+#   facet_grid(~period, scales = "free_y", labeller = labeller(
+#     period = label_wrap_gen(20))) +
+#   ylim(0.85,1.1)+
+#   scale_fill_manual(
+#     values = c("brown", "forestgreen", "dodgerblue4"),
+#     labels = c("no closure", "trawlers closure", "complete closure")
+#   ) +
+#   labs(
+#     title = "Total yield across scenarios and periods, relative to reference simulations",
+#     x = "Regulation Scenario",
+#     y = "Total yield relative to reference simulations",
+#     fill = "Regulation Scenario"
+#   ) +
+#   theme_bw() +
+#   theme(
+#     plot.title = element_text(size = 14, face = "bold"),
+#     axis.title.x = element_blank(),
+#     axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
+#     axis.text.y = element_text(size = 10),
+#     legend.title = element_text(size = 13),
+#     legend.text = element_text(size = 11)
+#   )+
+#   geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+#             aes(x = 1, y = 1.1, label = "***"), 
+#             inherit.aes = FALSE, size = 4)+
+#   geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+#             aes(x = 2, y = 1.1, label = "***"), 
+#             inherit.aes = FALSE, size = 4)+
+#   geom_text(data = subset(total_yield_all, period == "2035-2050"), 
+#             aes(x = 3, y = 1.1, label = "***"), 
+#             inherit.aes = FALSE, size = 4)
+# 
+# print(regulation_boxplot)
+# # 保存图像
+# ggsave(
+#   file.path("figures", "publication", "boxplot", "total_yield_regulation_unpaired.png"),
+#   regulation_boxplot,
+#   width = 9, height = 4, dpi = 600
+# )
+
+combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio, fill = deployment)) +
+  geom_boxplot(varwidth = TRUE, coef = 0, outlier.shape = NA, linetype = "blank") +  # 隐藏中位数线
+  stat_summary(
+    fun = mean,
+    geom = "errorbar",
+    aes(ymin = ..y.., ymax = ..y..),
+    width = 0.75,
+    color = "black"
+  ) +
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(~period, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20))) +
-  ylim(0.85,1.1)+
+  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
+    period = label_wrap_gen(20), regulation = label_wrap_gen(20)
+  )) +
   scale_fill_manual(
     values = c("purple", "pink", "orange", "lightblue"),
     labels = c(
@@ -123,70 +222,78 @@ deployment_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_rati
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
-  )+
-  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
-            aes(x = 1, y = 1.1, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
-            aes(x = 2, y = 1.1, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-geom_text(data = subset(total_yield_all, period == "2035-2050"), 
-          aes(x = 3, y = 1.1, label = "***"), 
-          inherit.aes = FALSE, size = 4)+
-geom_text(data = subset(total_yield_all, period == "2035-2050"), 
-          aes(x = 4, y = 1.1, label = "***"), 
-          inherit.aes = FALSE, size = 4)
- 
-print(deployment_boxplot)
-# 保存图像
-ggsave(
-  file.path("figures", "publication", "boxplot", "total_yield_deployment_unpaired.png"),
-  deployment_boxplot,
-  width = 12, height = 4, dpi = 600
-)
-
-regulation_boxplot <- ggplot(total_yield_all, aes(x = regulation, y = yield_ratio, fill = regulation)) +
-  geom_boxplot() +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(~period, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20))) +
-  ylim(0.85,1.1)+
-  scale_fill_manual(
-    values = c("brown", "forestgreen", "dodgerblue4"),
-    labels = c("no closure", "trawlers closure", "complete closure")
   ) +
-  labs(
-    title = "Total yield across scenarios and periods, relative to reference simulations",
-    x = "Regulation Scenario",
-    y = "Total yield relative to reference simulations",
-    fill = "Regulation Scenario"
+  # 为特定分面单独定义星号数据
+  geom_text(
+    data = subset(total_yield_all, period == "2023-2034" & regulation == "no closure"),
+    aes(x = 1, y = 1.1, label = "*"),
+    inherit.aes = FALSE, size = 4
   ) +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
-  )+
-  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
-            aes(x = 1, y = 1.1, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
-            aes(x = 2, y = 1.1, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-  geom_text(data = subset(total_yield_all, period == "2035-2050"), 
-            aes(x = 3, y = 1.1, label = "***"), 
-            inherit.aes = FALSE, size = 4)
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure"),
+    aes(x = 1, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure"),
+    aes(x = 2, y = 1.1, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure"),
+    aes(x = 3, y = 1.1, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure"),
+    aes(x = 4, y = 1.1, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure"),
+    aes(x = 1, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure"),
+    aes(x = 2, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure"),
+    aes(x = 3, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure"),
+    aes(x = 4, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure"),
+    aes(x = 1, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure"),
+    aes(x = 2, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure"),
+    aes(x = 3, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure"),
+    aes(x = 4, y = 1.1, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) 
 
-print(regulation_boxplot)
-# 保存图像
+  print(combined_boxplot)
+
 ggsave(
-  file.path("figures", "publication", "boxplot", "total_yield_regulation_unpaired.png"),
-  regulation_boxplot,
-  width = 9, height = 4, dpi = 600
+  file.path("figures", "publication", "boxplot", "total_yield_combined_mean.png"),
+  combined_boxplot,
+  width = 12, height = 8, dpi = 600
 )
-
-
-
