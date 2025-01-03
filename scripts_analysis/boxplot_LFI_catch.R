@@ -79,12 +79,7 @@ for (regulation in regulation_scenarios) {
   # 将路径合并为列表
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
   
-  # 分别计算三个时间段的数据
-  LFI_catch_before_list <- map(results_path_scenario, ~ process_LFI(
-    current_results_path = .x,
-    cut_off_year_begin = n_years_cut[1],
-    cut_off_year_end = n_years_cut[2]
-  ))
+  # 分别计算两个时间段的数据
   
   LFI_catch_during_list <- map(results_path_scenario, ~ process_LFI(
     current_results_path = .x,
@@ -98,13 +93,10 @@ for (regulation in regulation_scenarios) {
     cut_off_year_end = n_years_cut[6]
   ))
   
-  names(LFI_catch_before_list) <- c("cost", "protection", "distance", "balance")
   names(LFI_catch_during_list) <- c("cost", "protection", "distance", "balance")
   names(LFI_catch_period_list) <- c("cost", "protection", "distance", "balance")
   
   # 转换为数据框并添加标识
-  LFI_catch_before_table <- stack(LFI_catch_before_list) %>%
-    mutate(values = values/LFI_catch_base[1],period = "2011-2022", regulation = regulation)
   LFI_catch_during_table <- stack(LFI_catch_during_list) %>%
     mutate(values = values/LFI_catch_base[2],period = "2023-2034", regulation = regulation)
   LFI_catch_period_table <- stack(LFI_catch_period_list) %>%
@@ -113,7 +105,6 @@ for (regulation in regulation_scenarios) {
   # 合并到全局数据框
   LFI_catch_all <- rbind(
     LFI_catch_all,
-    LFI_catch_before_table,
     LFI_catch_during_table,
     LFI_catch_period_table
   )

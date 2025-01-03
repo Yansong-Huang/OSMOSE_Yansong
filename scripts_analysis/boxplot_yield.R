@@ -47,12 +47,7 @@ for (regulation in regulation_scenarios) {
   
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
   
-  # 分别计算三个时间段的数据
-  total_yield_before_list <- map(results_path_scenario, ~ process_yield(
-    current_results_path = .x,
-    cut_off_year_begin = n_years_cut[1],
-    cut_off_year_end = n_years_cut[2]
-  ))
+  # 分别计算两个时间段的数据
   
   total_yield_during_list <- map(results_path_scenario, ~ process_yield(
     current_results_path = .x,
@@ -66,13 +61,10 @@ for (regulation in regulation_scenarios) {
     cut_off_year_end = n_years_cut[6]
   ))
   
-  names(total_yield_before_list) <- c("cost", "protection", "distance", "balance")
   names(total_yield_during_list) <- c("cost", "protection", "distance", "balance")
   names(total_yield_after_list) <- c("cost", "protection", "distance", "balance")
   
   # 转换为数据框并添加标识
-  total_yield_before_table <- stack(total_yield_before_list) %>%
-    mutate(values = values/total_yield_base[1],period = "2011-2022", regulation = regulation)
   total_yield_during_table <- stack(total_yield_during_list) %>%
     mutate(values = values/total_yield_base[2],period = "2023-2034", regulation = regulation)
   total_yield_after_table <- stack(total_yield_after_list) %>%
@@ -81,7 +73,6 @@ for (regulation in regulation_scenarios) {
   # 合并到全局数据框
   total_yield_all <- rbind(
     total_yield_all,
-    total_yield_before_table,
     total_yield_during_table,
     total_yield_after_table
   )
@@ -292,8 +283,8 @@ combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio,
 
   print(combined_boxplot)
 
-ggsave(
-  file.path("figures", "publication", "boxplot", "total_yield_combined_mean.png"),
-  combined_boxplot,
-  width = 12, height = 8, dpi = 600
-)
+# ggsave(
+#   file.path("figures", "publication", "boxplot", "total_yield_combined_mean.png"),
+#   combined_boxplot,
+#   width = 12, height = 8, dpi = 600
+# )

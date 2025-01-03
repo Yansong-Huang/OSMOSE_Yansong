@@ -48,11 +48,6 @@ for (regulation in regulation_scenarios) {
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
 
   # 分别计算三个时间段的数据
-  total_biomass_before_list <- map(results_path_scenario, ~ process_biomass(
-    current_results_path = .x,
-    cut_off_year_begin = n_years_cut[1],
-    cut_off_year_end = n_years_cut[2]
-  ))
   
   total_biomass_during_list <- map(results_path_scenario, ~ process_biomass(
     current_results_path = .x,
@@ -66,13 +61,10 @@ for (regulation in regulation_scenarios) {
     cut_off_year_end = n_years_cut[6]
   ))
   
-  names(total_biomass_before_list) <- c("cost", "protection", "distance", "balance")
   names(total_biomass_during_list) <- c("cost", "protection", "distance", "balance")
   names(total_biomass_after_list) <- c("cost", "protection", "distance", "balance")
   
   # 转换为数据框并添加标识
-  total_biomass_before_table <- stack(total_biomass_before_list) %>%
-    mutate(values = values/total_biomass_base[1],period = "2011-2022", regulation = regulation)
   total_biomass_during_table <- stack(total_biomass_during_list) %>%
     mutate(values = values/total_biomass_base[2],period = "2023-2034", regulation = regulation)
   total_biomass_after_table <- stack(total_biomass_after_list) %>%
@@ -81,7 +73,6 @@ for (regulation in regulation_scenarios) {
   # 合并到全局数据框
   total_biomass_all <- rbind(
     total_biomass_all,
-    total_biomass_before_table,
     total_biomass_during_table,
     total_biomass_after_table
   )
@@ -94,99 +85,6 @@ total_biomass_all$regulation <- factor(
   labels = c("no closure", "trawlers closure", "complete closure")
 )
 
-# 绘制大图
-deployment_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ratio, fill = deployment)) +
-  geom_boxplot() +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(~period, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20))) +
-  # ylim(0.9,1.05)+
-  scale_fill_manual(
-    values = c("purple", "pink", "orange", "lightblue"),
-    labels = c(
-      "Cost minimisation", "Exclusion from environmental protection zones",
-      "Long distance from the coast", "Balance"
-    )
-  ) +
-  labs(
-    title = "Total biomass across scenarios and periods, relative to reference simulations",
-    x = "Deployment Scenario",
-    y = "Total biomass relative to reference simulations",
-    fill = "Deployment Scenario"
-  ) +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
-  )+
-  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
-            aes(x = 1, y = 1.03, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
-            aes(x = 2, y = 1.03, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
-            aes(x = 3, y = 1.03, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
-          aes(x = 4, y = 1.03, label = "***"), 
-          inherit.aes = FALSE, size = 4)
-
-
-print(deployment_boxplot)
-ggsave(
-  file.path("figures", "publication", "boxplot", "total_biomass_deployment.png"),
-  deployment_boxplot,
-  width = 12, height = 4, dpi = 600
-)
-
-
-regulation_boxplot <- ggplot(total_biomass_all, aes(x = regulation, y = biomass_ratio, fill = regulation)) +
-  geom_boxplot() +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(~period, scales = "free_y") +
-  # ylim(0.9,1.05)+
-  scale_fill_manual(
-    values = c("brown", "forestgreen", "dodgerblue4"),
-    labels = c("no closure", "trawlers closure", "complete closure")
-  ) +
-  labs(
-    title = "Total biomass across scenarios and periods, relative to reference simulations",
-    x = "Regulation Scenario",
-    y = "Total biomass relative to reference simulations",
-    fill = "Regulation Scenario"
-  ) +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
-  )+
-  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
-            aes(x = 1, y = 1.03, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
-            aes(x = 2, y = 1.03, label = "***"), 
-            inherit.aes = FALSE, size = 4)+
-  geom_text(data = subset(total_biomass_all, period %in% c("2023-2034","2035-2050")), 
-            aes(x = 3, y = 1.03, label = "***"), 
-            inherit.aes = FALSE, size = 4)
-
-# 
-print(regulation_boxplot)
-
-ggsave(
-  file.path("figures", "publication", "boxplot", "total_biomass_regulations.png"),
-  regulation_boxplot,
-  width = 10, height = 4, dpi = 600
-)
 
 combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ratio, fill = deployment)) +
   geom_boxplot() +
@@ -325,8 +223,8 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
 
 print(combined_boxplot)
 
-ggsave(
-  file.path("figures", "publication", "boxplot", "total_biomass_combined.png"),
-  combined_boxplot,
-  width = 12, height = 8, dpi = 600
-)
+# ggsave(
+#   file.path("figures", "publication", "boxplot", "total_biomass_combined.png"),
+#   combined_boxplot,
+#   width = 12, height = 8, dpi = 600
+# )
