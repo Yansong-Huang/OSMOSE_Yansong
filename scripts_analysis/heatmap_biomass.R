@@ -123,12 +123,11 @@ ratio_map_plot <- ggplot() +
   # 为 OWF 点添加图例
   geom_point(data = biomass_table_all[biomass_table_all$OWF & biomass_table_all$period != "2011-2022",],
              aes(x = lon, y = lat, color = "OWF"), size = 1) +
-  scale_color_manual(name = "", values = c("OWF" = "black")) +
+  scale_color_manual(name = "", values = c("OWF" = "black"),guide = guide_legend(order = 1)) +
   
   # 设置分面
   facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20), regulation = label_wrap_gen(25)),
-    guide = guide_legend(order = 1)) +
+    period = label_wrap_gen(20), regulation = label_wrap_gen(25))) +
   
   # 添加图例和主题
   labs(title = "Total Biomass",
