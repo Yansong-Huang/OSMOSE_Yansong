@@ -76,7 +76,7 @@ process_maps <- function(n_years_begin, n_years_end){
   # Prepare grid and mask
   map_grid <- expand.grid(lon = lon, lat = lat)
   map_grid$ratio <- as.vector(map_ratio)
-  map_grid$OWF <- as.vector(get(paste0("mask_OWF_", deployment)))
+  map_grid$OWF <- as.vector(get(paste0("mask_OWF_", deployment_scenarios[4])))
   
   # Filter to cut off west of Cotentin
   map_grid_cut <- filter(map_grid, lon > -1.6)
@@ -84,10 +84,10 @@ process_maps <- function(n_years_begin, n_years_end){
   return(map_grid_cut)
 }
 
+biomass_table_all <- data.frame()
 
 for (regulation in regulation_scenarios){
-  for (deployment in deployment_scenarios){
-    results_path_scenario <- file.path("outputs/results_1111",paste0("CC.ON_",deployment,"_",regulation),"Base","output","CIEM")
+    results_path_scenario <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[4],"_",regulation),"Base","output","CIEM")
     list_biomass_nc_current <- list.files(results_path_scenario, "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
     list_biomass_nc_base <- list.files(results_path_base, "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
     
@@ -102,24 +102,48 @@ for (regulation in regulation_scenarios){
     # combine three periods
     biomass_table <- rbind(biomass_table_1,biomass_table_2,biomass_table_3)
     biomass_table$period <- factor(biomass_table$period, levels = c("2011-2022", "2023-2034", "2035-2049"))
+    biomass_table$regulation <- case_when(
+      regulation == "sans_fermeture" ~ "no closure during operational phase",
+      regulation == "fermeture_chalut" ~ "trawlers closure during operational phase",
+      regulation == "fermeture_totale" ~ "complete closure during operational phase",
+      TRUE ~ NA_character_
+    )
     
-    ratio_map_plot <- ggplot() +
-      geom_tile(data = biomass_table, aes(x = lon, y = lat, fill = ratio)) +
-      scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
-      facet_grid(~period)+
-      geom_point(data = biomass_table[biomass_table$OWF,],           
-                 aes(x = lon, y = lat), color = "black", size = 1)+
-      labs(title = paste0("total biomass ",deployment," * ",regulation),
-           x = "Longitude (°)", y = "Latitude (°)", fill="biomass change") +
-      theme_bw()+
-      theme(plot.title = element_text(size = 14),
-            text = element_text(size = 14),
-            strip.text = element_text(size = 14, face = "bold"))
-
-    print(ratio_map_plot)
-    
-    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"biomass_heatmap_significant.png"),
-           ratio_map_plot, width = 16, height = 4, dpi = 600)
-  }
+    biomass_table_all <- rbind(
+      biomass_table_all,
+      biomass_table
+    )
 }
+
+ratio_map_plot <- ggplot() +
+  # 绘制背景热力图
+  geom_tile(data = biomass_table_all, aes(x = lon, y = lat, fill = ratio)) +
+  scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
+  
+  # 为 OWF 点添加图例
+  geom_point(data = biomass_table_all[biomass_table_all$OWF & biomass_table_all$period != "2011-2022",],
+             aes(x = lon, y = lat, color = "OWF"), size = 1) +
+  scale_color_manual(name = "", values = c("OWF" = "black")) +
+  
+  # 设置分面
+  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
+    period = label_wrap_gen(20), regulation = label_wrap_gen(25)),
+    guide = guide_legend(order = 1)) +
+  
+  # 添加图例和主题
+  labs(title = "Total Biomass",
+       x = "Longitude (E)", y = "Latitude (N)", fill = "Biomass change") +
+  theme_bw() +
+  theme(
+    plot.title = element_blank(),
+    text = element_text(size = 14),
+    strip.text = element_text(size = 14, face = "bold"),
+    legend.title = element_text(size = 12),       # 图例标题字体
+    legend.text = element_text(size = 12),
+  )
+
+print(ratio_map_plot)
+
+ggsave("figures/publication/heatmap/biomass_heatmap_balance_composed.png",
+        ratio_map_plot, width = 12, height = 7, dpi = 600)
     

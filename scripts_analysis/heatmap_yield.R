@@ -76,7 +76,7 @@ process_maps <- function(n_years_begin, n_years_end){
   # Prepare grid and mask
   map_grid <- expand.grid(lon = lon, lat = lat)
   map_grid$ratio <- as.vector(map_ratio)
-  map_grid$OWF <- as.vector(get(paste0("mask_OWF_", deployment)))
+  map_grid$OWF <- as.vector(get(paste0("mask_OWF_", deployment_scenarios[4])))
   
   # Filter to cut off west of Cotentin
   map_grid_cut <- filter(map_grid, lon > -1.6)
@@ -84,10 +84,9 @@ process_maps <- function(n_years_begin, n_years_end){
   return(map_grid_cut)
 }
 
-
+yield_table_all <- data.frame()
 for (regulation in regulation_scenarios){
-  for (deployment in deployment_scenarios){
-    results_path_scenario <- file.path("outputs/results_1111",paste0("CC.ON_",deployment,"_",regulation),"Base","output","CIEM")
+    results_path_scenario <- file.path("outputs/results_1111",paste0("CC.ON_",deployment_scenarios[4],"_",regulation),"Base","output","CIEM")
     list_yield_nc_current <- list.files(results_path_scenario, "Yansong_spatializedYieldBiomass_Simu.", full.names = TRUE)
     list_yield_nc_base <- list.files(results_path_base, "Yansong_spatializedYieldBiomass_Simu.", full.names = TRUE)
     
@@ -103,27 +102,58 @@ for (regulation in regulation_scenarios){
     yield_table <- rbind(yield_table_1,yield_table_2,yield_table_3)
     yield_table$period <- factor(yield_table$period, levels = c("2011-2022", "2023-2034", "2035-2049"))
     
-    ratio_map_plot <- ggplot() +
-      geom_tile(data = yield_table, aes(x = lon, y = lat, fill = ratio)) +
-      scale_fill_gradientn(
-        colors = c("darkorange3", "white", "darkolivegreen"), 
-        values = scales::rescale(c(0, 1, 1.25)),   
-        limits = c(0, 1.25),                        
-        oob = scales::squish,
-      )+
-      facet_grid(~period)+
-      geom_point(data = yield_table[yield_table$OWF,],           
-                 aes(x = lon, y = lat), color = "black", size = 1)+
-      labs(title = paste0("total yield ",deployment," * ",regulation),
-           x = "Longitude (°)", y = "Latitude (°)", fill="yield change") +
-      theme_bw()+
-      theme(plot.title = element_text(size = 14),
-            text = element_text(size = 14),
-            strip.text = element_text(size = 14, face = "bold"))
+    yield_table$regulation <- case_when(
+      regulation == "sans_fermeture" ~ "no closure during operational phase",
+      regulation == "fermeture_chalut" ~ "trawlers closure during operational phase",
+      regulation == "fermeture_totale" ~ "complete closure during operational phase",
+      TRUE ~ NA_character_
+    )
     
-    print(ratio_map_plot)
-    
-    ggsave(file.path("figures/publication/heatmap",regulation,deployment,"yield_heatmap.png"),
-           ratio_map_plot, width = 16, height = 4, dpi = 600)
-  }
+    yield_table_all <- rbind(
+      yield_table_all,
+      yield_table
+    )
 }
+
+yield_table_all$regulation <- factor(yield_table_all$regulation,
+                                     levels = c("no closure during operational phase",
+                                                "trawlers closure during operational phase",
+                                                "complete closure during operational phase"))
+
+ratio_map_plot <- ggplot() +
+  # 绘制背景热力图
+  geom_tile(data = yield_table_all, aes(x = lon, y = lat, fill = ratio)) +
+  # scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
+  scale_fill_gradientn(
+    colors = c("darkorange3", "white", "darkolivegreen"), 
+    values = scales::rescale(c(0, 1, 1.25)),   
+    limits = c(0, 1.25),                        
+    oob = scales::squish,
+    name = "Yield change"
+  )+
+  # 为 OWF 点添加图例
+  geom_point(data = yield_table_all[yield_table_all$OWF & yield_table_all$period != "2011-2022",],
+             aes(x = lon, y = lat, color = "OWF"), size = 1) +
+  scale_color_manual(name = "", values = c("OWF" = "black"), guide = guide_legend(order = 1)) +
+  
+  # 设置分面
+  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
+    period = label_wrap_gen(20), regulation = label_wrap_gen(25)
+  )) +
+  
+  # 添加图例和主题
+  labs(title = "Total yield",
+       x = "Longitude (E)", y = "Latitude (N)") +
+  theme_bw() +
+  theme(
+    plot.title = element_blank(),
+    text = element_text(size = 14),
+    strip.text = element_text(size = 14, face = "bold"),
+    legend.title = element_text(size = 12),       # 图例标题字体
+    legend.text = element_text(size = 12),
+  )
+
+print(ratio_map_plot)
+
+ggsave("figures/publication/heatmap/yield_heatmap_balance_composed.png",
+       ratio_map_plot, width = 12, height = 7, dpi = 600)
