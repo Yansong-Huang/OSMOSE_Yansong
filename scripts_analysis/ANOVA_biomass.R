@@ -54,8 +54,8 @@ for (regulation in regulation_scenarios) {
   
   total_biomass_period_list <- map(results_path_scenario, ~ process_biomass(
     current_results_path = .x,
-    cut_off_year_begin = n_years_cut[3],
-    cut_off_year_end = n_years_cut[4]
+    cut_off_year_begin = n_years_cut[5],
+    cut_off_year_end = n_years_cut[6]
   ))
   
   names(total_biomass_period_list) <- c("cost", "protection", "distance", "balance")
@@ -89,3 +89,41 @@ shapiro.test(residuals(anova_model))
 # LM
 lm <- lm(biomass_ratio ~ regulation * deployment, data = total_biomass_all)
 summary(lm)
+
+# calcul moyen
+total_biomass_all %>% 
+  filter(deployment=="cost") %>%
+  filter(regulation=="no closure") %>%
+  select("biomass_ratio") %>%
+  unlist() %>%
+  mean()
+
+cost_no_closure <- total_biomass_all %>% 
+  filter(deployment=="cost") %>%
+  filter(regulation=="no closure") %>%
+  select("biomass_ratio") %>%
+  unlist()
+
+distance_no_closure <- total_biomass_all %>% 
+  filter(deployment=="distance") %>%
+  filter(regulation=="no closure") %>%
+  select("biomass_ratio") %>%
+  unlist()
+
+cost_trawlers_closure <- total_biomass_all %>% 
+  filter(deployment=="cost") %>%
+  filter(regulation=="trawlers closure") %>%
+  select("biomass_ratio") %>%
+  unlist()
+
+protection_trawlers_closure <- total_biomass_all %>% 
+  filter(deployment=="protection") %>%
+  filter(regulation=="trawlers closure") %>%
+  select("biomass_ratio") %>%
+  unlist()
+ 
+t.test(cost_no_closure,distance_no_closure,alternative="less")
+t.test(cost_trawlers_closure,protection_trawlers_closure,alternative="greater")
+
+
+

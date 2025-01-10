@@ -114,17 +114,32 @@ colnames(LFI_catch_all) <- c("LFI_ratio", "deployment","period","regulation")
 LFI_catch_all$regulation <- factor(
   LFI_catch_all$regulation,
   levels = c("sans_fermeture", "fermeture_chalut", "fermeture_totale"),
-  labels = c("no closure", "trawlers closure", "complete closure")
+  labels = c("no closure during operational phase", "trawlers closure during operational phase", "complete closure during operational phase")
 )
 
 # 绘制大图
-
-deployment_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, fill = deployment)) +
-  geom_boxplot() +
+combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, fill = deployment)) +
+  # 添加须线
+  stat_summary(
+    fun.data = "median_hilow",
+    geom = "errorbar",
+    aes(ymin = ..ymin.., ymax = ..ymax..),
+    width = 0.2,
+    color = "black"
+  ) +
+  geom_boxplot(varwidth = TRUE, outlier.shape = NA, linetype = "blank") +
+  # 添加平均值线
+  stat_summary(
+    fun = mean,
+    geom = "errorbar",
+    aes(ymin = ..y.., ymax = ..y..),
+    width = 0.75,
+    color = "black"
+  ) +
   geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(~period, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20))) +
-  # ylim(0.7,1.6)+
+  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
+    period = label_wrap_gen(20), regulation = label_wrap_gen(25)
+  )) +
   scale_fill_manual(
     values = c("purple", "pink", "orange", "lightblue"),
     labels = c(
@@ -146,46 +161,10 @@ deployment_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, f
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
-  )
+  ) 
 
-print(deployment_boxplot)
-# 保存图像
 ggsave(
-  file.path("figures", "publication", "boxplot", "LFI_catch_deployment.png"),
-  deployment_boxplot,
-  width = 12, height = 4, dpi = 600
-)
-
-regulation_boxplot <- ggplot(LFI_catch_all, aes(x = regulation, y = LFI_ratio, fill = regulation)) +
-  geom_boxplot() +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
-  facet_grid(~period, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20))) +
-  # ylim(0.7,1.6)+
-  scale_fill_manual(
-    values = c("brown", "forestgreen", "dodgerblue4"),
-    labels = c("no closure", "trawlers closure", "complete closure")
-  ) +
-  labs(
-    title = "LFI catch across scenarios and periods, relative to reference simulations",
-    x = "Regulation Scenario",
-    y = "LFI catch relative to reference simulations",
-    fill = "Regulation Scenario"
-  ) +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
-  )
-
-print(regulation_boxplot)
-# 保存图像
-ggsave(
-  file.path("figures", "publication", "boxplot", "LFI_catch_regulation.png"),
-  regulation_boxplot,
-  width = 9, height = 4, dpi = 600
+  file.path("figures", "publication", "boxplot", "LFI_catch_combined_mean.png"),
+  combined_boxplot,
+  width = 12, height = 6, dpi = 600
 )

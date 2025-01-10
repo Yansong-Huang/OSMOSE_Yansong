@@ -54,8 +54,8 @@ for (regulation in regulation_scenarios) {
   
   total_yield_period_list <- map(results_path_scenario, ~ process_yield(
     current_results_path = .x,
-    cut_off_year_begin = n_years_cut[3],
-    cut_off_year_end = n_years_cut[4]
+    cut_off_year_begin = n_years_cut[5],
+    cut_off_year_end = n_years_cut[6]
   ))
 
   names(total_yield_period_list) <- c("cost", "protection", "distance", "balance")
@@ -87,5 +87,58 @@ summary(anova_model)
 
 shapiro.test(residuals(anova_model))
 
-1-median(total_yield_all[total_yield_all$regulation=="no closure",]$yield_ratio)
+# calcul moyenne
+total_yield_all %>% 
+  filter(deployment=="protection" & regulation=="no closure") %>%
+  select("yield_ratio") %>%
+  unlist() %>%
+  mean()
 
+cost_trawlers <- total_yield_all %>% 
+  filter(deployment=="cost" & regulation=="trawlers closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+protection_trawlers <- total_yield_all %>% 
+  filter(deployment=="protection" & regulation=="trawlers closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+distance_trawlers <- total_yield_all %>% 
+  filter(deployment=="distance" & regulation=="trawlers closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+balance_trawlers <- total_yield_all %>% 
+  filter(deployment=="balance" & regulation=="trawlers closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+t.test(cost_trawlers,protection_trawlers,alternative="less")
+t.test(cost_trawlers,distance_trawlers,alternative="less")
+t.test(cost_trawlers,balance_trawlers,alternative="less")
+
+
+cost_complete <- total_yield_all %>% 
+  filter(deployment=="cost" & regulation=="complete closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+protection_complete <- total_yield_all %>% 
+  filter(deployment=="protection" & regulation=="complete closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+distance_complete <- total_yield_all %>% 
+  filter(deployment=="distance" & regulation=="complete closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+balance_complete <- total_yield_all %>% 
+  filter(deployment=="balance" & regulation=="complete closure") %>%
+  select("yield_ratio") %>%
+  unlist()
+
+t.test(cost_complete,protection_complete,alternative="less")
+t.test(cost_complete,distance_complete,alternative="less")
+t.test(cost_complete,balance_complete,alternative="less")
