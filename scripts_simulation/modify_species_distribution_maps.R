@@ -1,4 +1,4 @@
-# créer carte de distribution de pêche pour tous les scénarios de déploiement d'éolien et réglementation de pêche
+# créer cartes de distribution
 # date de création : 05/08/2024
 ###### read shapefiles ######
 library(sf)
@@ -12,7 +12,7 @@ grid_modify <- function(species_grid, grid_owf_scenario, multiplier){
   species_grid_modified[grid_to_modify] <- species_grid_modified[grid_to_modify] * multiplier
   return(species_grid_modified)
 }
-# funtion for modify distribution maps with multipliers 
+# funtion for modifying distribution maps with multipliers 
 apply_multiplier <- function(base_array, multiplier) {
   result <- apply(base_array, MARGIN = 3, function(slice) {
     slice * multiplier
@@ -21,9 +21,6 @@ apply_multiplier <- function(base_array, multiplier) {
 }
 
 deployment_scenarios <- c("cout","protection","loin","equilibre")
-# species_list_1 <- c("lesserSpottedDogfish", "sole", "plaice", "mackerel", "squids", "cuttlefish", "thornbackRay")
-# species_list_2 <- c("redMullet", "pouting", "whiting", "poorCod", "cod", "dragonet", "horseMackerel")
-# species_list_3 <- c("herring", "sardine")
 
 
 multiplier_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/thornbackRay.nc")
