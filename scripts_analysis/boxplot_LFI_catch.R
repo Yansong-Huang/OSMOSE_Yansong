@@ -161,10 +161,36 @@ combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, fil
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
-  ) 
+  ) +
+  # 为特定分面单独定义星号数据
+  geom_text(
+    data = subset(LFI_catch_all, period == "2023-2034" & regulation == "no closure during operational phase"),
+    aes(x = 1, y = 1.16, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(LFI_catch_all, period == "2023-2034" & regulation == "no closure during operational phase"),
+    aes(x = 4, y = 1.16, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(LFI_catch_all, period == "2023-2034" & regulation == "trawlers closure during operational phase"),
+    aes(x = 1, y = 1.16, label = "*"),
+    inherit.aes = FALSE, size = 4
+  )
 
 ggsave(
   file.path("figures", "publication", "boxplot", "LFI_catch_combined_mean.png"),
   combined_boxplot,
   width = 12, height = 6, dpi = 600
 )
+
+
+subset_condition <- LFI_catch_all$deployment == "balance" & 
+  LFI_catch_all$regulation == "no closure during operational phase" &
+  LFI_catch_all$period == "2023-2034"
+
+selected_LFI_ratio <- LFI_catch_all$LFI_ratio[subset_condition]
+mean(selected_LFI_ratio)
+
+

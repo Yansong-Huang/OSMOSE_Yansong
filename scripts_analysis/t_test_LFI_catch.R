@@ -1,4 +1,4 @@
-# t-test of LFI 40
+# t-test of LFI catch 40
 # Auteur : Yansong Huang
 # Date de création : 2024-11-15
 
@@ -78,7 +78,7 @@ t_test_lfi <- function(current_results_path, cut_off_year_begin, cut_off_year_en
 
 
 # 初始化空列表，用于存储所有结果
-lfi_after_list <- list()
+lfi_period_list <- list()
 
 for (regulation in regulation_scenarios){
   
@@ -94,21 +94,21 @@ for (regulation in regulation_scenarios){
   results_path_scenario <- list(results_path_1, results_path_2, results_path_3, results_path_4)
   
   
-  # apply the function to four deployment scenarios, respectively for period after OWF construction
+  # apply the function to four deployment scenarios, respectively for period period OWF construction
   
-  lfi_after_list <- map(results_path_scenario, ~ t_test_lfi(
+  lfi_period_list <- map(results_path_scenario, ~ t_test_lfi(
     current_results_path = .x,
-    cut_off_year_begin = n_years_cut[5],
-    cut_off_year_end = n_years_cut[6]
+    cut_off_year_begin = n_years_cut[3],
+    cut_off_year_end = n_years_cut[4]
   ))
   
   
   # 为结果命名
-  names(lfi_after_list) <- c("cost", "protection", "distance", "balance")
+  names(lfi_period_list) <- c("cost", "protection", "distance", "balance")
   
   # 将所有结果转换为数据框
-  lfi_after_table <- stack(lfi_after_list)
-  colnames(lfi_after_table) <- c("p_value", "scenario")
+  lfi_period_table <- stack(lfi_period_list)
+  colnames(lfi_period_table) <- c("p_value", "scenario")
   print(regulation)
-  print(lfi_after_table)
+  print(lfi_period_table)
 }
