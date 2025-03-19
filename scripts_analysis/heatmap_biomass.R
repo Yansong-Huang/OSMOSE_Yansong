@@ -115,6 +115,11 @@ for (regulation in regulation_scenarios){
     )
 }
 
+biomass_table_all$regulation <- factor(biomass_table_all$regulation,
+                                     levels = c("no closure during operational phase",
+                                                "trawlers closure during operational phase",
+                                                "complete closure during operational phase"))
+
 ratio_map_plot <- ggplot() +
   # 绘制背景热力图
   geom_tile(data = biomass_table_all, aes(x = lon, y = lat, fill = ratio)) +
