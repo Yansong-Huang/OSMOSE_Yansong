@@ -1,0 +1,1 @@
+OSMOSE-EEC configuration
