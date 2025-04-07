@@ -1,5 +1,5 @@
 # EEC main configuration file = 
-osmose.configuration.calibration = input/calibration-parameters.csv
+# osmose.configuration.calibration = input/calibration-parameters.csv
 osmose.configuration.simulation = input/eec_param-simulation.csv
 osmose.configuration.movement = input/eec_movement.R
 osmose.configuration.mortality.fishing = input/eec_param-fishing.R
