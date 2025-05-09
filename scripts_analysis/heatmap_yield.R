@@ -122,12 +122,12 @@ yield_table_all$regulation <- factor(yield_table_all$regulation,
 
 ratio_map_plot <- ggplot() +
   # 绘制背景热力图
-  geom_tile(data = yield_table_all, aes(x = lon, y = lat, fill = ratio)) +
+  geom_tile(data = yield_table_all, aes(x = lon, y = lat, fill = ratio-1)) +
   # scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
   scale_fill_gradientn(
     colors = c("darkorange3", "white", "darkolivegreen"), 
-    values = scales::rescale(c(0, 1, 1.25)),   
-    limits = c(0, 1.25),                        
+    values = scales::rescale(c(-1, 0, 0.25)),   
+    limits = c(-1, 0.25),                        
     oob = scales::squish,
     name = "Yield change"
   )+
@@ -153,7 +153,13 @@ ratio_map_plot <- ggplot() +
     legend.text = element_text(size = 12),
   )
 
-print(ratio_map_plot)
+tagged_facet <- tag_facet(ratio_map_plot, 
+                          open = "(", close = ")", tag_pool = letters, 
+                          x = Inf, y = -Inf, 
+                          hjust = 2.5, vjust = -1, 
+                          fontface = "plain")
 
-ggsave("figures/publication/heatmap/yield_heatmap_balance_composed.png",
-       ratio_map_plot, width = 12, height = 7, dpi = 600)
+final_heatmap <- tagged_facet + theme(strip.text = element_text())
+
+ggsave("figures/publication/heatmap/yield_heatmap_balance_revision.png",
+       final_heatmap, width = 12, height = 7, dpi = 600)

@@ -9,6 +9,7 @@ library(viridis)
 library(RColorBrewer)
 library(purrr)
 library(ncdf4)
+library(egg)
 
 # global variables
 source("scripts_analysis/OWF_mask.R")
@@ -122,8 +123,8 @@ biomass_table_all$regulation <- factor(biomass_table_all$regulation,
 
 ratio_map_plot <- ggplot() +
   # 绘制背景热力图
-  geom_tile(data = biomass_table_all, aes(x = lon, y = lat, fill = ratio)) +
-  scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
+  geom_tile(data = biomass_table_all, aes(x = lon, y = lat, fill = ratio-1)) +
+  scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 0) +
   
   # 为 OWF 点添加图例
   geom_point(data = biomass_table_all[biomass_table_all$OWF & biomass_table_all$period != "2011-2022",],
@@ -146,8 +147,15 @@ ratio_map_plot <- ggplot() +
     legend.text = element_text(size = 12),
   )
 
-print(ratio_map_plot)
+tagged_facet <- tag_facet(ratio_map_plot, 
+                          open = "(", close = ")", tag_pool = letters, 
+                          x = Inf, y = -Inf, 
+                          hjust = 2.5, vjust = -1, 
+                          fontface = "plain")
 
-ggsave("figures/publication/heatmap/biomass_heatmap_balance_composed.png",
-        ratio_map_plot, width = 12, height = 7, dpi = 600)
+final_heatmap <- tagged_facet + theme(strip.text = element_text())
+
+
+ggsave("figures/publication/heatmap/biomass_heatmap_balance_revision.png",
+       final_heatmap, width = 12, height = 7, dpi = 600)
     
