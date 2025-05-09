@@ -118,7 +118,7 @@ LFI_catch_all$regulation <- factor(
 )
 
 # 绘制大图
-combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, fill = deployment)) +
+combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio-1, fill = deployment)) +
   # 添加须线
   stat_summary(
     fun.data = "median_hilow",
@@ -136,7 +136,7 @@ combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, fil
     width = 0.75,
     color = "black"
   ) +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
   facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20), regulation = label_wrap_gen(25)
   )) +
@@ -148,7 +148,7 @@ combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, fil
     )
   ) +
   labs(
-    title = "LFI catch across scenarios and periods, relative to reference simulations",
+    # title = "LFI catch across scenarios and periods, relative to reference simulations",
     x = "Deployment Scenario",
     y = "LFI catch relative to reference simulations",
     fill = "Deployment Scenario"
@@ -165,32 +165,40 @@ combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio, fil
   # 为特定分面单独定义星号数据
   geom_text(
     data = subset(LFI_catch_all, period == "2023-2034" & regulation == "no closure during operational phase"),
-    aes(x = 1, y = 1.16, label = "*"),
+    aes(x = 1, y = 0.16, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(LFI_catch_all, period == "2023-2034" & regulation == "no closure during operational phase"),
-    aes(x = 4, y = 1.16, label = "*"),
+    aes(x = 4, y = 0.16, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(LFI_catch_all, period == "2023-2034" & regulation == "trawlers closure during operational phase"),
-    aes(x = 1, y = 1.16, label = "*"),
+    aes(x = 1, y = 0.16, label = "*"),
     inherit.aes = FALSE, size = 4
   )
 
+tagged_facet <- tag_facet(combined_boxplot, 
+                          open = "(", close = ")", tag_pool = letters, 
+                          x = Inf, y = -Inf, 
+                          hjust = 1.5, vjust = -1, 
+                          fontface = "plain")
+
+final_plot <- tagged_facet + theme(strip.text = element_text())
+
 ggsave(
-  file.path("figures", "publication", "boxplot", "LFI_catch_combined_mean.png"),
-  combined_boxplot,
+  file.path("figures", "publication", "boxplot", "LFI_catch_revision.png"),
+  final_plot,
   width = 12, height = 6, dpi = 600
 )
 
 
-subset_condition <- LFI_catch_all$deployment == "balance" & 
-  LFI_catch_all$regulation == "no closure during operational phase" &
-  LFI_catch_all$period == "2023-2034"
-
-selected_LFI_ratio <- LFI_catch_all$LFI_ratio[subset_condition]
-mean(selected_LFI_ratio)
+# subset_condition <- LFI_catch_all$deployment == "balance" & 
+#   LFI_catch_all$regulation == "no closure during operational phase" &
+#   LFI_catch_all$period == "2023-2034"
+# 
+# selected_LFI_ratio <- LFI_catch_all$LFI_ratio[subset_condition]
+# mean(selected_LFI_ratio)
 
 

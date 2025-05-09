@@ -10,6 +10,7 @@ library(RColorBrewer)
 library(purrr)
 library(ncdf4)
 library(patchwork)
+library(egg)
 
 # variables globales
 deployment_scenarios <- c("cout","protection","loin","equilibre")
@@ -87,7 +88,7 @@ total_yield_all$regulation <- factor(
 
 
 # 绘制箱线图，其中中位数线替换为平均数线
-combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio, fill = deployment)) +
+combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio-1, fill = deployment)) +
   # 添加须线
   stat_summary(
     fun.data = "median_hilow",
@@ -105,7 +106,7 @@ combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio,
     width = 0.75,
     color = "black"
   ) +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
   facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20), regulation = label_wrap_gen(25)
   )) +
@@ -117,7 +118,7 @@ combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio,
     )
   ) +
   labs(
-    title = "Total yield across scenarios and periods, relative to reference simulations",
+    # title = "Total yield across scenarios and periods, relative to reference simulations",
     x = "Deployment Scenario",
     y = "Total yield relative to reference simulations",
     fill = "Deployment Scenario"
@@ -134,74 +135,79 @@ combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio,
   # 为特定分面单独定义星号数据
   geom_text(
     data = subset(total_yield_all, period == "2023-2034" & regulation == "no closure during operational phase "),
-    aes(x = 1, y = 1.1, label = "*"),
+    aes(x = 1, y = 0.1, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure during operational phase "),
-    aes(x = 1, y = 1.1, label = "***"),
+    aes(x = 1, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure during operational phase "),
-    aes(x = 2, y = 1.1, label = "*"),
+    aes(x = 2, y = 0.1, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure during operational phase "),
-    aes(x = 3, y = 1.1, label = "*"),
+    aes(x = 3, y = 0.1, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "no closure during operational phase "),
-    aes(x = 4, y = 1.1, label = "*"),
+    aes(x = 4, y = 0.1, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure during operational phase "),
-    aes(x = 1, y = 1.1, label = "***"),
+    aes(x = 1, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure during operational phase "),
-    aes(x = 2, y = 1.1, label = "***"),
+    aes(x = 2, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure during operational phase "),
-    aes(x = 3, y = 1.1, label = "***"),
+    aes(x = 3, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "trawlers closure during operational phase "),
-    aes(x = 4, y = 1.1, label = "***"),
+    aes(x = 4, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure during operational phase "),
-    aes(x = 1, y = 1.1, label = "***"),
+    aes(x = 1, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure during operational phase "),
-    aes(x = 2, y = 1.1, label = "***"),
+    aes(x = 2, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure during operational phase "),
-    aes(x = 3, y = 1.1, label = "***"),
+    aes(x = 3, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_yield_all, period == "2035-2050" & regulation == "complete closure during operational phase "),
-    aes(x = 4, y = 1.1, label = "***"),
+    aes(x = 4, y = 0.1, label = "***"),
     inherit.aes = FALSE, size = 4
   ) 
 
-  print(combined_boxplot)
+tagged_facet <- tag_facet(combined_boxplot, 
+                          open = "(", close = ")", tag_pool = letters, 
+                          x = Inf, y = -Inf, 
+                          hjust = 1.5, vjust = -1, 
+                          fontface = "plain")
+final_plot <- tagged_facet + theme(strip.text = element_text())
 
 ggsave(
-  file.path("figures", "publication", "boxplot", "total_yield_combined_mean.png"),
-  combined_boxplot,
+  file.path("figures", "publication", "boxplot", "total_yield_revision.png"),
+  final_plot,
   width = 12, height = 6, dpi = 600
 )

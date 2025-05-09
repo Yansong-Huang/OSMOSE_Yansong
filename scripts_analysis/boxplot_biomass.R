@@ -10,6 +10,7 @@ library(RColorBrewer)
 library(purrr)
 library(ncdf4)
 library(patchwork)
+library(egg)
 
 # variables globales
 deployment_scenarios <- c("cout","protection","loin","equilibre")
@@ -86,7 +87,7 @@ total_biomass_all$regulation <- factor(
 )
 
 
-combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ratio, fill = deployment)) +
+combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ratio-1, fill = deployment)) +
   # 添加须线
   stat_summary(
     fun.data = "median_hilow",
@@ -104,7 +105,7 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
     width = 0.75,
     color = "black"
   ) +
-  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
   facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20), regulation = label_wrap_gen(25)
   )) +
@@ -116,7 +117,7 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
     )
   ) +
   labs(
-    title = "Total biomass across scenarios and periods, relative to reference simulations",
+    # title = "Total biomass across scenarios and periods, relative to reference simulations",
     x = "Deployment Scenario",
     y = "Total biomass relative to reference simulations",
     fill = "Deployment Scenario"
@@ -133,114 +134,120 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
   # 为特定分面单独定义星号数据
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "no closure during operational phase"),
-    aes(x = 1, y = 1.03, label = "***"),
+    aes(x = 1, y = 0.03, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
-    aes(x = 1, y = 1.02, label = "***"),
+    aes(x = 1, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
-    aes(x = 2, y = 1.02, label = "***"),
+    aes(x = 2, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "no closure during operational phase"),
-    aes(x = 3, y = 1.03, label = "*"),
+    aes(x = 3, y = 0.03, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
-    aes(x = 3, y = 1.02, label = "***"),
+    aes(x = 3, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "no closure during operational phase"),
-    aes(x = 4, y = 1.03, label = "*"),
+    aes(x = 4, y = 0.03, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
-    aes(x = 4, y = 1.02, label = "***"),
+    aes(x = 4, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   )+
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "trawlers closure during operational phase"),
-    aes(x = 1, y = 1.03, label = "*"),
+    aes(x = 1, y = 0.03, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "trawlers closure during operational phase"),
-    aes(x = 4, y = 1.03, label = "**"),
+    aes(x = 4, y = 0.03, label = "**"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
-    aes(x = 1, y = 1.02, label = "***"),
+    aes(x = 1, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
-    aes(x = 2, y = 1.02, label = "***"),
+    aes(x = 2, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
-    aes(x = 3, y = 1.02, label = "***"),
+    aes(x = 3, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
-    aes(x = 4, y = 1.02, label = "***"),
+    aes(x = 4, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
-    aes(x = 1, y = 1.03, label = "*"),
+    aes(x = 1, y = 0.03, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
-    aes(x = 2, y = 1.03, label = "***"),
+    aes(x = 2, y = 0.03, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
-    aes(x = 3, y = 1.03, label = "**"),
+    aes(x = 3, y = 0.03, label = "**"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
-    aes(x = 4, y = 1.03, label = "*"),
+    aes(x = 4, y = 0.03, label = "*"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
-    aes(x = 1, y = 1.02, label = "***"),
+    aes(x = 1, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
-    aes(x = 2, y = 1.02, label = "***"),
+    aes(x = 2, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
-    aes(x = 3, y = 1.02, label = "***"),
+    aes(x = 3, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
   geom_text(
     data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
-    aes(x = 4, y = 1.02, label = "***"),
+    aes(x = 4, y = 0.02, label = "***"),
     inherit.aes = FALSE, size = 4
-  ) 
+  )
 
-print(combined_boxplot)
+tagged_facet <- tag_facet(combined_boxplot, 
+          open = "(", close = ")", tag_pool = letters, 
+          x = Inf, y = -Inf, 
+          hjust = 1.5, vjust = -1, 
+          fontface = "plain")
+
+final_plot <- tagged_facet + theme(strip.text = element_text())
 
 ggsave(
-  file.path("figures", "publication", "boxplot", "total_biomass_combined_mean.png"),
-  combined_boxplot,
+  file.path("figures", "publication", "boxplot", "total_biomass_revision.png"),
+  final_plot,
   width = 12, height = 6, dpi = 600
 )
