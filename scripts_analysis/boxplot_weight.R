@@ -13,13 +13,10 @@ library(patchwork)
 library(egg)
 
 # variables globales
-# deployment_scenarios <- c("cout","protection","loin","equilibre")
-# regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
 n_years_cut <- c(10,21,22,34,35,49)
 n_species <- 16
 n_replicate <- 30
 
-# total_biomass_base <- c(1322196,1334356,1334056)
 
 # 构建场景路径
 results_path_base <- file.path("outputs/results_1111","Base_simu","Base", "output", "CIEM")
