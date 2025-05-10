@@ -1,4 +1,4 @@
-# Boxplot of mean weight by species
+# Boxplot of mortality by species
 # Auteur : Yansong Huang
 # Date de création : 2024-05-09
 
@@ -13,9 +13,9 @@ library(egg)
 library(stringr)
 
 # variables globales
+n_years_simu <- 49
 n_years_cut <- c(10,21,22,34,35,49)
 n_species <- 16
-n_replicate <- 30
 
 
 # 构建场景路径
@@ -42,10 +42,10 @@ process_mortality <- function(current_results_path, cut_off_year_begin, cut_off_
       t() %>%
       data.frame()
     
-    colnames(mortality) <- c("source", "stage", 1:49)
+    colnames(mortality) <- c("source", "stage", 1:n_years_simu)
     
     mortality_long <- mortality %>%
-      pivot_longer(cols = 3:50, names_to = "Year", values_to = "mortality") %>%
+      pivot_longer(cols = 3:(n_years_simu + 2), names_to = "Year", values_to = "mortality") %>%
       mutate(mortality = as.numeric(mortality),
              Year = as.numeric(Year)) %>%
       filter(Year >= cut_off_year_begin, Year <= cut_off_year_end)
@@ -73,35 +73,11 @@ process_mortality <- function(current_results_path, cut_off_year_begin, cut_off_
   
   return(mortality_summary)
 }
-
-######## 基线时间段 2023-2034 -------------
-mortality_base_during <- process_mortality(
-  current_results_path = results_path_base,
-  cut_off_year_begin = n_years_cut[3],
-  cut_off_year_end = n_years_cut[4]
-)
-
-mortality_base_during_mean <- mortality_base_during %>%
-  group_by(species_name) %>%
-  summarise(mean_mortality = mean(mean_mortality, na.rm = TRUE)) %>%
-  rename(base_mean_mortality = mean_mortality)
-
-mortality_during <- process_mortality(
-  current_results_path = results_path_scenario,
-  cut_off_year_begin = n_years_cut[3],
-  cut_off_year_end = n_years_cut[4]
-)
-
-relative_mortality_during <- mortality_during %>%
-  left_join(mortality_base_during_mean, by = "species_name") %>%
-  mutate(relative_to_base = mean_mortality / base_mean_mortality) %>%
-  mutate(period = "2023-2034")
-
-
 # ==== 设定筛选条件 ====
 source_filter <- "Mpred"
 stage_filter <- c("Eggs", "Pre-recruits", "Recruits")
 
+######## 基线时间段 2023-2034 -------------
 # ==== 调用函数提取数据 ====
 mortality_during_base <- process_mortality(
   results_path_base,
@@ -130,13 +106,55 @@ mortality_during_base_mean <- mortality_during_base_mean %>%
 
 # 按 species_name 左连接对照组的平均值
 relative_mortality_during <- mortality_during %>%
-  left_join(mortality_base_during_mean, by = "species_name") %>%
+  left_join(mortality_during_base_mean, by = "species_name") %>%
   mutate(relative_to_base = mean_mortality / base_mean_mortality) %>%
   mutate(period="2023-2034")
 
+######## 基线时间段 2035-2050 -------------
+# ==== 调用函数提取数据 ====
+mortality_after_base <- process_mortality(
+  results_path_base,
+  n_years_cut[5],
+  n_years_cut[6],
+  mortality_source = source_filter,
+  mortality_stage = stage_filter
+)
+
+# ==== 计算按物种、阶段的平均值 ====
+mortality_after_base_mean <- mortality_after_base %>%
+  group_by(species_name) %>%
+  summarise(mean_mortality = mean(mean_mortality, na.rm = TRUE))
+
+mortality_after <- process_mortality(
+  results_path_scenario,
+  n_years_cut[5],
+  n_years_cut[6],
+  mortality_source = source_filter,
+  mortality_stage = stage_filter
+)
+
+# 给对照组的改个名字避免混淆
+mortality_after_base_mean <- mortality_after_base_mean %>%
+  rename(base_mean_mortality = mean_mortality)
+
+# 按 species_name 左连接对照组的平均值
+relative_mortality_after <- mortality_after %>%
+  left_join(mortality_after_base_mean, by = "species_name") %>%
+  mutate(relative_to_base = mean_mortality / base_mean_mortality) %>%
+  mutate(period="2035-2050")
+
+
+# 初始化全局数据框
+mortality_all <- data.frame()
+# 合并到全局数据框
+mortality_all <- rbind(
+  mortality_all,
+  relative_mortality_during,
+  relative_mortality_after
+)
 # ==== 可视化 ====
-mortality_plot <- ggplot(mortality_summary, aes(x = species, y = mean_mortality)) +
-  geom_boxplot(aes(fill = species), varwidth = TRUE, outlier.shape = NA, linetype = "solid") +
+mortality_plot <- ggplot(mortality_all, aes(x = species_name, y = relative_to_base)) +
+  geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA, linetype = "solid") +
   stat_summary(
     fun = mean,
     geom = "errorbar",
@@ -144,7 +162,7 @@ mortality_plot <- ggplot(mortality_summary, aes(x = species, y = mean_mortality)
     width = 0.75,
     color = "black"
   ) +
-  facet_wrap(~ stage, ncol = 1, scales = "free_y") +
+  facet_wrap(period ~., ncol = 1, scales = "free_y") +
   labs(
     title = "Predation mortality (Mpred) across species and stages",
     x = "Species",
