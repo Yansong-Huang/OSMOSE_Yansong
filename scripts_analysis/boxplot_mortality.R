@@ -51,16 +51,16 @@ process_mortality <- function(current_results_path, cut_off_year_begin, cut_off_
       filter(Year >= cut_off_year_begin, Year <= cut_off_year_end)
     
     # 如果指定了 source，就筛选
-    if (!is.null(mortality_source)) {
+    # if (!is.null(mortality_source) && length(mortality_source) > 0 && any(nzchar(mortality_source))) {
       mortality_long <- mortality_long %>%
         filter(source %in% mortality_source)
-    }
+    # }
 
     # 如果指定了 stage，就筛选
-    if (!is.null(mortality_stage)) {
+    # if (!is.null(mortality_stage)) {
       mortality_long <- mortality_long %>%
         filter(stage %in% mortality_stage)
-    }
+    # }
     
     mean_mortality <- mean(mortality_long$mortality, na.rm = TRUE)
     
@@ -73,108 +73,117 @@ process_mortality <- function(current_results_path, cut_off_year_begin, cut_off_
   
   return(mortality_summary)
 }
-# ==== 设定筛选条件 ====
-source_filter <- "Mpred"
-stage_filter <- c("Eggs", "Pre-recruits", "Recruits")
+# ==== 设定阶段筛选条件 ====
+# stage_filter <- c("Eggs", "Pre-recruits", "Recruits")
+stage_filter <- c("Pre-recruits", "Recruits")
 
-######## 基线时间段 2023-2034 -------------
-# ==== 调用函数提取数据 ====
-mortality_during_base <- process_mortality(
-  results_path_base,
-  n_years_cut[3],
-  n_years_cut[4],
-  mortality_source = source_filter,
-  mortality_stage = stage_filter
-)
+# ==== 所有死亡来源 ====
+source_list <- c("Mpred", "Mstarv","F")
 
-# ==== 计算按物种、阶段的平均值 ====
-mortality_during_base_mean <- mortality_during_base %>%
-  group_by(species_name) %>%
-  summarise(mean_mortality = mean(mean_mortality, na.rm = TRUE))
+# ==== 初始化总数据框 ====
+mortality_all_sources <- data.frame()
 
-mortality_during <- process_mortality(
-  results_path_scenario,
-  n_years_cut[3],
-  n_years_cut[4],
-  mortality_source = source_filter,
-  mortality_stage = stage_filter
-)
+# ==== 遍历每个死亡来源 ====
+for (source_filter in source_list) {
+  # --- 时间段 2023-2034 ---
+  mortality_during_base <- process_mortality(results_path_base, n_years_cut[3], n_years_cut[4],
+                                             mortality_source = source_filter, mortality_stage = stage_filter)
+  
+  mortality_during_base_mean <- mortality_during_base %>%
+    group_by(species_name) %>%
+    summarise(mean_mortality = mean(mean_mortality, na.rm = TRUE))
+  
+  mortality_during <- process_mortality(results_path_scenario, n_years_cut[3], n_years_cut[4],
+                                        mortality_source = source_filter, mortality_stage = stage_filter)
+  
+  # 给对照组mean_mortality改个名字base_mean_mortality避免混淆
+  mortality_during_base_mean <- mortality_during_base_mean %>%
+    rename(base_mean_mortality = mean_mortality)
+  
+  
+  relative_mortality_during <- mortality_during %>%
+    left_join(mortality_during_base_mean, by = "species_name") %>%
+    mutate(relative_to_base = mean_mortality / base_mean_mortality,
+           period = "2023-2034", source = source_filter)
+  
+  # --- 时间段 2035-2050 ---
+  mortality_after_base <- process_mortality(results_path_base, n_years_cut[5], n_years_cut[6],
+                                            mortality_source = source_filter, mortality_stage = stage_filter)
+  
+  mortality_after_base_mean <- mortality_after_base %>%
+    group_by(species_name) %>%
+    summarise(mean_mortality = mean(mean_mortality, na.rm = TRUE))
+  
+  mortality_after <- process_mortality(results_path_scenario, n_years_cut[5], n_years_cut[6],
+                                       mortality_source = source_filter, mortality_stage = stage_filter)
+  
+  # 给对照组mean_mortality改个名字base_mean_mortality避免混淆
+  mortality_after_base_mean <- mortality_after_base_mean %>%
+    rename(base_mean_mortality = mean_mortality)
+  
+  relative_mortality_after <- mortality_after %>%
+    left_join(mortality_after_base_mean, by = "species_name") %>%
+    mutate(relative_to_base = mean_mortality / base_mean_mortality,
+           period = "2035-2050", source = source_filter)
+  
+  # 合并当前source下所有数据
+  mortality_all_sources <- bind_rows(mortality_all_sources, relative_mortality_during, relative_mortality_after)
+}
 
-# 给对照组的改个名字避免混淆
-mortality_during_base_mean <- mortality_during_base_mean %>%
-  rename(base_mean_mortality = mean_mortality)
+mortality_all_sources <- mortality_all_sources %>%
+  filter(species_name != "cod")
 
-# 按 species_name 左连接对照组的平均值
-relative_mortality_during <- mortality_during %>%
-  left_join(mortality_during_base_mean, by = "species_name") %>%
-  mutate(relative_to_base = mean_mortality / base_mean_mortality) %>%
-  mutate(period="2023-2034")
-
-######## 基线时间段 2035-2050 -------------
-# ==== 调用函数提取数据 ====
-mortality_after_base <- process_mortality(
-  results_path_base,
-  n_years_cut[5],
-  n_years_cut[6],
-  mortality_source = source_filter,
-  mortality_stage = stage_filter
-)
-
-# ==== 计算按物种、阶段的平均值 ====
-mortality_after_base_mean <- mortality_after_base %>%
-  group_by(species_name) %>%
-  summarise(mean_mortality = mean(mean_mortality, na.rm = TRUE))
-
-mortality_after <- process_mortality(
-  results_path_scenario,
-  n_years_cut[5],
-  n_years_cut[6],
-  mortality_source = source_filter,
-  mortality_stage = stage_filter
-)
-
-# 给对照组的改个名字避免混淆
-mortality_after_base_mean <- mortality_after_base_mean %>%
-  rename(base_mean_mortality = mean_mortality)
-
-# 按 species_name 左连接对照组的平均值
-relative_mortality_after <- mortality_after %>%
-  left_join(mortality_after_base_mean, by = "species_name") %>%
-  mutate(relative_to_base = mean_mortality / base_mean_mortality) %>%
-  mutate(period="2035-2050")
-
-
-# 初始化全局数据框
-mortality_all <- data.frame()
-# 合并到全局数据框
-mortality_all <- rbind(
-  mortality_all,
-  relative_mortality_during,
-  relative_mortality_after
-)
 # ==== 可视化 ====
-mortality_plot <- ggplot(mortality_all, aes(x = species_name, y = relative_to_base)) +
-  geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA, linetype = "solid") +
-  stat_summary(
-    fun = mean,
-    geom = "errorbar",
-    aes(ymin = ..y.., ymax = ..y..),
-    width = 0.75,
-    color = "black"
-  ) +
-  facet_wrap(period ~., ncol = 1, scales = "free_y") +
+mortality_plot_all <- ggplot(mortality_all_sources, aes(x = species_name, y = relative_to_base-1)) +
+  geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA) +
+  # stat_summary(fun = mean, geom = "errorbar",
+               # aes(ymin = ..y.., ymax = ..y..), width = 0.75, color = "black") +
+  facet_grid(source ~ period, scales = "free_y") +
+  coord_cartesian(ylim = c(-1, 1)) + 
   labs(
-    title = "Predation mortality (Mpred) across species and stages",
+    title = "Mortality rates by source and species",
     x = "Species",
-    y = "Mean Mpred"
+    y = "Relative mortality to reference simulations"
   ) +
   theme_bw() +
   theme(
     plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.position = "none"
+    axis.text.x = element_text(size = 9, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 10)
   )
 
-print(mortality_plot)
+print(mortality_plot_all)
+
+# ==== 保存 ====
+ggsave(
+  file.path("figures", "publication", "boxplot", "mortality_change_by_source_and_species.png"),
+  mortality_plot_all,
+  width = 12, height = 8, dpi = 600
+)
+
+mortality_plot_base <- ggplot(mortality_all_sources, aes(x = species_name, y = base_mean_mortality)) +
+  geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA) +
+  # stat_summary(fun = mean, geom = "errorbar",
+  # aes(ymin = ..y.., ymax = ..y..), width = 0.75, color = "black") +
+  facet_grid(source ~ period, scales = "free_y") +
+  labs(
+    title = "Mortality rates by source and species",
+    x = "Species",
+    y = "Base mortality"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 9, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 10)
+  )
+
+print(mortality_plot_base)
+
+# ==== 保存 ====
+ggsave(
+  file.path("figures", "publication", "boxplot", "base_mortality_by_source_and_species.png"),
+  mortality_plot_base,
+  width = 12, height = 8, dpi = 600
+)
+
