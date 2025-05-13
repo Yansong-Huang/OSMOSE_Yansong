@@ -30,7 +30,7 @@ process_biomass <- function(current_results_path, cut_off_year_begin, cut_off_ye
                     "mackerel", "herring", "sardine", "squids", "cuttlefish", "thornbackRay")
   
   biomass_summary <- bind_rows(lapply(1:n_species, function(species) {
-    # 每个模拟重复计算一个时间段平均体重
+    # 每个模拟重复计算一个时间段平均
     biomass_all_simulations <- map_dfr(1:n_replicate, function(simulation) {
       biomass_brut <- read.csv(list_biomass_current[simulation], skip = 1)
       
@@ -38,7 +38,7 @@ process_biomass <- function(current_results_path, cut_off_year_begin, cut_off_ye
         filter(Time >= cut_off_year_begin, Time <= cut_off_year_end) %>%
         pull(species + 1)
       
-      # 计算吨→公斤，并取时间段平均体重
+      # 取时间段平均
       mean_biomass <- mean(biomass_period, na.rm = TRUE)
       
       data.frame(
@@ -151,7 +151,7 @@ biomass_boxplot <- ggplot(biomass_all, aes(x = species_name, y = relative_to_bas
   labs(
     # title = "Total biomass across scenarios and periods, relative to reference simulations",
     x = "Species",
-    y = "Biomass relative to reference simulations",
+    y = "Biomass change relative to reference simulations",
   ) +
   theme_bw() +
   theme(
@@ -170,9 +170,9 @@ ggsave(
   width = 8, height = 5, dpi = 600
 )
 
-###### absolute base biomass 
+###### absolute biomass under cost minimisation*no closure scenario
 
-base_biomass_boxplot <- ggplot(biomass_all, aes(x = species_name, y = base_mean_biomass)) +
+scenario_biomass_boxplot <- ggplot(biomass_all, aes(x = species_name, y = mean_biomass)) +
   # 添加须线
   stat_summary(
     fun.data = "median_hilow",
@@ -196,7 +196,7 @@ base_biomass_boxplot <- ggplot(biomass_all, aes(x = species_name, y = base_mean_
   labs(
     # title = "Total biomass across scenarios and periods, relative to reference simulations",
     x = "Species",
-    y = "Base biomass (t)",
+    y = "Scenario biomass (t)",
   ) +
   theme_bw() +
   theme(
@@ -207,10 +207,10 @@ base_biomass_boxplot <- ggplot(biomass_all, aes(x = species_name, y = base_mean_
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11)
   )
-print(base_biomass_boxplot)
+print(scenario_biomass_boxplot)
 
 ggsave(
-  file.path("figures", "publication", "boxplot", "base_biomass_by_species.png"),
-  base_biomass_boxplot,
+  file.path("figures", "publication", "boxplot", "scenario_biomass_by_species.png"),
+  scenario_biomass_boxplot,
   width = 8, height = 5, dpi = 600
 )

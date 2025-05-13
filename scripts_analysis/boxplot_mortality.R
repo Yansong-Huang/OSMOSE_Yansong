@@ -35,10 +35,31 @@ process_mortality <- function(current_results_path, cut_off_year_begin, cut_off_
     species <- str_match(mortality_file, "mortalityRate-(.*?)_Simu")[,2]
     replicate <- as.integer(str_match(mortality_file, "_Simu(\\d+)\\.csv")[,2])
     
-    original_data <- readr::read_csv(mortality_file, col_names = FALSE, skip = 1)
+    # 第一步：读取第一行，判断哪些列的标记是 "Mpred"
+    header_row <- readr::read_csv(
+      mortality_file,
+      col_names = FALSE,
+      skip = 1,
+      n_max = 1,
+      col_types = readr::cols(.default = "c"),
+      show_col_types = FALSE
+    ) %>%
+      as.character()
     
+    # 找出列索引：哪些列在第一行中是 "Mpred"
+    keep_cols_index <- which(header_row %in% mortality_source)
+    
+    # Step 2: 直接读取指定列的数据（跳过第一行，不使用列名）
+    original_data <- readr::read_csv(
+      mortality_file,
+      skip = 1,
+      col_names = FALSE,
+      col_select = all_of(keep_cols_index),
+      show_col_types = FALSE
+    )
+    
+    # data transform
     mortality <- original_data %>%
-      select(-X1) %>%
       t() %>%
       data.frame()
     
@@ -50,11 +71,6 @@ process_mortality <- function(current_results_path, cut_off_year_begin, cut_off_
              Year = as.numeric(Year)) %>%
       filter(Year >= cut_off_year_begin, Year <= cut_off_year_end)
     
-    # 如果指定了 source，就筛选
-    # if (!is.null(mortality_source) && length(mortality_source) > 0 && any(nzchar(mortality_source))) {
-      mortality_long <- mortality_long %>%
-        filter(source %in% mortality_source)
-    # }
 
     # 如果指定了 stage，就筛选
     # if (!is.null(mortality_stage)) {
@@ -161,7 +177,7 @@ ggsave(
   width = 12, height = 8, dpi = 600
 )
 
-mortality_plot_base <- ggplot(mortality_all_sources, aes(x = species_name, y = base_mean_mortality)) +
+mortality_plot_scenario <- ggplot(mortality_all_sources, aes(x = species_name, y = mean_mortality)) +
   geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA) +
   # stat_summary(fun = mean, geom = "errorbar",
   # aes(ymin = ..y.., ymax = ..y..), width = 0.75, color = "black") +
@@ -169,7 +185,7 @@ mortality_plot_base <- ggplot(mortality_all_sources, aes(x = species_name, y = b
   labs(
     title = "Mortality rates by source and species",
     x = "Species",
-    y = "Base mortality"
+    y = "Test scenario Mortality"
   ) +
   theme_bw() +
   theme(
@@ -178,12 +194,12 @@ mortality_plot_base <- ggplot(mortality_all_sources, aes(x = species_name, y = b
     axis.text.y = element_text(size = 10)
   )
 
-print(mortality_plot_base)
+print(mortality_plot_scenario)
 
 # ==== 保存 ====
 ggsave(
-  file.path("figures", "publication", "boxplot", "base_mortality_by_source_and_species.png"),
-  mortality_plot_base,
+  file.path("figures", "publication", "boxplot", "scenario_mortality_by_source_and_species.png"),
+  mortality_plot_scenario,
   width = 12, height = 8, dpi = 600
 )
 
