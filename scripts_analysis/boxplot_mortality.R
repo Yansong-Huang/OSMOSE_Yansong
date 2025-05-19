@@ -12,6 +12,7 @@ library(patchwork)
 library(egg)
 library(stringr)
 
+# 1. calculate mortality rates ----- 
 # variables globales
 n_years_simu <- 49
 n_years_cut <- c(10,21,22,34,35,49)
@@ -149,17 +150,40 @@ for (source_filter in source_list) {
 mortality_all_sources <- mortality_all_sources %>%
   filter(species_name != "cod")
 
-# ==== 可视化 ====
-mortality_plot_all <- ggplot(mortality_all_sources, aes(x = species_name, y = relative_to_base-1)) +
-  geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA) +
-  # stat_summary(fun = mean, geom = "errorbar",
-               # aes(ymin = ..y.., ymax = ..y..), width = 0.75, color = "black") +
-  facet_grid(source ~ period, scales = "free_y") +
-  coord_cartesian(ylim = c(-1, 1)) + 
+# 2. visualisation ====
+# 相对值
+mortality_all_sources <- readRDS("indicators/Mpred_Mstarv_F_pre_recruits_recruits.rds") 
+mortality_focus <- mortality_all_sources %>%
+  filter(species_name %in% c("cuttlefish", "herring", "redMullet")) %>%
+  filter(period=="2035-2050") %>%
+  filter(source %in% c("F","Mpred"))
+
+mortality_focus[mortality_focus == "F"] <- "Fishing"
+mortality_focus[mortality_focus == "Mpred"] <- "Predation"
+
+
+
+mortality_plot_all <- ggplot(mortality_focus, aes(x = species_name, y = relative_to_base-1)) +
+  geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA, linetype = "blank") +
+  # 添加须线
+  stat_summary(
+    fun.data = "median_hilow",
+    geom = "errorbar",
+    aes(ymin = ..ymin.., ymax = ..ymax..),
+    width = 0.2,
+    color = "black"
+  ) +
+  geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA, linetype = "blank") +
+  # 添加平均值线
+  stat_summary(fun = mean, geom = "errorbar",
+    aes(ymin = ..y.., ymax = ..y..), width = 0.75, color = "black") +
+  geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
+  facet_grid(~source, scales = "free_y") +
+  # coord_cartesian(ylim = c(-1, 1)) + 
   labs(
-    title = "Mortality rates by source and species",
+    # title = "Mortality rates by source and species",
     x = "Species",
-    y = "Relative mortality to reference simulations"
+    y = "Mortality change"
   ) +
   theme_bw() +
   theme(
@@ -170,20 +194,20 @@ mortality_plot_all <- ggplot(mortality_all_sources, aes(x = species_name, y = re
 
 print(mortality_plot_all)
 
-# ==== 保存 ====
 ggsave(
-  file.path("figures", "publication", "boxplot", "mortality_change_by_source_and_species.png"),
+  file.path("figures", "publication", "boxplot", "mortality_change_focus_species.png"),
   mortality_plot_all,
-  width = 12, height = 8, dpi = 600
+  width = 8, height = 4, dpi = 600
 )
 
+# 绝对值
 mortality_plot_scenario <- ggplot(mortality_all_sources, aes(x = species_name, y = mean_mortality)) +
   geom_boxplot(fill = "lightblue", varwidth = TRUE, outlier.shape = NA) +
   # stat_summary(fun = mean, geom = "errorbar",
   # aes(ymin = ..y.., ymax = ..y..), width = 0.75, color = "black") +
   facet_grid(source ~ period, scales = "free_y") +
   labs(
-    title = "Mortality rates by source and species",
+    # title = "Mortality rates by source and species",
     x = "Species",
     y = "Test scenario Mortality"
   ) +
@@ -196,10 +220,9 @@ mortality_plot_scenario <- ggplot(mortality_all_sources, aes(x = species_name, y
 
 print(mortality_plot_scenario)
 
-# ==== 保存 ====
 ggsave(
-  file.path("figures", "publication", "boxplot", "scenario_mortality_by_source_and_species.png"),
+  file.path("figures", "publication", "boxplot", "scenario_mortality_significant_species_2.png"),
   mortality_plot_scenario,
-  width = 12, height = 8, dpi = 600
+  width = 8, height = 6, dpi = 600
 )
 
