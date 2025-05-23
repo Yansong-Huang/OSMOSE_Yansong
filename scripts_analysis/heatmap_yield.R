@@ -120,6 +120,11 @@ yield_table_all$regulation <- factor(yield_table_all$regulation,
                                                 "trawlers closure during operational phase",
                                                 "complete closure during operational phase"))
 
+yield_table_all <- yield_table_all %>%
+  filter(regulation %in% c("no closure during operational phase","complete closure during operational phase")) %>%
+  filter(period %in% c("2023-2034","2035-2049"))
+
+
 ratio_map_plot <- ggplot() +
   # 绘制背景热力图
   geom_tile(data = yield_table_all, aes(x = lon, y = lat, fill = ratio-1)) +
@@ -161,5 +166,5 @@ tagged_facet <- tag_facet(ratio_map_plot,
 
 final_heatmap <- tagged_facet + theme(strip.text = element_text())
 
-ggsave("figures/publication/heatmap/yield_heatmap_balance_revision.png",
-       final_heatmap, width = 12, height = 7, dpi = 600)
+ggsave("figures/publication/heatmap/yield_heatmap_balance_diapo.png",
+       final_heatmap, width = 12, height = 6, dpi = 600)
