@@ -2,7 +2,7 @@
 library(ggplot2)
 
 # 读取数据
-file_path_ple <- "osmose-eec_v4.4_yansong/Base/input/mortality/larval_mortality-plaice.csv"
+file_path_ple <- "input/Base/input/mortality/larval_mortality-plaice.csv"
 lar_mor_ple <- read.csv(file_path_ple)
 
 # 确保第二列名称正确（假设第二列名称为 "Value"，你可以用 colnames(lar_mor_ple) 检查）
@@ -20,7 +20,7 @@ ggplot(lar_mor_ple, aes(x = Time, y = Value)) +
   theme_minimal()
 
 # 读取数据
-file_path_sol <- "osmose-eec_v4.4_yansong/Base/input/mortality/larval_mortality-sole.csv"
+file_path_sol <- "input/Base/input/mortality/larval_mortality-sole.csv"
 lar_mor_sol <- read.csv(file_path_sol)
 
 # 确保第二列名称正确（假设第二列名称为 "Value"，你可以用 colnames(lar_mor_sol) 检查）

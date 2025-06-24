@@ -1,8 +1,8 @@
 library(sf)
 
 # Read OWF cells
-OWF_1_cells <- st_read(file.path("OWF_grid", "OWF_1.shp"))$id
-OWF_2_cells <- st_read(file.path("OWF_grid", "OWF_2.shp"))$id
+OWF_1_cells <- st_read(file.path("data","OWF_grid", "OWF_1.shp"))$id
+OWF_2_cells <- st_read(file.path("data","OWF_grid", "OWF_2.shp"))$id
 
 # Define a general function to create a mask
 create_mask <- function(cells, grid_dim = c(45, 22)) {
@@ -28,17 +28,17 @@ create_mask <- function(cells, grid_dim = c(45, 22)) {
 manual_correction <- list(index = 8, lon = 45, lat = 22)
 
 # Mask for balance
-balance_cells <- st_read(file.path("OWF_grid", "OWF_equilibre.shp"))$id
+balance_cells <- st_read(file.path("data","OWF_grid", "OWF_equilibre.shp"))$id
 mask_OWF_equilibre <- create_mask(c(c(OWF_1_cells, OWF_2_cells, balance_cells)))
 
 # Mask for cost
-cost_cells <- st_read(file.path("OWF_grid", "OWF_cout.shp"))$id
+cost_cells <- st_read(file.path("data","OWF_grid", "OWF_cout.shp"))$id
 mask_OWF_cout <- create_mask(c(c(OWF_1_cells, OWF_2_cells, cost_cells)))
 
 # Mask for protection
-protection_cells <- st_read(file.path("OWF_grid", "OWF_protection.shp"))$id
+protection_cells <- st_read(file.path("data","OWF_grid", "OWF_protection.shp"))$id
 mask_OWF_protection <- create_mask(c(c(OWF_1_cells, OWF_2_cells, protection_cells)))
 
 # Mask for distance
-distance_cells <- st_read(file.path("OWF_grid", "OWF_loin.shp"))$id
+distance_cells <- st_read(file.path("data","OWF_grid", "OWF_loin.shp"))$id
 mask_OWF_loin <- create_mask(c(c(OWF_1_cells, OWF_2_cells, distance_cells)))

@@ -10,7 +10,7 @@ java_path   = "C:/Users/yhuang/Documents/OSMOSE/osmose-private/inst/java"
 jar_file    = file.path(java_path, "osmose_4.4.0-jar-with-dependencies.jar")
 version    = "4.4.0"
 
-config_dir  = "osmose-eec_v4.4_yansong"
+config_dir  = "input"
 main_file = "eec_all-parameters.R"
 
 simulation = "Yansong"

@@ -1,10 +1,14 @@
+# script for run baseline simulation
+# 基线模拟脚本
+
+
 library(osmose)
 jar_file    = "osmose_4.4.0-jar-with-dependencies.jar"
 version    = "4.4.0"
 
 #Base simulations
 
-config_dir  = "osmose-eec_v4.4_yansong/Base"
+config_dir  = "input/Base"
 main_file = "eec_all-parameters.R"
  
 simulation = "CIEM"

@@ -6,7 +6,7 @@ library(ncdf4)
 library(ggplot2)
 
 
-fermeture_nc <- nc_open("data_scenarios/protection/sans_fermeture/fishing-distrib.nc")
+fermeture_nc <- nc_open("data/data_by_scenario/protection/sans_fermeture/fishing-distrib.nc")
 fermeture_map <- ncvar_get(fermeture_nc, "fishing_area", start = c(1,1,31), count = c(-1,-1,1))
 nc_close(fermeture_total_nc)
 sum(fermeture_map, na.rm = TRUE) #464

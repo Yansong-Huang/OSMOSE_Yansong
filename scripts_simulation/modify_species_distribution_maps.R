@@ -1,5 +1,7 @@
-# créer cartes de distribution
+# create species distribution maps under OWF scenarios
+# 物种分布图生成脚本
 # date de création : 05/08/2024
+
 ###### read shapefiles ######
 library(sf)
 library(ncdf4)
@@ -23,7 +25,7 @@ apply_multiplier <- function(base_array, multiplier) {
 deployment_scenarios <- c("cout","protection","loin","equilibre")
 
 
-multiplier_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/thornbackRay.nc")
+multiplier_base_nc <- nc_open("input/Base/input/species_distribution/thornbackRay.nc")
 multiplier_base <- ncvar_get(multiplier_base_nc, "stage0", start = c(1,1,1), count = c(-1,-1,1))
 # read attributed zones
 OWF_1_cells <- st_read(file.path("OWF_grid",paste("OWF_1.shp",sep = "")))$id
@@ -34,7 +36,7 @@ OWF_2_tampon_cells <- st_read(file.path("OWF_grid",paste("tampon_2.shp",sep = ""
 # loop over SER scenarios
 for (deployment in deployment_scenarios){
   # create species distribution folder
-  folder_distribution <- file.path("data_scenarios",deployment, "species_distribution")
+  folder_distribution <- file.path("data","data_by_scenario",deployment, "species_distribution")
   if (!dir.exists(folder_distribution)){
     dir.create(folder_distribution, recursive = TRUE)
   }
@@ -52,7 +54,7 @@ for (deployment in deployment_scenarios){
   multiplier_tampon_3 <- grid_modify(multiplier_base, deployment_scenario_tampon_cells, 0.5)
   
   ###### squids ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/squids.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/squids.nc")
   distribution_base <- ncvar_get(distribution_base_nc, "stage0")
   nc_close(distribution_base_nc)
   
@@ -91,7 +93,7 @@ for (deployment in deployment_scenarios){
   
   
   ###### thornback ray ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/thornbackRay.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/thornbackRay.nc")
   distribution_base <- ncvar_get(distribution_base_nc, "stage0")
   nc_close(distribution_base_nc)
   
@@ -129,7 +131,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### lesser spotted dogfish ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/lesserSpottedDogfish.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/lesserSpottedDogfish.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   nc_close(distribution_base_nc)
@@ -179,7 +181,7 @@ for (deployment in deployment_scenarios){
   
   
   ###### red mullet ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/redMullet.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/redMullet.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   nc_close(distribution_base_nc)
@@ -228,7 +230,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### pouting ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/pouting.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/pouting.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   distribution_base_stage2 <- ncvar_get(distribution_base_nc, "stage2")
@@ -287,7 +289,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### whiting ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/whiting.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/whiting.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   distribution_base_stage2 <- ncvar_get(distribution_base_nc, "stage2")
@@ -346,7 +348,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### cod ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/cod.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/cod.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   distribution_base_stage2 <- ncvar_get(distribution_base_nc, "stage2")
@@ -405,7 +407,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### poorCod ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/poorCod.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/poorCod.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   nc_close(distribution_base_nc)
@@ -455,7 +457,7 @@ for (deployment in deployment_scenarios){
   
   
   ###### dragonet ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/dragonet.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/dragonet.nc")
   distribution_base <- ncvar_get(distribution_base_nc, "stage0")
   nc_close(distribution_base_nc)
   
@@ -495,7 +497,7 @@ for (deployment in deployment_scenarios){
   
   
   ###### horseMackerel ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/horseMackerel.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/horseMackerel.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   distribution_base_stage2 <- ncvar_get(distribution_base_nc, "stage2")
@@ -555,7 +557,7 @@ for (deployment in deployment_scenarios){
   
   
   ###### mackerel ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/mackerel.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/mackerel.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   nc_close(distribution_base_nc)
@@ -604,7 +606,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### sole ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/sole.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/sole.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   distribution_base_stage2 <- ncvar_get(distribution_base_nc, "stage2")
@@ -664,7 +666,7 @@ for (deployment in deployment_scenarios){
   
   
   ###### plaice ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/plaice.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/plaice.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   distribution_base_stage2 <- ncvar_get(distribution_base_nc, "stage2")
@@ -724,7 +726,7 @@ for (deployment in deployment_scenarios){
   
   
   ###### cuttlefish ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/cuttlefish.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/cuttlefish.nc")
   distribution_base_stage0 <- ncvar_get(distribution_base_nc, "stage0")
   distribution_base_stage1 <- ncvar_get(distribution_base_nc, "stage1")
   nc_close(distribution_base_nc)
@@ -773,7 +775,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### herring ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/herring.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/herring.nc")
   distribution_base <- ncvar_get(distribution_base_nc, "stage0")
   nc_close(distribution_base_nc)
   
@@ -818,7 +820,7 @@ for (deployment in deployment_scenarios){
   nc_close(nc_output)
   
   ###### sardine ######
-  distribution_base_nc <- nc_open("osmose-eec_v4.4_yansong/Base/input/species_distribution/sardine.nc")
+  distribution_base_nc <- nc_open("input/Base/input/species_distribution/sardine.nc")
   distribution_base <- ncvar_get(distribution_base_nc, "stage0")
   nc_close(distribution_base_nc)
   

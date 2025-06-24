@@ -10,7 +10,7 @@ library(RColorBrewer)
 library(purrr)
 library(ncdf4)
 
-nc_ERSEM <- nc_open("osmose-eec_v4.4_yansong/Base/input/ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc")
+nc_ERSEM <- nc_open("input/Base/input/ERSEM_nc/interpolated_CERES_NorthSea_2d_monthly_2002_2022.nc")
 
 LTL_names <- c("depositBenthos","suspensionBenthos","meioBenthos","diatoms",
                "microPhytoplankton","mesoZooplankton","microZooplankton","heterotrophicFlagellates")

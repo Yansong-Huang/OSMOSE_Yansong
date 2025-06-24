@@ -24,7 +24,4 @@ OWF_locations <- list(
                 lat=c(9,10,rep(11,6),rep(12,8),rep(13,4)))
 )
 
-# cout_cells <- st_read(file.path("OWF_grid",paste("OWF_cout.shp",sep = "")))$id
-# protection_cells <- st_read(file.path("OWF_grid",paste("OWF_protection.shp",sep = "")))$id
-# loin_cells <- st_read(file.path("OWF_grid",paste("OWF_loin.shp",sep = "")))$id
-# equilibre_cells <- st_read(file.path("OWF_grid",paste("OWF_equilibre.shp",sep = "")))$id
+# cout_cells <- st_read(file.path("data","OWF_grid",paste("OWF_cout.shp",sep = "")))$id

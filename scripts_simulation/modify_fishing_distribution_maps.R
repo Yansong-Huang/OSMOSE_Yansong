@@ -1,17 +1,18 @@
-# créer carte de distribution de pêche pour tous les scénarios de déploiement d'éolien et réglementation de pêche
+# create fishing distribution maps under OWF scenarios
+# 渔业分布图生成脚本
 # date de création : 05/08/2024
 ###### read shapefiles ######
 library(sf)
 library(ncdf4)
 
-if(!dir.exists("data_scenarios")){
-  dir.create("data_scenarios")
+if(!dir.exists("data\data_by_scenario")){
+  dir.create("data\data_by_scenario")
 }
 
 nyears_simulation <- 49
 
 # read base fishing effort map
-nc_data <- nc_open("osmose-eec_v4.4_yansong/Base/input/fishing/fishing-distrib.nc")
+nc_data <- nc_open("input/Base/input/fishing/fishing-distrib.nc")
 fishing_area_base <- ncvar_get(nc_data, varid = "fishing_area")
 nc_close(nc_data)
 
@@ -50,7 +51,7 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
       deployment_scenario_cells <- st_read(file.path("OWF_grid",paste("OWF_",deployment,".shp",sep = "")))$id
       
       # create folder corresponding to the input scenarios
-      folder_scenario <- file.path("data_scenarios",deployment, regulation)
+      folder_scenario <- file.path("data","data_by_scenario",deployment, regulation)
       if (!dir.exists(folder_scenario)){
         dir.create(folder_scenario, recursive = TRUE)
       }
@@ -59,7 +60,7 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
         # fermer uniquement les zones en construction
         
         # define the name of nc file
-        nc_name <- file.path("data_scenarios",deployment, regulation, "fishing-distrib.nc")
+        nc_name <- file.path("data","data_by_scenario",deployment, regulation, "fishing-distrib.nc")
         # create nc file
         nc_output <- nc_create(nc_name, fishing_area)
         
@@ -84,8 +85,8 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
         
       }else if (regulation == "fermeture_chalut"){
         # define the name of nc file
-        nc_name_trawlers <- file.path("data_scenarios",deployment, regulation, "fishing-distrib-trawlers.nc")
-        nc_name_netters <- file.path("data_scenarios",deployment, regulation, "fishing-distrib-netters.nc")
+        nc_name_trawlers <- file.path("data","data_by_scenario",deployment, regulation, "fishing-distrib-trawlers.nc")
+        nc_name_netters <- file.path("data","data_by_scenario",deployment, regulation, "fishing-distrib-netters.nc")
         # create nc file
         nc_output_trawlers <- nc_create(nc_name_trawlers, fishing_area)
         nc_output_netters <- nc_create(nc_name_netters, fishing_area)
@@ -132,7 +133,7 @@ grid_closure <- function(fishing_grid,grid_owf_scenario, value){
         # no fishing during construction and operational phase
         
         # define the name of nc file
-        nc_name <- file.path("data_scenarios",deployment, regulation, "fishing-distrib.nc")
+        nc_name <- file.path("data","data_by_scenario",deployment, regulation, "fishing-distrib.nc")
         # create nc file
         nc_output <- nc_create(nc_name, fishing_area)
         
