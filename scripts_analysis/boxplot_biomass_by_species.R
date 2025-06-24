@@ -1,6 +1,14 @@
-# Boxplot of mean biomass by species
-# Auteur : Yansong Huang
-# Date de création : 2024-05-09
+# ----------------------------------------------
+# Biomass calculation per species inside Offshore Wind Farms (OWF)
+# 风电场内各物种生物量计算
+# Author: Yansong Huang
+# Created on: 2024-08-14
+# Description:
+# This script calculates biomass ratios of different fish species inside offshore wind farms under various wind farm deployment and fisheries management scenarios.
+# It reads spatialized biomass data (NetCDF format), filters by OWF grid cells, computes mean and standard deviation across multiple simulations, and plots time series.
+# 本脚本用于计算不同风电部署和渔业管控情境下，风电场内各鱼类物种的生物量变化比例（相对于基础模拟）。
+# 读取空间化生物量数据（NetCDF格式），筛选风电场网格，根据多次模拟计算均值及标准差，并绘制时序图。
+# ----------------------------------------------
 
 library(ggplot2)
 library(tidyr)
@@ -9,208 +17,160 @@ library(viridis)
 library(RColorBrewer)
 library(purrr)
 library(ncdf4)
-library(patchwork)
-library(egg)
 
-# variables globales
-n_years_cut <- c(10,21,22,34,35,49)
-n_species <- 16
+source("scripts_analysis/OWF_mask.R")  # Load OWF mask matrix
+# 加载风电场掩膜矩阵
+
+# Global variables / 全局变量
+deployment_scenarios <- c("cout","protection","loin","equilibre")
+regulation_scenarios <- c("sans_fermeture","fermeture_chalut","fermeture_totale")
+CC_scenarios <- c("ON","OFF")
+year_begin <- 2002
+year_begin_proj <- 2022
+year_end <- 2050
+n_years <- 49
+cut_off_year <- 9 # Start visualization from year 2010 / 开始绘图年份为2010年
 n_replicate <- 30
+n_species <- 16
+
+biomass_sd_colour_palette <- c("#8a2be2","#ff1493","#ff3800","#0892d0")
+biomass_mean_colour_palette <- c("#8a2be2","#8a2be2","#ff1493","#ff1493","#ff3800","#ff3800","#0892d0","#0892d0")
+
+# Paths for all scenarios / 所有情景的路径
+regulation <- regulation_scenarios[2]
+results_path_1 <- file.path("outputs/results_2510","Base_simu","output","CIEM")
+results_path_2 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[1],"_",regulation),"Base","output","CIEM")
+results_path_3 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[2],"_",regulation),"Base","output","CIEM")
+results_path_4 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[3],"_",regulation),"Base","output","CIEM")
+results_path_5 <- file.path("outputs/results_2510",paste0("CC.",CC_scenarios[1],"_",deployment_scenarios[4],"_",regulation),"Base","output","CIEM")
+
+scenario_path <- list(results_path_2, results_path_3, results_path_4, results_path_5)
 
 
-# 构建场景路径
-results_path_base <- file.path("outputs/results_1111","Base_simu","Base", "output", "CIEM")
-results_path_scenario <- file.path("outputs/results_1111", "CC.ON_cout_sans_fermeture","Base", "output", "CIEM")
-
-process_biomass <- function(current_results_path, cut_off_year_begin, cut_off_year_end) {
-  list_biomass_current <- list.files(current_results_path, "Yansong_biomass_Simu.*csv", full.names = TRUE)
+###### Biomass processing function ######
+# Process biomass for a given scenario path
+# 对给定情景路径处理生物量数据
+process_biomass <- function(current_results_path) {
+  # List nc files for spatialized biomass for base and current scenario
+  # 列出基础和当前路径下的空间化生物量NetCDF文件
+  list_biomass_nc_base <- list.files(results_path_1, pattern = "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
+  list_biomass_nc_current <- list.files(current_results_path, pattern = "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
   
-  species_list <- c("lesserSpottedDogfish", "redMullet", "pouting", "whiting", "poorCod",
-                    "cod", "dragonet", "sole", "plaice", "horseMackerel", 
-                    "mackerel", "herring", "sardine", "squids", "cuttlefish", "thornbackRay")
-  
-  biomass_summary <- bind_rows(lapply(1:n_species, function(species) {
-    # 每个模拟重复计算一个时间段平均
-    biomass_all_simulations <- map_dfr(1:n_replicate, function(simulation) {
-      biomass_brut <- read.csv(list_biomass_current[simulation], skip = 1)
+  # Exclude cod (species index 6) from analysis
+  # 排除鳕鱼（第6种）不做分析
+  biomass_relative <- bind_rows(lapply(c(1:5,7:16), function(species_index) {
+    # Use n_replicate simulations instead of fixed 10
+    # 模拟次数由固定10改为变量 n_replicate
+    biomass_species <- map_dfc(1:n_replicate, function(simulation) {
+      # Open netCDF files
+      # 打开NetCDF文件
+      nc_base <- nc_open(list_biomass_nc_base[simulation])
+      nc_current <- nc_open(list_biomass_nc_current[simulation])
       
-      biomass_period <- biomass_brut %>%
-        filter(Time >= cut_off_year_begin, Time <= cut_off_year_end) %>%
-        pull(species + 1)
+      # Read "Biomass" variable
+      # 读取变量"Biomass"
+      biomass_base <- ncvar_get(nc_base, "Biomass")
+      biomass_current <- ncvar_get(nc_current, "Biomass")
       
-      # 取时间段平均
-      mean_biomass <- mean(biomass_period, na.rm = TRUE)
+      nc_close(nc_base)
+      nc_close(nc_current)
       
-      data.frame(
-        species_name = species_list[species],
-        simulation = simulation,
-        mean_biomass = mean_biomass
-      )
+      # Subset years 2010-2050 (indices relative to cut_off_year)
+      # 截取2010至2050年数据段
+      biomass_base_sub <- biomass_base[,,species_index, cut_off_year:n_years]
+      biomass_current_sub <- biomass_current[,,species_index, cut_off_year:n_years]
+      
+      # Filter cells inside OWF using mask
+      # 用掩膜筛选风电场内格点
+      OWF_cells_base <- list()
+      OWF_cells_current <- list()
+      
+      for (lon in 1:45) {
+        for (lat in 1:22) {
+          if (!is.na(biomass_base_sub[lon, lat, 1]) && mask_OWF[lon, lat]) {
+            OWF_cells_base[[length(OWF_cells_base) + 1]] <- biomass_base_sub[lon, lat, ]
+            OWF_cells_current[[length(OWF_cells_current) + 1]] <- biomass_current_sub[lon, lat, ]
+          }
+        }
+      }
+      
+      biomass_base_mat <- do.call(cbind, OWF_cells_base)
+      biomass_current_mat <- do.call(cbind, OWF_cells_current)
+      
+      # Calculate mean biomass ratio over years for OWF cells
+      # 计算风电场内所有格点的年均生物量比率
+      rowMeans(biomass_current_mat) / rowMeans(biomass_base_mat)
     })
     
-    biomass_all_simulations
+    # Species list / 物种列表
+    species_list <- c("lesserSpottedDogfish", "redMullet", "pouting", "whiting", "poorCod", "cod", 
+                      "dragonet", "sole", "plaice", "horseMackerel", "mackerel", "herring", 
+                      "sardine", "squids", "cuttlefish", "thornbackRay")
+    
+    data.frame(
+      year = 2010:2050,
+      species_name = species_list[species_index],
+      biomass_output_mean = rowMeans(biomass_species),
+      biomass_output_sd = apply(biomass_species, 1, sd)
+    )
   }))
   
-  return(biomass_summary)
+  return(biomass_relative)
 }
 
+# Apply process_biomass to all scenarios
+# 对所有情景调用处理函数
+all_biomass <- lapply(scenario_path, process_biomass)
 
-
-# 2023-2034  
-# 计算分时间段的数据
-biomass_base_during <- process_biomass(
-  current_results_path = results_path_base,
-  cut_off_year_begin = n_years_cut[3],
-  cut_off_year_end = n_years_cut[4]
-)
-
-
-biomass_base_during_mean <- biomass_base_during %>%
-  group_by(species_name) %>%
-  summarise(mean_biomass = mean(mean_biomass, na.rm = TRUE))
-
-
-biomass_during <- process_biomass(
-  current_results_path = results_path_scenario,
-  cut_off_year_begin = n_years_cut[3],
-  cut_off_year_end = n_years_cut[4]
-)
-
-# 给对照组的 mean_biomass 改个名字避免混淆
-biomass_base_during_mean <- biomass_base_during_mean %>%
-  rename(base_mean_biomass = mean_biomass)
-
-# 按 species_name 左连接对照组的平均值
-relative_biomass_during <- biomass_during %>%
-  left_join(biomass_base_during_mean, by = "species_name") %>%
-  mutate(relative_to_base = mean_biomass / base_mean_biomass) %>%
-  mutate(period="2023-2034")
-
-# 2035-2050
-biomass_base_after <- process_biomass(
-  current_results_path = results_path_base,
-  cut_off_year_begin = n_years_cut[5],
-  cut_off_year_end = n_years_cut[6]
-)
-
-biomass_base_after_mean <- biomass_base_after %>%
-  group_by(species_name) %>%
-  summarise(mean_biomass = mean(mean_biomass, na.rm = TRUE))
-
-biomass_after <- process_biomass(
-  current_results_path = results_path_scenario,
-  cut_off_year_begin = n_years_cut[5],
-  cut_off_year_end = n_years_cut[6]
-)
-
-# 给对照组的 mean_biomass 改个名字避免混淆
-biomass_base_after_mean <- biomass_base_after_mean %>%
-  rename(base_mean_biomass = mean_biomass)
-
-# 按 species_name 左连接对照组的平均值
-relative_biomass_after <- biomass_after %>%
-  left_join(biomass_base_after_mean, by = "species_name") %>%
-  mutate(relative_to_base = mean_biomass / base_mean_biomass) %>%
-  mutate(period="2035-2050")
-
-
-# 初始化全局数据框
-biomass_all <- data.frame()
-# 合并到全局数据框
-biomass_all <- rbind(
-  biomass_all,
-  relative_biomass_during,
-  relative_biomass_after
-)
-
-biomass_all <- biomass_all %>%
-  filter(species_name != "cod")
-
-biomass_boxplot <- ggplot(biomass_all, aes(x = species_name, y = relative_to_base-1)) +
-  # 添加须线
-  stat_summary(
-    fun.data = "median_hilow",
-    geom = "errorbar",
-    aes(ymin = ..ymin.., ymax = ..ymax..),
-    width = 0.2,
-    color = "black"
-  ) +
-  geom_boxplot(fill = "darkred", varwidth = TRUE, outlier.shape = NA, linetype = "blank") +
-  # 添加平均值线
-  stat_summary(
-    fun = mean,
-    geom = "errorbar",
-    aes(ymin = ..y.., ymax = ..y..),
-    width = 0.75,
-    color = "black"
-  ) +
-  geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
-  facet_grid(period ~ ., scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20)))+
-  coord_cartesian(ylim = c(-1, 2)) + 
-  labs(
-    # title = "Total biomass across scenarios and periods, relative to reference simulations",
-    x = "Species",
-    y = "Biomass change relative to reference simulations",
-  ) +
+# Plotting comparison figure
+# 绘制比较图
+biomass_plot <- ggplot() +
+  geom_line(data = all_biomass[[1]], aes(x = year, y = biomass_output_mean, color = "mean cost")) +
+  geom_ribbon(data = all_biomass[[1]], aes(x = year,
+                                           ymin = biomass_output_mean - biomass_output_sd,
+                                           ymax = biomass_output_mean + biomass_output_sd,
+                                           fill = "sd cost"),
+              alpha = 0.2) +
+  geom_line(data = all_biomass[[2]], aes(x = year, y = biomass_output_mean, color = "mean protection")) +
+  geom_ribbon(data = all_biomass[[2]], aes(x = year,
+                                           ymin = biomass_output_mean - biomass_output_sd,
+                                           ymax = biomass_output_mean + biomass_output_sd,
+                                           fill = "sd protection"),
+              alpha = 0.2) +
+  geom_line(data = all_biomass[[3]], aes(x = year, y = biomass_output_mean, color = "mean distance")) +
+  geom_ribbon(data = all_biomass[[3]], aes(x = year,
+                                           ymin = biomass_output_mean - biomass_output_sd,
+                                           ymax = biomass_output_mean + biomass_output_sd,
+                                           fill = "sd distance"),
+              alpha = 0.2) +
+  geom_line(data = all_biomass[[4]], aes(x = year, y = biomass_output_mean, color = "mean balance")) +
+  geom_ribbon(data = all_biomass[[4]], aes(x = year,
+                                           ymin = biomass_output_mean - biomass_output_sd,
+                                           ymax = biomass_output_mean + biomass_output_sd,
+                                           fill = "sd balance"),
+              alpha = 0.2) +
+  geom_hline(yintercept = 1, color = "black", linetype = "dotted") +
+  annotate("rect", xmin = 2023, xmax = 2025, ymin = -Inf, ymax = Inf, alpha = 0.5, fill = "grey") +
+  annotate("rect", xmin = 2028, xmax = 2030, ymin = -Inf, ymax = Inf, alpha = 0.5, fill = "grey") +
+  annotate("rect", xmin = 2033, xmax = 2035, ymin = -Inf, ymax = Inf, alpha = 0.5, fill = "grey") +
+  scale_color_manual(name = element_blank(),
+                     values = biomass_mean_colour_palette,
+                     breaks = c("mean cost","sd cost","mean protection","sd protection","mean distance","sd distance", "mean balance", "sd balance"),
+                     labels = c("mean cost","sd cost","mean protection","sd protection","mean distance","sd distance", "mean balance", "sd balance")) +
+  scale_fill_manual(name = element_blank(),
+                    values = biomass_sd_colour_palette,
+                    breaks = c("sd cost","sd protection","sd distance","sd balance"),
+                    labels = c("sd cost","sd protection","sd distance","sd balance")) +
+  facet_wrap(~species_name, scales = "free_y", ncol = 4) +
+  ylab("biomass ratio") +
+  ggtitle(paste("Biomass per species in OWF relative to reference simulation, scenario", regulation)) +
   theme_bw() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
-  )
-print(biomass_boxplot)
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.background = element_rect(fill = "white"),
+        legend.title = element_blank())
 
-ggsave(
-  file.path("figures", "publication", "boxplot", "biomass_by_species.png"),
-  biomass_boxplot,
-  width = 8, height = 5, dpi = 600
-)
+print(biomass_plot)
 
-###### absolute biomass under cost minimisation*no closure scenario
-
-scenario_biomass_boxplot <- ggplot(biomass_all, aes(x = species_name, y = mean_biomass)) +
-  # 添加须线
-  stat_summary(
-    fun.data = "median_hilow",
-    geom = "errorbar",
-    aes(ymin = ..ymin.., ymax = ..ymax..),
-    width = 0.2,
-    color = "black"
-  ) +
-  geom_boxplot(fill = "darkred", varwidth = TRUE, outlier.shape = NA, linetype = "blank") +
-  # 添加平均值线
-  stat_summary(
-    fun = mean,
-    geom = "errorbar",
-    aes(ymin = ..y.., ymax = ..y..),
-    width = 0.75,
-    color = "black"
-  ) +
-  geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
-  facet_grid(period ~ ., scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20)))+
-  labs(
-    # title = "Total biomass across scenarios and periods, relative to reference simulations",
-    x = "Species",
-    y = "Scenario biomass (t)",
-  ) +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 10),
-    legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
-  )
-print(scenario_biomass_boxplot)
-
-ggsave(
-  file.path("figures", "publication", "boxplot", "scenario_biomass_by_species.png"),
-  scenario_biomass_boxplot,
-  width = 8, height = 5, dpi = 600
-)
+# Save the comparison plot
+# 保存比较图
+ggsave(file.path("figures/publication/time_series", regulation, "OWF_biomass_by_species_2510.png"), biomass_plot, width = 15, height = 8, dpi = 600)
