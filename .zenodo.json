@@ -1,0 +1,26 @@
+{
+  "title": "OSMOSE-EEC factorial plan simulation for offshore wind farm cumulative impact assessment",
+  "upload_type": "software",
+  "description": "This repository contains all necessary configuration files, input data, simulation scripts, and post-processing routines to run the OSMOSE-EEC model under a factorial design assessing the cumulative impact of offshore wind farm development, fishing regulation, and climate change scenarios on the Eastern English Channel ecosystem.",
+  "creators": [
+    {
+      "name": "Huang, Yansong",
+      "affiliation": "Ifremer, HMMN, Laboratoire Ressources Halieutiques, 62200 Boulogne-sur-Mer, France; France Energies Marines, 29280 Plouzané, France; Univ. Littoral Côte d’Opale, Univ. Lille, CNRS, IRD, UMR 8187, LOG, 62930, Wimereux, France",
+      "orcid": "0009-0004-7989-4154"
+    },
+    {
+      "name": "Oliveros-Ramos, Ricardo",
+      "affiliation": "MARBEC, IRD, Université de Montpellier, CNRS, Ifremer, 34095 Montpellier, France",
+      "orcid": "0000-0002-8069-2101"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "ecosystem model",
+    "offshore wind farm",
+    "cumulative assessment",
+    "scenario",
+    "eastern english channel"
+  ],
+  "notes": "This version corresponds to a pre-release accompanying a manuscript currently under review. A final version will be released upon acceptance."
+}

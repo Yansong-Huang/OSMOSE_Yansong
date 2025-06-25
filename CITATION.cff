@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below:"
+title: "OSMOSE-EEC factorial plan simulation for offshore wind farm cumulative impact assessment"
+version: 0.9.0
+date-released: 2025-06-25
+authors:
+  - family-names: Huang
+    given-names: Yansong
+    orcid: https://orcid.org/0009-0004-7989-4154
+    affiliation: >
+      Ifremer, HMMN, Laboratoire Ressources Halieutiques, Boulogne-sur-Mer, France;
+      France Energies Marines, Plouzané, France;
+      Univ. Littoral Côte d’Opale, Univ. Lille, CNRS, IRD, UMR 8187, LOG, Wimereux, France
+  - family-names: Oliveros-Ramos
+    given-names: Ricardo
+    orcid: https://orcid.org/0000-0002-8069-2101
+    affiliation: >
+      MARBEC, IRD, Université de Montpellier, CNRS, Ifremer, Montpellier, France
+license: MIT
+keywords:
+  - ecosystem model
+  - offshore wind farm
+  - cumulative assessment
+  - scenario
+  - eastern english channel
