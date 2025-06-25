@@ -1,14 +1,8 @@
----
-title: "OWF Cumulative Impact Analysis with OSMOSE-EEC"
-author: "Yansong Huang"
-date: "`r Sys.Date()`"
-output: 
-  html_document:
-    toc: true
-    toc_depth: 2
-    number_sections: true
-    theme: cosmo
----
+# OWF Cumulative Impact Analysis with OSMOSE-EEC
+
+**Author**: Yansong Huang  
+**Date**: 2025-06-25  
+
 
 # Introduction
 
