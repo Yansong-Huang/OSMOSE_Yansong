@@ -23,11 +23,11 @@ The project includes model configuration, model simulations, result visualisatio
 
 The project is organised into the following folders:
 
-## 📁 `input/`
+## `input/`
 
 Configuration of the OSMOSE-EEC model
 
-## 📁 `data/`
+## `data/`
 
 Contains spatial and alternative input data for the scenario simulations:
 
@@ -36,11 +36,11 @@ Contains spatial and alternative input data for the scenario simulations:
 - Fishing effort maps under scenarios;
 - Prey group maps under climate change projections.
 
-## 📁 `indicators/`
+## `indicators/`
 
 Contains example model outputs
 
-## 📁 `scripts_analysis/`
+## `scripts_analysis/`
 
 Scripts for post-simulation analysis and visualisation:
 
@@ -48,7 +48,7 @@ Scripts for post-simulation analysis and visualisation:
 - Statistical testing of scenario effects;
 - Spatial analysis (e.g., OWF-specific biomass).
 
-## 📁 `scripts_simulation/`
+## `scripts_simulation/`
 
 Scripts for preparing and running the factorial design simulations:
 
@@ -60,9 +60,24 @@ Scripts for preparing and running the factorial design simulations:
 
 # Notes
 
-All scripts are written in R and rely on tidyverse-compatible libraries. Simulation outputs follow the structure of OSMOSE v4 and are processed to produce reproducible and publication-ready figures.
+All scripts are written in R and rely on tidyverse-compatible libraries. 
 
-If you'd like to reproduce the full pipeline, start by reviewing the `scripts_simulation/` scripts, followed by `scripts_analysis/`.
+For the OSMOSE user guide, please refers to this page: https://github.com/osmose-model/osmose/wiki/User-Guide
+
+To reproduce the full modelling and analysis pipeline:
+
+1. Start from the scripts in `scripts_simulation/` to configure and run simulations;
+2. Then use `scripts_analysis/` to process outputs and generate figures;
+
+
+## Contact
+
+For questions, suggestions, or collaboration opportunities:
+
+**Yansong Huang**  
+[ORCID 0009-0004-7989-4154](https://orcid.org/0009-0004-7989-4154)  
+[GitHub Profile](https://github.com/Yansong-Huang)
 
 ---
+
 
