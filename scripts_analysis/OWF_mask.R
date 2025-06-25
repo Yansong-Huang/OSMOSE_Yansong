@@ -1,3 +1,6 @@
+# create OWF masks
+
+
 library(sf)
 
 # Read OWF cells

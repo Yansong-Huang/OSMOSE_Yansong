@@ -1,4 +1,4 @@
-# LTL heatmap
+# prey field heatmap
 # Auteur : Yansong Huang
 # Date de création : 2025-01-22
 

@@ -126,7 +126,6 @@ yield_table_all <- yield_table_all %>%
 
 
 ratio_map_plot <- ggplot() +
-  # 绘制背景热力图
   geom_tile(data = yield_table_all, aes(x = lon, y = lat, fill = ratio-1)) +
   # scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
   scale_fill_gradientn(
@@ -136,17 +135,12 @@ ratio_map_plot <- ggplot() +
     oob = scales::squish,
     name = "Yield change"
   )+
-  # 为 OWF 点添加图例
   geom_point(data = yield_table_all[yield_table_all$OWF & yield_table_all$period != "2011-2022",],
              aes(x = lon, y = lat, color = "OWF"), size = 1) +
   scale_color_manual(name = "", values = c("OWF" = "black"), guide = guide_legend(order = 1)) +
-  
-  # 设置分面
   facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20), regulation = label_wrap_gen(25)
   )) +
-  
-  # 添加图例和主题
   labs(title = "Total yield",
        x = "Longitude (E)", y = "Latitude (N)") +
   theme_bw() +

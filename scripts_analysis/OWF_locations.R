@@ -1,4 +1,4 @@
-# Emplacement des parcs éoliens
+# Positions of OWF in OSMOSE-EEC grid
 # Auteur : Yansong Huang
 # Date de création : 2024-10-28
 
