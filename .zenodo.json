@@ -22,5 +22,8 @@
     "scenario",
     "eastern english channel"
   ],
-  "notes": "This version corresponds to a pre-release accompanying a manuscript currently under review. A final version will be released upon acceptance."
+  "doi": "10.5281/zenodo.15740531",
+  "version": "0.9.0",
+  "date_released": "2025-06-25",
+  "notes": "This version corresponds to a pre-release accompanying a manuscript currently under review."
 }
