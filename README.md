@@ -15,7 +15,7 @@ This project aims to:
 
 2. Analyse the cumulative impact of OWF deployment on the Eastern English Channel (EEC) ecosystem.
 
-The project includes model simulations, sensitivity analysis, and result visualisation through ecological indicators such as biomass, yield, and Large Fish Indicator (LFI).
+The project includes model configuration, model simulations, result visualisation through ecological indicators such as biomass, yield, and Large Fish Index (LFI).
 
 ---
 
@@ -32,23 +32,19 @@ Configuration of the OSMOSE-EEC model
 Contains spatial and alternative input data for the scenario simulations:
 
 - Maps of OWF locations in the OSMOSE-EEC grid;
-- Species distribution under fishing scenarios;
-- Fishing effort maps;
-- Prey group dynamics under climate change projections.
+- Species distribution maps under scenarios;
+- Fishing effort maps under scenarios;
+- Prey group maps under climate change projections.
 
 ## 📁 `indicators/`
 
-Contains example model outputs:
-
-- Time series of biomass, yield, and LFI;
-- Intermediate indicators calculated from simulation outputs;
-- Visualisations used in exploratory analysis.
+Contains example model outputs
 
 ## 📁 `scripts_analysis/`
 
 Scripts for post-simulation analysis and visualisation:
 
-- Indicator time series plotting;
+- Indicator time series and heatmap plotting;
 - Statistical testing of scenario effects;
 - Spatial analysis (e.g., OWF-specific biomass).
 
