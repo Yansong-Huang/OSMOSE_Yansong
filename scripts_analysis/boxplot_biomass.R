@@ -9,6 +9,7 @@
 # 本脚本读取不同部署和管控情景的总生物量csv输出数据，
 # 计算指定时间段的总生物量比率，并用箱线图进行可视化，分面显示不同时间段和管理情景。
 # ----------------------------------------------
+rm(list=ls())
 
 library(ggplot2)
 library(tidyr)
@@ -143,8 +144,8 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
   ) + # Custom fill colors and labels / 自定义填充色和标签
   labs(
     x = "Deployment Scenario",
-    y = "Total biomass relative to reference simulations",
-    fill = "Deployment Scenario"
+    y = "Total fish biomass relative to baseline",
+    fill = "OWF deployment scenario"
   ) + # Axis and legend labels / 轴标签和图例
   theme_bw() +
   theme(
@@ -153,16 +154,116 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
     axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
+    legend.text = element_text(size = 11),
+    legend.position = "bottom",
+    legend.direction = "vertical"
   ) +
-  # Add significance stars for specific facets
-  # 在指定分面添加星号标记显著性
+  # 为特定分面单独定义星号数据
   geom_text(
     data = subset(total_biomass_all, period == "2023-2034" & regulation == "no closure during operational phase"),
     aes(x = 1, y = 0.03, label = "***"),
     inherit.aes = FALSE, size = 4
   ) +
-  # ... 其他 geom_text 星号添加（保持不变）...
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
+    aes(x = 1, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
+    aes(x = 2, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "no closure during operational phase"),
+    aes(x = 3, y = 0.03, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
+    aes(x = 3, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "no closure during operational phase"),
+    aes(x = 4, y = 0.03, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "no closure during operational phase"),
+    aes(x = 4, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  )+
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "trawlers closure during operational phase"),
+    aes(x = 1, y = 0.03, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "trawlers closure during operational phase"),
+    aes(x = 4, y = 0.03, label = "**"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
+    aes(x = 1, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
+    aes(x = 2, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
+    aes(x = 3, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "trawlers closure during operational phase"),
+    aes(x = 4, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
+    aes(x = 1, y = 0.03, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
+    aes(x = 2, y = 0.03, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
+    aes(x = 3, y = 0.03, label = "**"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2023-2034" & regulation == "complete closure during operational phase"),
+    aes(x = 4, y = 0.03, label = "*"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
+    aes(x = 1, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
+    aes(x = 2, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
+    aes(x = 3, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  ) +
+  geom_text(
+    data = subset(total_biomass_all, period == "2035-2050" & regulation == "complete closure during operational phase"),
+    aes(x = 4, y = 0.02, label = "***"),
+    inherit.aes = FALSE, size = 4
+  )
   
   # Tag facets with letters for easier referencing
   # 给分面标签加字母，方便引用
@@ -177,7 +278,8 @@ final_plot <- tagged_facet + theme(strip.text = element_text())
 # Save final plot to file
 # 保存最终图形
 ggsave(
-  file.path("figures", "publication", "boxplot", "total_biomass_revision.png"),
+  file.path("figures", "publication", "boxplot", "final_version", "total_biomass_revision.tiff"),
   final_plot,
-  width = 12, height = 6, dpi = 600
+  width = 6.69, height = 7,  # 双栏宽度（英寸）
+  dpi = 500
 )

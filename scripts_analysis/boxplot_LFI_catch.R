@@ -9,6 +9,7 @@
 # 本脚本基于不同部署和管控情景的体型分布捕获数据，
 # 计算并可视化大鱼指标（40cm及以上）。
 # ----------------------------------------------
+rm(list=ls())
 
 library(ggplot2)
 library(tidyr)
@@ -18,6 +19,7 @@ library(RColorBrewer)
 library(purrr)
 library(ncdf4)
 library(patchwork)
+library(egg)
 
 # Global variables / 全局变量
 deployment_scenarios <- c("cout","protection","loin","equilibre")  # 部署情景
@@ -169,9 +171,9 @@ combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio - 1,
     labels = c("Cost minimisation", "Exclusion from environmental protection zones", "Long distance from the coast", "Balance")
   ) +
   labs(
-    x = "Deployment Scenario",
-    y = "LFI catch relative to reference simulations",
-    fill = "Deployment Scenario"
+    x = "Deployment scenario",
+    y = "LFI catch relative to baseline",
+    fill = "OWF deployment scenario"
   ) +
   theme_bw() +
   theme(
@@ -180,7 +182,9 @@ combined_boxplot <- ggplot(LFI_catch_all, aes(x = deployment, y = LFI_ratio - 1,
     axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
-    legend.text = element_text(size = 11)
+    legend.text = element_text(size = 11),
+    legend.position = "bottom",
+    legend.direction = "vertical"
   ) +
   # Add significance stars for specific facets
   geom_text(
@@ -210,7 +214,10 @@ final_plot <- tagged_facet + theme(strip.text = element_text())
 
 # Save final plot
 ggsave(
-  file.path("figures", "publication", "boxplot", "LFI_catch_revision.png"),
+  file.path("figures", "publication", "boxplot", "final_version","LFI_catch_revision.tiff"),
   final_plot,
-  width = 12, height = 6, dpi = 600
+  width = 6.69, height = 7,  # 双栏宽度（英寸）
+  dpi = 500
 )
+
+
