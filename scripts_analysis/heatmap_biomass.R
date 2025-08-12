@@ -1,6 +1,7 @@
 # biomass heatmap
 # Auteur : Yansong Huang
 # Date de création : 2024-08-21
+rm(list=ls())
 
 library(ggplot2)
 library(tidyr)
@@ -120,28 +121,46 @@ biomass_table_all$regulation <- factor(biomass_table_all$regulation,
                                      levels = c("no closure during operational phase",
                                                 "trawlers closure during operational phase",
                                                 "complete closure during operational phase"))
-biomass_table_all <- biomass_table_all %>%
-  filter(regulation %in% c("no closure during operational phase","complete closure during operational phase")) %>%
-  filter(period %in% c("2023-2034","2035-2049"))
 
 ratio_map_plot <- ggplot() +
-  geom_tile(data = biomass_table_all, aes(x = lon, y = lat, fill = ratio-1)) +
-  scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 0) +
-  geom_point(data = biomass_table_all[biomass_table_all$OWF & biomass_table_all$period != "2011-2022",],
-             aes(x = lon, y = lat, color = "OWF"), size = 1) +
-  scale_color_manual(name = "", values = c("OWF" = "black"),guide = guide_legend(order = 1)) +
-  facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
-    period = label_wrap_gen(20), regulation = label_wrap_gen(25))) +
-  labs(title = "Total Biomass",
-       x = "Longitude (E)", y = "Latitude (N)", fill = "Biomass change") +
+  geom_tile(data = biomass_table_all, aes(x = lon, y = lat, fill = ratio - 1)) +
+  scale_fill_gradient2(
+    low = "darkorange", mid = "white", high = "darkgreen", midpoint = 0,
+    breaks = c(-0.1, -0.05, 0, 0.05, 0.1),
+    labels = c("-0.1", "-0.05", "0", "0.05", "0.1"),
+    limits = c(-0.1, 0.1), 
+  ) +
+  geom_point(
+    data = biomass_table_all[biomass_table_all$OWF & biomass_table_all$period != "2011-2022",],
+    aes(x = lon, y = lat, color = "OWF"), size = 0.5
+  ) +
+  scale_color_manual(
+    name = "",
+    values = c("OWF" = "black"),
+    guide = guide_legend(order = 1)
+  ) +
+  facet_grid(
+    period ~ regulation,
+    scales = "free_y",
+    labeller = labeller(period = label_wrap_gen(20), regulation = label_wrap_gen(25))
+  ) +
+  labs(
+    x = "Longitude (E)", y = "Latitude (N)",
+    fill = "Total fish biomass change"
+  ) +
   theme_bw() +
   theme(
     plot.title = element_blank(),
-    text = element_text(size = 14),
-    strip.text = element_text(size = 14, face = "bold"),
-    legend.title = element_text(size = 12),       # 图例标题字体
-    legend.text = element_text(size = 12),
-  )
+    text = element_text(size = 12),
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 10),
+    legend.position = "bottom",
+    legend.box = "horizontal",        # 横向排列
+    legend.box.just = "center"         # 居中对齐
+  )+
+  guides(fill = guide_colorbar(barwidth = unit(5, "cm"),
+                               barheight = unit(0.5, "cm")))# 颜色条的长度
 
 tagged_facet <- tag_facet(ratio_map_plot, 
                           open = "(", close = ")", tag_pool = letters, 
@@ -152,6 +171,6 @@ tagged_facet <- tag_facet(ratio_map_plot,
 final_heatmap <- tagged_facet + theme(strip.text = element_text())
 
 
- ggsave("figures/publication/heatmap/biomass_heatmap_balance_diapo.png",
-        final_heatmap, width = 12, height = 6, dpi = 600)
+ ggsave("figures/publication/heatmap/biomass_heatmap_balance_publi.tiff",
+        final_heatmap, width = 6.99, height = 5.5, dpi = 500)
     

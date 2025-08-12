@@ -2,6 +2,7 @@
 # Auteur : Yansong Huang
 # Date de création : 2024-08-21
 
+rm(list=ls())
 library(ggplot2)
 library(tidyr)
 library(dplyr)
@@ -120,37 +121,37 @@ yield_table_all$regulation <- factor(yield_table_all$regulation,
                                                 "trawlers closure during operational phase",
                                                 "complete closure during operational phase"))
 
-yield_table_all <- yield_table_all %>%
-  filter(regulation %in% c("no closure during operational phase","complete closure during operational phase")) %>%
-  filter(period %in% c("2023-2034","2035-2049"))
-
-
 ratio_map_plot <- ggplot() +
   geom_tile(data = yield_table_all, aes(x = lon, y = lat, fill = ratio-1)) +
   # scale_fill_gradient2(low = "darkorange", mid = "white", high = "darkgreen", midpoint = 1) +
   scale_fill_gradientn(
     colors = c("darkorange3", "white", "darkolivegreen"), 
-    values = scales::rescale(c(-1, 0, 0.25)),   
+    values = scales::rescale(c(-1, 0, 0.25)),
+    labels = c("-1", "-0.75", "-0.5", "-0.25", "0", "0.25"),
     limits = c(-1, 0.25),                        
     oob = scales::squish,
-    name = "Yield change"
+    name = "Total fish yield change"
   )+
   geom_point(data = yield_table_all[yield_table_all$OWF & yield_table_all$period != "2011-2022",],
-             aes(x = lon, y = lat, color = "OWF"), size = 1) +
+             aes(x = lon, y = lat, color = "OWF"), size = 0.5) +
   scale_color_manual(name = "", values = c("OWF" = "black"), guide = guide_legend(order = 1)) +
   facet_grid(period ~ regulation, scales = "free_y", labeller = labeller(
     period = label_wrap_gen(20), regulation = label_wrap_gen(25)
   )) +
-  labs(title = "Total yield",
-       x = "Longitude (E)", y = "Latitude (N)") +
+  labs(x = "Longitude (E)", y = "Latitude (N)") +
   theme_bw() +
   theme(
     plot.title = element_blank(),
-    text = element_text(size = 14),
-    strip.text = element_text(size = 14, face = "bold"),
-    legend.title = element_text(size = 12),       # 图例标题字体
-    legend.text = element_text(size = 12),
-  )
+    text = element_text(size = 12),
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 9),
+    legend.position = "bottom",
+    legend.box = "horizontal",        # 横向排列
+    legend.box.just = "center"         # 居中对齐
+  )+
+  guides(fill = guide_colorbar(barwidth = unit(5, "cm"),
+                               barheight = unit(0.5, "cm")))# 颜色条的长度
 
 tagged_facet <- tag_facet(ratio_map_plot, 
                           open = "(", close = ")", tag_pool = letters, 
@@ -160,5 +161,5 @@ tagged_facet <- tag_facet(ratio_map_plot,
 
 final_heatmap <- tagged_facet + theme(strip.text = element_text())
 
-ggsave("figures/publication/heatmap/yield_heatmap_balance_diapo.png",
-       final_heatmap, width = 12, height = 6, dpi = 600)
+ggsave("figures/publication/heatmap/yield_heatmap_balance_publi.tiff",
+       final_heatmap, width = 6.99, height = 5.5, dpi = 500)
