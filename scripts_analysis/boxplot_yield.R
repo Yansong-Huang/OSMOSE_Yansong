@@ -210,7 +210,7 @@ tagged_facet <- tag_facet(combined_boxplot,
 final_plot <- tagged_facet + theme(strip.text = element_text())
 
 ggsave(
-  file.path("figures", "publication", "boxplot", "final_version", "total_yield_revision.png"),
+  file.path("figures", "publication", "boxplot", "final_version", "total_yield_revision.tiff"),
   final_plot,
   width = 6.69, height = 7, dpi = 500
 )
