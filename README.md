@@ -1,7 +1,7 @@
 # OWF Cumulative Impact Analysis with OSMOSE-EEC
 
 **Author**: Yansong Huang  
-**Date**: 2025-06-25  
+**Date**: 2025-09-11  
 
 
 # Introduction
@@ -75,9 +75,7 @@ To reproduce the full modelling and analysis pipeline:
 
 If you use this repository or refer to the associated model configuration and analysis scripts, please cite:
 
-Huang, Y., & Oliveros-Ramos, R. (2025). *OSMOSE-EEC factorial plan simulation for offshore wind farm cumulative impact assessment* (v0.9) [Pre-release]. Zenodo. https://doi.org/10.5281/zenodo.15740531
-
-This is a pre-release accompanying a manuscript currently under peer review. A final version will be released upon publication.
+Yansong Huang, Raphaël Girardin, Ricardo Oliveros-Ramos, Morgane Travers-Trolet, Antoine Quennevat, Georges Safi, Frida Ben Rais Lasram, Ghassen Halouani, An ecosystem modelling approach to assess potential impacts of offshore wind farms, ICES Journal of Marine Science, Volume 82, Issue 9, September 2025, fsaf153, https://doi.org/10.1093/icesjms/fsaf153
 
 
 ## Contact
