@@ -93,17 +93,17 @@ for (regulation in regulation_scenarios){
     list_biomass_nc_current <- list.files(results_path_scenario, "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
     list_biomass_nc_base <- list.files(results_path_base, "Yansong_spatializedBiomass_Simu.", full.names = TRUE)
     
-    biomass_table_1 <- process_maps(n_years_cut[1],n_years_cut[2])
+    # biomass_table_1 <- process_maps(n_years_cut[1],n_years_cut[2])
     biomass_table_2 <- process_maps(n_years_cut[3],n_years_cut[4])
     biomass_table_3 <- process_maps(n_years_cut[5],n_years_cut[6])
     
     # add label "period"
-    biomass_table_1$period <- "2011-2022"
+    # biomass_table_1$period <- "2011-2022"
     biomass_table_2$period <- "2023-2034"
     biomass_table_3$period <- "2035-2049"
     # combine three periods
-    biomass_table <- rbind(biomass_table_1,biomass_table_2,biomass_table_3)
-    biomass_table$period <- factor(biomass_table$period, levels = c("2011-2022", "2023-2034", "2035-2049"))
+    biomass_table <- rbind(biomass_table_2,biomass_table_3)
+    biomass_table$period <- factor(biomass_table$period, levels = c("2023-2034", "2035-2049"))
     biomass_table$regulation <- case_when(
       regulation == "sans_fermeture" ~ "no closure during operational phase",
       regulation == "fermeture_chalut" ~ "trawlers closure during operational phase",
@@ -146,13 +146,16 @@ ratio_map_plot <- ggplot() +
   ) +
   labs(
     x = "Longitude (E)", y = "Latitude (N)",
-    fill = "Total fish biomass change"
+    fill = "Total biomass change"
   ) +
   theme_bw() +
   theme(
     plot.title = element_blank(),
     text = element_text(size = 12),
     strip.text = element_text(size = 12, face = "bold"),
+    axis.ticks = element_blank(),
+    axis.title = element_blank(),
+    axis.text = element_blank(),
     legend.title = element_text(size = 10),
     legend.text = element_text(size = 10),
     legend.position = "bottom",
@@ -162,15 +165,15 @@ ratio_map_plot <- ggplot() +
   guides(fill = guide_colorbar(barwidth = unit(5, "cm"),
                                barheight = unit(0.5, "cm")))# 颜色条的长度
 
-tagged_facet <- tag_facet(ratio_map_plot, 
-                          open = "(", close = ")", tag_pool = letters, 
-                          x = Inf, y = -Inf, 
-                          hjust = 2.5, vjust = -1, 
-                          fontface = "plain")
+# tagged_facet <- tag_facet(ratio_map_plot, 
+#                           open = "(", close = ")", tag_pool = letters, 
+#                           x = Inf, y = -Inf, 
+#                           hjust = 2.5, vjust = -1, 
+#                           fontface = "plain")
+# 
+# final_heatmap <- tagged_facet + theme(strip.text = element_text())
 
-final_heatmap <- tagged_facet + theme(strip.text = element_text())
 
-
- ggsave("figures/publication/heatmap/biomass_heatmap_balance_publi.tiff",
-        final_heatmap, width = 6.99, height = 5.5, dpi = 500)
+ ggsave("figures/manuscrit_these/heatmap/biomass_heatmap_balance_slides.png",
+        ratio_map_plot, width = 10, height = 5, dpi = 300)
     

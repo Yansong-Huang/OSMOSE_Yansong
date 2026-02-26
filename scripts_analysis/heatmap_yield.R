@@ -10,6 +10,7 @@ library(viridis)
 library(RColorBrewer)
 library(purrr)
 library(ncdf4)
+library(egg)
 
 # global variables
 source("scripts_analysis/OWF_mask.R")
@@ -91,17 +92,17 @@ for (regulation in regulation_scenarios){
     list_yield_nc_current <- list.files(results_path_scenario, "Yansong_spatializedYieldBiomass_Simu.", full.names = TRUE)
     list_yield_nc_base <- list.files(results_path_base, "Yansong_spatializedYieldBiomass_Simu.", full.names = TRUE)
     
-    yield_table_1 <- process_maps(n_years_cut[1],n_years_cut[2])
+    # yield_table_1 <- process_maps(n_years_cut[1],n_years_cut[2])
     yield_table_2 <- process_maps(n_years_cut[3],n_years_cut[4])
     yield_table_3 <- process_maps(n_years_cut[5],n_years_cut[6])
     
     # add label "period"
-    yield_table_1$period <- "2011-2022"
+    # yield_table_1$period <- "2011-2022"
     yield_table_2$period <- "2023-2034"
     yield_table_3$period <- "2035-2049"
     # combine three periods
-    yield_table <- rbind(yield_table_1,yield_table_2,yield_table_3)
-    yield_table$period <- factor(yield_table$period, levels = c("2011-2022", "2023-2034", "2035-2049"))
+    yield_table <- rbind(yield_table_2,yield_table_3)
+    yield_table$period <- factor(yield_table$period, levels = c("2023-2034", "2035-2049"))
     
     yield_table$regulation <- case_when(
       regulation == "sans_fermeture" ~ "no closure during operational phase",
@@ -130,7 +131,7 @@ ratio_map_plot <- ggplot() +
     labels = c("-1", "-0.75", "-0.5", "-0.25", "0", "0.25"),
     limits = c(-1, 0.25),                        
     oob = scales::squish,
-    name = "Total fish yield change"
+    name = "Total yield change"
   )+
   geom_point(data = yield_table_all[yield_table_all$OWF & yield_table_all$period != "2011-2022",],
              aes(x = lon, y = lat, color = "OWF"), size = 0.5) +
@@ -144,6 +145,9 @@ ratio_map_plot <- ggplot() +
     plot.title = element_blank(),
     text = element_text(size = 12),
     strip.text = element_text(size = 12, face = "bold"),
+    axis.ticks = element_blank(),
+    axis.title = element_blank(),
+    axis.text = element_blank(),
     legend.title = element_text(size = 10),
     legend.text = element_text(size = 9),
     legend.position = "bottom",
@@ -153,13 +157,13 @@ ratio_map_plot <- ggplot() +
   guides(fill = guide_colorbar(barwidth = unit(5, "cm"),
                                barheight = unit(0.5, "cm")))# 颜色条的长度
 
-tagged_facet <- tag_facet(ratio_map_plot, 
-                          open = "(", close = ")", tag_pool = letters, 
-                          x = Inf, y = -Inf, 
-                          hjust = 2.5, vjust = -1, 
-                          fontface = "plain")
+# tagged_facet <- tag_facet(ratio_map_plot, 
+#                           open = "(", close = ")", tag_pool = letters, 
+#                           x = Inf, y = -Inf, 
+#                           hjust = 2.5, vjust = -1, 
+#                           fontface = "plain")
+# 
+# final_heatmap <- tagged_facet + theme(strip.text = element_text())
 
-final_heatmap <- tagged_facet + theme(strip.text = element_text())
-
-ggsave("figures/publication/heatmap/yield_heatmap_balance_publi.tiff",
-       final_heatmap, width = 6.99, height = 5.5, dpi = 500)
+ggsave("figures/manuscrit_these/heatmap/yield_heatmap_balance_slides.png",
+       ratio_map_plot, width = 10, height = 5, dpi = 300)
