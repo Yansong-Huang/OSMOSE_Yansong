@@ -155,7 +155,7 @@ combined_boxplot <- ggplot(total_biomass_all, aes(x = deployment, y = biomass_ra
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11),
-    legend.position = "bottom",
+    legend.position = "right",
     legend.direction = "vertical"
   ) +
   # 为特定分面单独定义星号数据
@@ -278,8 +278,8 @@ final_plot <- tagged_facet + theme(strip.text = element_text())
 # Save final plot to file
 # 保存最终图形
 ggsave(
-  file.path("figures", "publication", "boxplot", "final_version", "total_biomass_revision.tiff"),
+  file.path("figures", "publication", "boxplot", "final_version", "total_biomass_slide.png"),
   final_plot,
-  width = 6.69, height = 7,  # 双栏宽度（英寸）
-  dpi = 500
+  width = 12, height = 6,  # 双栏宽度（英寸）
+  dpi = 300
 )

@@ -132,7 +132,7 @@ combined_boxplot <- ggplot(total_yield_all, aes(x = deployment, y = yield_ratio-
     axis.text.y = element_text(size = 10),
     legend.title = element_text(size = 13),
     legend.text = element_text(size = 11),
-    legend.position = "bottom",
+    legend.position = "right",
     legend.direction = "vertical"
   ) +
   # 为特定分面单独定义星号数据
@@ -210,7 +210,7 @@ tagged_facet <- tag_facet(combined_boxplot,
 final_plot <- tagged_facet + theme(strip.text = element_text())
 
 ggsave(
-  file.path("figures", "publication", "boxplot", "final_version", "total_yield_revision.tiff"),
+  file.path("figures", "publication", "boxplot", "final_version", "total_yield_slides.png"),
   final_plot,
-  width = 6.69, height = 7, dpi = 500
+  width = 12, height = 6, dpi = 300
 )
